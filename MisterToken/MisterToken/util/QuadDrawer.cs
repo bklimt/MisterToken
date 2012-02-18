@@ -20,7 +20,6 @@ namespace MisterToken {
             effect.LightingEnabled = false;
             effect.World = Matrix.Identity;
             effect.View = Matrix.CreateLookAt(new Vector3(center, 0), new Vector3(center, 1), new Vector3(0, -1, 0));
-            //effect.Projection = Matrix.CreateOrthographic(center.X * 2, center.Y * 2, -0.5f, 1);
             effect.Projection = Matrix.CreatePerspective(device.Viewport.Width, device.Viewport.Height, 640, 3000.0f);
             effect.TextureEnabled = true;
 
