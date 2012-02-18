@@ -95,16 +95,16 @@ namespace MisterToken {
             double theta2 = (Math.PI * 2 * (column + 1)) / Constants.COLUMNS;
             topLeft.X = boardRect.Center.X + radius * (float)Math.Sin(theta1);
             topLeft.Y = boardRect.Center.Y - radius * (float)Math.Cos(theta1);
-            topLeft.Z = cellHeight * row;
+            topLeft.Z = cellHeight * row + 640;
             topRight.X = boardRect.Center.X + radius * (float)Math.Sin(theta2);
             topRight.Y = boardRect.Center.Y - radius * (float)Math.Cos(theta2);
-            topRight.Z = cellHeight * row;
+            topRight.Z = cellHeight * row + 640;
             bottomRight.X = boardRect.Center.X + radius * (float)Math.Sin(theta2);
             bottomRight.Y = boardRect.Center.Y - radius * (float)Math.Cos(theta2);
-            bottomRight.Z = cellHeight * (row + 1);
+            bottomRight.Z = cellHeight * (row + 1) + 640;
             bottomLeft.X = boardRect.Center.X + radius * (float)Math.Sin(theta1);
             bottomLeft.Y = boardRect.Center.Y - radius * (float)Math.Cos(theta1);
-            bottomLeft.Z = cellHeight * (row + 1);
+            bottomLeft.Z = cellHeight * (row + 1) + 640;
         }
 
         public void DrawCircle(Rectangle boardRect, QuadDrawer quadDrawer) {
