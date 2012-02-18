@@ -51,8 +51,8 @@ namespace MisterToken {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
 
-            graphics.PreferredBackBufferHeight = 800;
-            graphics.PreferredBackBufferWidth = 1500;
+            graphics.PreferredBackBufferHeight = 720;
+            graphics.PreferredBackBufferWidth = 1280;
             graphics.ApplyChanges();
 
             spriteManager = new SpriteManager();
