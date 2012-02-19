@@ -21,18 +21,6 @@ namespace MisterToken {
             }
         }
 
-        public void DrawQuad(Vector3 topLeft, Vector3 topRight, Vector3 bottomRight, Vector3 bottomLeft, QuadDrawer quadDrawer) {
-            quadDrawer.Draw(spriteManager.GetTextureForCell(this), topLeft, topRight, bottomRight, bottomLeft);
-        }
-
-        public void DrawQuad(Rectangle rect, QuadDrawer quadDrawer) {
-            DrawQuad(new Vector3(rect.Left, rect.Top, 0),
-                     new Vector3(rect.Right, rect.Top, 0),
-                     new Vector3(rect.Right, rect.Bottom, 0),
-                     new Vector3(rect.Left, rect.Bottom, 0),
-                     quadDrawer);
-        }
-
         public void RotateRight() {
             switch (direction) {
                 case Direction.UP: direction = Direction.RIGHT; break;

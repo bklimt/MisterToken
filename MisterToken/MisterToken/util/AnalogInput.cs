@@ -16,42 +16,40 @@ namespace MisterToken {
     }
 
     public class AnalogInput {
-        public AnalogInput(AnalogStick stick, float velocityPerMilli) {
-            this.velocityPerMilli = velocityPerMilli;
+        public AnalogInput(AnalogStick stick, float velocityPerSecond) {
+            this.velocityPerSecond = velocityPerSecond;
             this.stick = stick;
         }
 
-        public void Update(GameTime gameTime) {
-            float value = 0.0f;
+        public static float GetCurrentValue(AnalogStick stick) {
             switch (stick) {
                 case AnalogStick.LEFT_X:
-                    value = GamePad.GetState(PlayerIndex.One).ThumbSticks.Left.X;
-                    break;
+                    return GamePad.GetState(PlayerIndex.One).ThumbSticks.Left.X;
                 case AnalogStick.LEFT_Y:
-                    value = GamePad.GetState(PlayerIndex.One).ThumbSticks.Left.Y;
-                    break;
+                    return GamePad.GetState(PlayerIndex.One).ThumbSticks.Left.Y;
                 case AnalogStick.RIGHT_X:
-                    value = GamePad.GetState(PlayerIndex.One).ThumbSticks.Right.X;
-                    break;
+                    return GamePad.GetState(PlayerIndex.One).ThumbSticks.Right.X;
                 case AnalogStick.RIGHT_Y:
-                    value = GamePad.GetState(PlayerIndex.One).ThumbSticks.Right.Y;
-                    break;
+                    return GamePad.GetState(PlayerIndex.One).ThumbSticks.Right.Y;
                 case AnalogStick.LEFT_TRIGGER:
-                    value = GamePad.GetState(PlayerIndex.One).Triggers.Left;
-                    break;
+                    return GamePad.GetState(PlayerIndex.One).Triggers.Left;
                 case AnalogStick.RIGHT_TRIGGER:
-                    value = GamePad.GetState(PlayerIndex.One).Triggers.Right;
-                    break;
+                    return GamePad.GetState(PlayerIndex.One).Triggers.Right;
+                default:
+                    return 0.0f;
             }
-            delta = value * velocityPerMilli * gameTime.ElapsedGameTime.Milliseconds;
         }
 
-        public float GetDelta() {
+        public void Update(GameTime gameTime) {
+            delta = GetCurrentValue(stick) * velocityPerSecond * (gameTime.ElapsedGameTime.TotalMilliseconds / 1000.0);
+        }
+
+        public double GetDelta() {
             return delta;
         }
 
-        private float delta;
-        private float velocityPerMilli;
+        private double delta;
+        private double velocityPerSecond;
         private AnalogStick stick;
     }
 }

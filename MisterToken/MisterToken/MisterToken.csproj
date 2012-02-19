@@ -83,12 +83,13 @@
     <Compile Include="util\AnalogInput.cs" />
     <Compile Include="util\BooleanInput.cs" />
     <Compile Include="util\BooleanInputOnce.cs" />
+    <Compile Include="util\BooleanInputHook.cs" />
+    <Compile Include="util\AnalogInputHook.cs" />
     <Compile Include="util\InputManager.cs" />
     <Compile Include="util\BooleanInputRepeater.cs" />
     <Compile Include="states\MovingTokenState.cs" />
     <Compile Include="states\GameState.cs" />
     <Compile Include="states\PlayingGameState.cs" />
-    <Compile Include="util\QuadDrawer.cs" />
     <Compile Include="util\SpriteManager.cs" />
     <Compile Include="model\Token.cs" />
     <Compile Include="model\TokenPiece.cs" />

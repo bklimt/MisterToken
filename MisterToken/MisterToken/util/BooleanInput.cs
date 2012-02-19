@@ -22,10 +22,7 @@ namespace MisterToken {
             return this;
         }
 
-        public virtual void Update(GameTime gameTime) {
-        }
-
-        public virtual bool IsDown() {
+        protected bool GetCurrentState() {
             foreach (Keys key in keys) {
                 if (Keyboard.GetState(PlayerIndex.One).IsKeyDown(key)) {
                     return true;
@@ -38,6 +35,9 @@ namespace MisterToken {
             }
             return false;
         }
+
+        public abstract void Update(GameTime gameTime);
+        public abstract bool IsDown();
 
         private List<Keys> keys;
         private List<Buttons> buttons;

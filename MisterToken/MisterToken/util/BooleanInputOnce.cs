@@ -13,7 +13,7 @@ namespace MisterToken {
         }
 
         public override void Update(GameTime gameTime) {
-            if (base.IsDown()) {
+            if (base.GetCurrentState()) {
                 down = true;
             } else {
                 down = false;

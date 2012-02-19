@@ -84,58 +84,7 @@ namespace MisterToken {
                 columnOffset = Constants.COLUMNS - 1;
         }
 
-        public static float getRadius(Rectangle boardRect) {
-            int minDimension = Math.Min(boardRect.Width, boardRect.Height);
-            float radius = minDimension / 2;
-            return radius;
-        }
-
-        public static float getCellHeight(Rectangle boardRect) {
-            float circumference = (float)(2 * Math.PI * getRadius(boardRect));
-            float cellHeight = circumference / Constants.COLUMNS;
-            return cellHeight;
-        }
-
-        public static float getDepth(Rectangle boardRect) {
-            return getCellHeight(boardRect) * Constants.ROWS;
-        }
-
-        public static void GetCircleCellPosition(Rectangle boardRect, int row, int column,
-                                                 out Vector3 topLeft, out Vector3 topRight, out Vector3 bottomRight, out Vector3 bottomLeft) {
-            float radius = getRadius(boardRect);
-            float cellHeight = getCellHeight(boardRect);
-
-            double theta1 = (Math.PI * 2 * column) / Constants.COLUMNS;
-            double theta2 = (Math.PI * 2 * (column + 1)) / Constants.COLUMNS;
-
-            theta1 -= (Math.PI / 2);
-            theta2 -= (Math.PI / 2);
-
-            topLeft.X = boardRect.Center.X + radius * (float)Math.Sin(theta1);
-            topLeft.Y = boardRect.Center.Y - radius * (float)Math.Cos(theta1);
-            topLeft.Z = cellHeight * row;
-            topRight.X = boardRect.Center.X + radius * (float)Math.Sin(theta2);
-            topRight.Y = boardRect.Center.Y - radius * (float)Math.Cos(theta2);
-            topRight.Z = cellHeight * row;
-            bottomRight.X = boardRect.Center.X + radius * (float)Math.Sin(theta2);
-            bottomRight.Y = boardRect.Center.Y - radius * (float)Math.Cos(theta2);
-            bottomRight.Z = cellHeight * (row + 1);
-            bottomLeft.X = boardRect.Center.X + radius * (float)Math.Sin(theta1);
-            bottomLeft.Y = boardRect.Center.Y - radius * (float)Math.Cos(theta1);
-            bottomLeft.Z = cellHeight * (row + 1);
-        }
-
-        public void DrawCircle(Rectangle boardRect, QuadDrawer quadDrawer) {
-            Vector3 topLeft, topRight, bottomRight, bottomLeft;
-            for (int row = 0; row < Constants.ROWS; ++row) {
-                for (int column = 0; column < Constants.COLUMNS; ++column) {
-                    GetCircleCellPosition(boardRect, row, column, out topLeft, out topRight, out bottomRight, out bottomLeft);
-                    GetCell(row, column).DrawQuad(topLeft, topRight, bottomRight, bottomLeft, quadDrawer);
-                }
-            }
-        }
-
-        public static Rectangle GetRectCellPosition(Rectangle boardRect, int row, int column) {
+        public static Rectangle GetCellPosition(Rectangle boardRect, int row, int column) {
             Rectangle tileRect;
             int cellWidth = boardRect.Width / Constants.COLUMNS;
             int cellHeight = boardRect.Height / Constants.ROWS;
@@ -149,7 +98,7 @@ namespace MisterToken {
         public void DrawRect(Rectangle boardRect, SpriteBatch spriteBatch) {
             for (int row = 0; row < Constants.ROWS; ++row) {
                 for (int column = 0; column < Constants.COLUMNS; ++column) {
-                    GetCell(row, column).DrawRect(GetRectCellPosition(boardRect, row, column), spriteBatch);
+                    GetCell(row, column).DrawRect(GetCellPosition(boardRect, row, column), spriteBatch);
                 }
             }
         }

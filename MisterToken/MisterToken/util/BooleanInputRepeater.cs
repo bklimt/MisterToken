@@ -20,7 +20,7 @@ namespace MisterToken {
             if (millisRemaining < 0) {
                 millisRemaining = 0;
             }
-            if (base.IsDown()) {
+            if (base.GetCurrentState()) {
                 if (!wasDown || millisRemaining <= 0) {
                     millisRemaining = millisPerRepeat;
                     wasDown = true;
