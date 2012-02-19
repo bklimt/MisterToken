@@ -7,17 +7,16 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace MisterToken {
     public class Cell {
-        public Cell(SpriteManager spriteManager) {
-            this.spriteManager = spriteManager;
+        public Cell() {
             this.locked = false;
             this.matched = false;
         }
 
         public void DrawRect(Rectangle rect, SpriteBatch spriteBatch) {
             if (matched) {
-                spriteBatch.Draw(spriteManager.GetTextureForCell(this), rect, Microsoft.Xna.Framework.Color.Gray);
+                spriteBatch.Draw(Sprites.GetTextureForCell(this), rect, Microsoft.Xna.Framework.Color.Gray);
             } else {
-                spriteBatch.Draw(spriteManager.GetTextureForCell(this), rect, Microsoft.Xna.Framework.Color.White);
+                spriteBatch.Draw(Sprites.GetTextureForCell(this), rect, Microsoft.Xna.Framework.Color.White);
             }
         }
 
@@ -74,7 +73,5 @@ namespace MisterToken {
 
         public bool matched;
         public bool locked;
-
-        private SpriteManager spriteManager;
     }
 }

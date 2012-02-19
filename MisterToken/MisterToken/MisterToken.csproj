@@ -72,20 +72,21 @@
     <Reference Include="System.Net" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Sprites.cs" />
     <Compile Include="model\Board.cs" />
     <Compile Include="model\Cell.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="model\SinglePlayer.cs" />
     <Compile Include="model\SinglePlayerListener.cs" />
-    <Compile Include="util\AnalogInput.cs" />
-    <Compile Include="util\BooleanInput.cs" />
-    <Compile Include="util\BooleanInputOnce.cs" />
-    <Compile Include="util\BooleanInputHook.cs" />
-    <Compile Include="util\AnalogInputHook.cs" />
-    <Compile Include="util\Input.cs" />
-    <Compile Include="util\InputManager.cs" />
-    <Compile Include="util\BooleanInputRepeater.cs" />
-    <Compile Include="util\SpriteManager.cs" />
+    <Compile Include="input\AnalogInput.cs" />
+    <Compile Include="input\BooleanInput.cs" />
+    <Compile Include="input\BooleanInputOnce.cs" />
+    <Compile Include="input\BooleanInputHook.cs" />
+    <Compile Include="input\AnalogInputHook.cs" />
+    <Compile Include="input\Input.cs" />
+    <Compile Include="input\InputManager.cs" />
+    <Compile Include="input\BooleanInputRepeater.cs" />
+    <Compile Include="SpriteManager.cs" />
     <Compile Include="model\Token.cs" />
     <Compile Include="model\TokenPiece.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

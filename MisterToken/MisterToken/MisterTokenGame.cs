@@ -19,8 +19,7 @@ namespace MisterToken {
             graphics.PreferredBackBufferWidth = 1280;
             graphics.ApplyChanges();
 
-            spriteManager = new SpriteManager();
-            model = new SinglePlayer(spriteManager, this);
+            model = new SinglePlayer(this);
         }
 
         protected override void Initialize() {
@@ -29,7 +28,7 @@ namespace MisterToken {
 
         protected override void LoadContent() {
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            spriteManager.LoadContent(Content, GraphicsDevice);
+            Sprites.LoadContent(Content, GraphicsDevice);
             chordSound = Content.Load<SoundEffect>("chord");
         }
 
@@ -97,7 +96,6 @@ namespace MisterToken {
 
         // UI stuff.
         private GraphicsDeviceManager graphics;
-        private SpriteManager spriteManager;
         private SpriteBatch spriteBatch;
         private SoundEffect chordSound;
     }

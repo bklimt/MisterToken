@@ -5,11 +5,11 @@ using System.Text;
 
 namespace MisterToken {
     public class TwoPieceToken : Token {
-        public TwoPieceToken(Board board, int row, int column, Cell.Color color1, Cell.Color color2, SpriteManager spriteManager) {
+        public TwoPieceToken(Board board, int row, int column, Cell.Color color1, Cell.Color color2) {
             Random random = new Random();
             piece = new TokenPiece[2];
-            Cell cell1 = new Cell(spriteManager);
-            Cell cell2 = new Cell(spriteManager);
+            Cell cell1 = new Cell();
+            Cell cell2 = new Cell();
             cell1.color = color1;
             cell2.color = color2;
             cell1.direction = Cell.Direction.RIGHT;

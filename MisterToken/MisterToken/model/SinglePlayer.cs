@@ -10,10 +10,10 @@ using Microsoft.Xna.Framework.Input;
 
 namespace MisterToken {
     public class SinglePlayer {
-        public SinglePlayer(SpriteManager spriteManager, SinglePlayerListener listener) {
+        public SinglePlayer(SinglePlayerListener listener) {
             nextTokenReadiness = 0.0f;
-            board = new Board(spriteManager);
-            tokenGenerator = new TokenGenerator(board, spriteManager);
+            board = new Board();
+            tokenGenerator = new TokenGenerator(board);
             this.listener = listener;
             Start();
         }

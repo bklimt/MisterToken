@@ -7,16 +7,14 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace MisterToken {
     public class Board {
-        public Board(SpriteManager spriteManager) {
-            this.spriteManager = spriteManager;
-
+        public Board() {
             rowOffset = 0;
             columnOffset = 0;
 
             entries = new Cell[Constants.ROWS, Constants.COLUMNS];
             for (int i = 0; i < Constants.ROWS; i++) {
                 for (int j = 0; j < Constants.COLUMNS; j++) {
-                    entries[i, j] = new Cell(spriteManager);
+                    entries[i, j] = new Cell();
                 }
             }
         }
@@ -212,6 +210,5 @@ namespace MisterToken {
         private Cell[,] entries;
         private int columnOffset;
         private int rowOffset;
-        private SpriteManager spriteManager;
     }
 }

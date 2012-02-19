@@ -7,11 +7,10 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace MisterToken {
     public class TokenGenerator {
-        public TokenGenerator(Board board, SpriteManager spriteManager) {
+        public TokenGenerator(Board board) {
             this.board = board;
             this.random = new Random();
             this.nextToken = null;
-            this.spriteManager = spriteManager;
             LoadNextToken();
         }
 
@@ -27,7 +26,7 @@ namespace MisterToken {
             currentToken = nextToken;
             Cell.Color color1 = Cell.GetRandomColor(random);
             Cell.Color color2 = Cell.GetRandomColor(random);
-            nextToken = new TwoPieceToken(board, 0, 0, color1, color2, spriteManager);
+            nextToken = new TwoPieceToken(board, 0, 0, color1, color2);
         }
 
         public void Draw(Rectangle boardRect, SpriteBatch spriteBatch) {
@@ -38,6 +37,5 @@ namespace MisterToken {
         private Random random;
         private Token currentToken;
         private Token nextToken;
-        private SpriteManager spriteManager;
     }
 }
