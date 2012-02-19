@@ -10,11 +10,12 @@ using Microsoft.Xna.Framework.Input;
 
 namespace MisterToken {
     public class SinglePlayer {
-        public SinglePlayer(SinglePlayerListener listener) {
+        public SinglePlayer(PlayerIndex player, SinglePlayerListener listener) {
+            this.player = player;
+            this.listener = listener;
             nextTokenReadiness = 0.0f;
             board = new Board();
             tokenGenerator = new TokenGenerator(board);
-            this.listener = listener;
             Start();
         }
 
@@ -111,28 +112,28 @@ namespace MisterToken {
                 throw new InvalidOperationException("Should never be in MovingTokenState with null current token.");
             }
 
-            if (Input.IsDown(BooleanInputHook.PLAYER_ONE_TOKEN_RIGHT)) {
+            if (Input.IsDown(PerPlayerBooleanInputHook.TOKEN_RIGHT.ForPlayer(player))) {
                 if (currentToken.CanMove(0, 1)) {
                     board.ShiftRight();
                 }
             }
-            if (Input.IsDown(BooleanInputHook.PLAYER_ONE_TOKEN_LEFT)) {
+            if (Input.IsDown(PerPlayerBooleanInputHook.TOKEN_LEFT.ForPlayer(player))) {
                 if (currentToken.CanMove(0, -1)) {
                     board.ShiftLeft();
                 }
             }
-            if (Input.IsDown(BooleanInputHook.PLAYER_ONE_ROTATE_LEFT)) {
+            if (Input.IsDown(PerPlayerBooleanInputHook.ROTATE_LEFT.ForPlayer(player))) {
                 if (currentToken.CanRotateLeft())
                     currentToken.RotateLeft();
             }
-            if (Input.IsDown(BooleanInputHook.PLAYER_ONE_ROTATE_RIGHT)) {
+            if (Input.IsDown(PerPlayerBooleanInputHook.ROTATE_RIGHT.ForPlayer(player))) {
                 if (currentToken.CanRotateRight())
                     currentToken.RotateRight();
             }
-            if (Input.IsDown(BooleanInputHook.PLAYER_ONE_TOKEN_DOWN)) {
+            if (Input.IsDown(PerPlayerBooleanInputHook.TOKEN_DOWN.ForPlayer(player))) {
                 timeUntilNextAdvance = 0;
             }
-            if (Input.IsDown(BooleanInputHook.PLAYER_ONE_TOKEN_SLAM)) {
+            if (Input.IsDown(PerPlayerBooleanInputHook.TOKEN_SLAM.ForPlayer(player))) {
                 timeUntilNextAdvance = 0;
                 while (currentToken.CanMove(1, 0)) {
                     currentToken.Move(1, 0);
@@ -196,13 +197,13 @@ namespace MisterToken {
         }
 
         private void DoFailed(GameTime gameTime) {
-            if (Input.IsDown(BooleanInputHook.PLAYER_ONE_START)) {
+            if (Input.IsDown(PerPlayerBooleanInputHook.START.ForPlayer(player))) {
                 listener.OnFinished();
             }
         }
 
         private void DoWon(GameTime gameTime) {
-            if (Input.IsDown(BooleanInputHook.PLAYER_ONE_START)) {
+            if (Input.IsDown(PerPlayerBooleanInputHook.START.ForPlayer(player))) {
                 listener.OnFinished();
             }
         }
@@ -234,6 +235,7 @@ namespace MisterToken {
         private int timeToNextFall;
 
         // Internal state.
+        private PlayerIndex player;
         private Board board;
         private TokenGenerator tokenGenerator;
         private float nextTokenReadiness;

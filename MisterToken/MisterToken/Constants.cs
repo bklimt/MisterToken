@@ -10,15 +10,15 @@ namespace MisterToken {
         public const int MILLIS_PER_FALL = 100;      // time for free squares to fall one row.
         public const int MILLIS_PER_CLEAR = 150;     // time for matched pieces to clear.
 
-        public const int ROWS = 20;                  // rows on the board.
+        public const int ROWS = 15;                  // rows on the board.
         public const int COLUMNS = 10;               // columns on the board.
 
         public const int BOARD_RECT_X = 280;          // x offset for drawing the board.
         public const int BOARD_RECT_Y = 40;          // y offset for drawing the board.
         public const int BOARD_RECT_WIDTH = 300;     // width of the board in pixels.
-        public const int BOARD_RECT_HEIGHT = 600;    // height of the board in pixels.
+        public const int BOARD_RECT_HEIGHT = 450;    // height of the board in pixels.
 
         public const int TOKEN_START_COLUMN = 4;     // column that new tokens should start in.
-        public const int TOP_FILLED_ROW = 15;        // how high the fixed pieces should start.
+        public const int TOP_FILLED_ROW = 10;        // how high the fixed pieces should start.
     }
 }

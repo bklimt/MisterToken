@@ -19,7 +19,7 @@ namespace MisterToken {
             graphics.PreferredBackBufferWidth = 1280;
             graphics.ApplyChanges();
 
-            model = new SinglePlayer(this);
+            model = new SinglePlayer(PlayerIndex.One, this);
         }
 
         protected override void Initialize() {
