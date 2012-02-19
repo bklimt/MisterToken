@@ -9,7 +9,7 @@ namespace MisterToken {
     public abstract class BooleanInput {
         public BooleanInput() {
             keys = new List<Keys>();
-            buttons = new List<Buttons>();
+            buttons = new List<Tuple<PlayerIndex, Buttons>>();
         }
 
         public BooleanInput AddKey(Keys key) {
@@ -17,19 +17,19 @@ namespace MisterToken {
             return this;
         }
 
-        public BooleanInput AddButton(Buttons button) {
-            buttons.Add(button);
+        public BooleanInput AddButton(PlayerIndex player, Buttons button) {
+            buttons.Add(new Tuple<PlayerIndex, Buttons>(player, button));
             return this;
         }
 
         protected bool GetCurrentState() {
             foreach (Keys key in keys) {
-                if (Keyboard.GetState(PlayerIndex.One).IsKeyDown(key)) {
+                if (Keyboard.GetState().IsKeyDown(key)) {
                     return true;
                 }
             }
-            foreach (Buttons button in buttons) {
-                if (GamePad.GetState(PlayerIndex.One).IsButtonDown(button)) {
+            foreach (Tuple<PlayerIndex, Buttons> tuple in buttons) {
+                if (GamePad.GetState(tuple.Item1).IsButtonDown(tuple.Item2)) {
                     return true;
                 }
             }
@@ -40,6 +40,6 @@ namespace MisterToken {
         public abstract bool IsDown();
 
         private List<Keys> keys;
-        private List<Buttons> buttons;
+        private List<Tuple<PlayerIndex, Buttons>> buttons;
     }
 }

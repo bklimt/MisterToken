@@ -29,27 +29,27 @@ namespace MisterToken {
                 throw new InvalidOperationException("Should never be in MovingTokenState with null current token.");
             }
 
-            if (model.input.IsDown(BooleanInputHook.TOKEN_RIGHT)) {
+            if (Input.IsDown(BooleanInputHook.PLAYER_ONE_TOKEN_RIGHT)) {
                 if (currentToken.CanMove(0, 1)) {
                     // currentToken.Move(0, 1);
                     model.board.ShiftRight();
                 }
             }
-            if (model.input.IsDown(BooleanInputHook.TOKEN_LEFT)) {
+            if (Input.IsDown(BooleanInputHook.PLAYER_ONE_TOKEN_LEFT)) {
                 if (currentToken.CanMove(0, -1)) {
                     // currentToken.Move(0, -1);
                     model.board.ShiftLeft();
                 }
             }
-            if (model.input.IsDown(BooleanInputHook.ROTATE_LEFT)) {
+            if (Input.IsDown(BooleanInputHook.PLAYER_ONE_ROTATE_LEFT)) {
                 if (currentToken.CanRotateLeft())
                     currentToken.RotateLeft();
             }
-            if (model.input.IsDown(BooleanInputHook.ROTATE_RIGHT)) {
+            if (Input.IsDown(BooleanInputHook.PLAYER_ONE_ROTATE_RIGHT)) {
                 if (currentToken.CanRotateRight())
                     currentToken.RotateRight();
             }
-            if (model.input.IsDown(BooleanInputHook.TOKEN_DOWN)) {
+            if (Input.IsDown(BooleanInputHook.PLAYER_ONE_TOKEN_DOWN)) {
                 if (!slamHandled) {
                     timeUntilNextAdvance = 0;
                 }

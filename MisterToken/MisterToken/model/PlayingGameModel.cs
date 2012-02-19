@@ -11,8 +11,6 @@ namespace MisterToken {
             board = new Board(spriteManager);
 
             tokenGenerator = new TokenGenerator(board, spriteManager);
-
-            input = new InputManager();
         }
 
         public void LoadContent(GraphicsDevice device) {
@@ -23,7 +21,6 @@ namespace MisterToken {
         public TokenGenerator tokenGenerator;
         public float nextTokenReadiness;
 
-        public InputManager input;
         public SpriteBatch spriteBatch;
     }
 }

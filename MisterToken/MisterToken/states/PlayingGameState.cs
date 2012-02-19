@@ -26,7 +26,7 @@ namespace MisterToken {
         public abstract GameState PlayingUpdate(GameTime gameTime);
 
         public GameState Update(GameTime gameTime) {
-            model.input.Update(gameTime);
+            Input.Update(gameTime);
             return PlayingUpdate(gameTime);
         }
 

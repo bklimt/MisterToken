@@ -85,6 +85,7 @@
     <Compile Include="util\BooleanInputOnce.cs" />
     <Compile Include="util\BooleanInputHook.cs" />
     <Compile Include="util\AnalogInputHook.cs" />
+    <Compile Include="util\Input.cs" />
     <Compile Include="util\InputManager.cs" />
     <Compile Include="util\BooleanInputRepeater.cs" />
     <Compile Include="states\MovingTokenState.cs" />

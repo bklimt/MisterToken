@@ -5,11 +5,11 @@ using System.Text;
 
 namespace MisterToken {
     public enum BooleanInputHook {
-        TOKEN_SLAM,
-        TOKEN_RIGHT,
-        TOKEN_DOWN,
-        TOKEN_LEFT,
-        ROTATE_RIGHT,
-        ROTATE_LEFT,
+        PLAYER_ONE_TOKEN_SLAM,
+        PLAYER_ONE_TOKEN_RIGHT,
+        PLAYER_ONE_TOKEN_DOWN,
+        PLAYER_ONE_TOKEN_LEFT,
+        PLAYER_ONE_ROTATE_RIGHT,
+        PLAYER_ONE_ROTATE_LEFT,
     }
 }
