@@ -13,7 +13,6 @@ namespace MisterToken {
         public MovingTokenState(PlayingGameModel model) : base(model) {
             slamHandled = false;
             timeUntilNextAdvance = Constants.MILLIS_PER_ADVANCE;
-            keyboard = new KeyboardManager();
         }
 
         public void setClearingState(ClearingState clearingState) {
@@ -25,34 +24,32 @@ namespace MisterToken {
         }
 
         public override GameState PlayingUpdate(GameTime gameTime) {
-            keyboard.Update(gameTime);
-
             Token currentToken = model.tokenGenerator.GetCurrentToken();
             if (currentToken == null) {
                 throw new InvalidOperationException("Should never be in MovingTokenState with null current token.");
             }
 
-            if (keyboard.IsDown(Keys.Right)) {
+            if (model.input.IsDown(BooleanInputHook.TOKEN_RIGHT)) {
                 if (currentToken.CanMove(0, 1)) {
                     // currentToken.Move(0, 1);
                     model.board.ShiftRight();
                 }
             }
-            if (keyboard.IsDown(Keys.Left)) {
+            if (model.input.IsDown(BooleanInputHook.TOKEN_LEFT)) {
                 if (currentToken.CanMove(0, -1)) {
                     // currentToken.Move(0, -1);
                     model.board.ShiftLeft();
                 }
             }
-            if (keyboard.IsDown(Keys.Z)) {
+            if (model.input.IsDown(BooleanInputHook.ROTATE_LEFT)) {
                 if (currentToken.CanRotateLeft())
                     currentToken.RotateLeft();
             }
-            if (keyboard.IsDown(Keys.X)) {
+            if (model.input.IsDown(BooleanInputHook.ROTATE_RIGHT)) {
                 if (currentToken.CanRotateRight())
                     currentToken.RotateRight();
             }
-            if (Keyboard.GetState(PlayerIndex.One).IsKeyDown(Keys.Down)) {
+            if (model.input.IsDown(BooleanInputHook.TOKEN_DOWN)) {
                 if (!slamHandled) {
                     timeUntilNextAdvance = 0;
                 }
@@ -78,8 +75,6 @@ namespace MisterToken {
         public override Color GetBackgroundColor() {
             return Color.CornflowerBlue;
         }
-
-        KeyboardManager keyboard;
 
         int timeUntilNextAdvance;
 

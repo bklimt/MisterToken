@@ -12,15 +12,7 @@ namespace MisterToken {
             effect = new BasicEffect(device);
             vertices = new VertexPositionNormalTexture[4];
             indices = new short[6];
-
-            Vector2 center = new Vector2();
-            center.X = device.Viewport.Width / 2;
-            center.Y = device.Viewport.Height / 2;
-
             effect.LightingEnabled = false;
-            effect.World = Matrix.Identity;
-            effect.View = Matrix.CreateLookAt(new Vector3(center, 0), new Vector3(center, 1), new Vector3(0, -1, 0));
-            effect.Projection = Matrix.CreatePerspective(device.Viewport.Width, device.Viewport.Height, 640, 3000.0f);
             effect.TextureEnabled = true;
 
             vertices[0].Normal = new Vector3(0, 0, 1);
@@ -38,6 +30,26 @@ namespace MisterToken {
             indices[3] = 1;
             indices[4] = 2;
             indices[5] = 3;
+
+            cameraX = device.Viewport.Width / 2;
+            cameraY = device.Viewport.Height / 2;
+            cameraZ = -640.0f;
+
+            lookAtX = device.Viewport.Width / 2;
+            lookAtY = device.Viewport.Height / 2;
+            lookAtZ = 0.0f;
+
+            SetupCamera();
+        }
+
+        public void SetupCamera() {
+            Vector3 cameraPosition = new Vector3(cameraX, cameraY, cameraZ);
+            Vector3 cameraTarget = new Vector3(lookAtX, lookAtY, lookAtZ);
+            Vector3 cameraUp = new Vector3(0, -1, 0);
+
+            effect.World = Matrix.Identity;
+            effect.View = Matrix.CreateLookAt(cameraPosition, cameraTarget, cameraUp);
+            effect.Projection = Matrix.CreatePerspective(device.Viewport.Width, device.Viewport.Height, -cameraZ, 5000.0f);
         }
 
         public void Draw(Texture2D texture, Vector3 topLeft, Vector3 topRight, Vector3 bottomRight, Vector3 bottomLeft) {
@@ -57,9 +69,31 @@ namespace MisterToken {
             }
         }
 
+        public void MoveCamera(float deltaX, float deltaY, float deltaZ) {
+            cameraZ += deltaZ;
+            if (cameraZ > -1) {
+                cameraZ = -1;
+            }
+            if (cameraZ < -10000) {
+                cameraZ = -10000;
+            }
+
+            cameraX += deltaX;
+            cameraY += deltaY;
+        }
+
+        public void MoveLookAt(float deltaX, float deltaY, float deltaZ) {
+            lookAtX += deltaX;
+            lookAtY += deltaY;
+            lookAtZ += deltaZ;
+        }
+
         private GraphicsDevice device;
         private BasicEffect effect;
         private VertexPositionNormalTexture[] vertices;
         private short[] indices;
+
+        private float cameraX, cameraY, cameraZ;
+        private float lookAtX, lookAtY, lookAtZ;
     }
 }

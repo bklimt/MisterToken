@@ -80,8 +80,11 @@
     <Compile Include="states\FallingState.cs" />
     <Compile Include="states\FailedGameState.cs" />
     <Compile Include="states\SetUpBoardState.cs" />
-    <Compile Include="util\KeyboardManager.cs" />
-    <Compile Include="util\KeyRepeater.cs" />
+    <Compile Include="util\AnalogInput.cs" />
+    <Compile Include="util\BooleanInput.cs" />
+    <Compile Include="util\BooleanInputOnce.cs" />
+    <Compile Include="util\InputManager.cs" />
+    <Compile Include="util\BooleanInputRepeater.cs" />
     <Compile Include="states\MovingTokenState.cs" />
     <Compile Include="states\GameState.cs" />
     <Compile Include="states\PlayingGameState.cs" />

@@ -15,8 +15,6 @@ namespace MisterToken {
         }
 
         public void LoadContent(ContentManager content, GraphicsDevice device) {
-            spriteBatch = new SpriteBatch(device);
-            quadDrawer = new QuadDrawer(device);
             LoadExtraContent(content, device);
         }
 
@@ -28,9 +26,17 @@ namespace MisterToken {
         public abstract GameState PlayingUpdate(GameTime gameTime);
 
         public GameState Update(GameTime gameTime) {
-            if (Keyboard.GetState(PlayerIndex.One).IsKeyDown(Keys.C)) {
+            model.input.Update(gameTime);
+            model.quadDrawer.MoveCamera(model.input.GetDelta(AnalogInputHook.CAMERA_POSITION_X),
+                                        model.input.GetDelta(AnalogInputHook.CAMERA_POSITION_Y),
+                                        model.input.GetDelta(AnalogInputHook.INCREASE_FOV) - model.input.GetDelta(AnalogInputHook.DECREASE_FOV));
+            model.quadDrawer.MoveLookAt(model.input.GetDelta(AnalogInputHook.LOOK_AT_X),
+                                        model.input.GetDelta(AnalogInputHook.LOOK_AT_Y),
+                                        0);
+            if (model.input.IsDown(BooleanInputHook.SWITCH_MODE)) {
                 model.circleMode = !model.circleMode;
             }
+
             return PlayingUpdate(gameTime);
         }
 
@@ -40,7 +46,8 @@ namespace MisterToken {
         public void Draw(GraphicsDevice device, GameTime gameTime) {
             device.Clear(GetBackgroundColor());
 
-            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend);
+            model.quadDrawer.SetupCamera();
+            model.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend);
 
             if (model.circleMode) {
                 // Draw the board.
@@ -49,11 +56,11 @@ namespace MisterToken {
                 boardRect.Y = Constants.BOARD_CIRCLE_Y;
                 boardRect.Width = Constants.BOARD_CIRCLE_WIDTH;
                 boardRect.Height = Constants.BOARD_CIRCLE_HEIGHT;
-                model.board.DrawCircle(boardRect, quadDrawer);
+                model.board.DrawCircle(boardRect, model.quadDrawer);
 
                 // Draw the token in play.
                 if (model.tokenGenerator.GetCurrentToken() != null) {
-                    model.tokenGenerator.GetCurrentToken().DrawCircle(boardRect, quadDrawer);
+                    model.tokenGenerator.GetCurrentToken().DrawCircle(boardRect, model.quadDrawer);
                 }
 
                 // Draw the next token.
@@ -62,7 +69,7 @@ namespace MisterToken {
                 nextRect.Y = boardRect.Y - (boardRect.Height / Constants.ROWS);
                 nextRect.Width = boardRect.Width;
                 nextRect.Height = boardRect.Height;
-                model.tokenGenerator.Draw(nextRect, spriteBatch);
+                model.tokenGenerator.Draw(nextRect, model.spriteBatch);
             } else {
                 // Draw the board.
                 Rectangle boardRect = new Rectangle();
@@ -70,11 +77,11 @@ namespace MisterToken {
                 boardRect.Y = Constants.BOARD_RECT_Y;
                 boardRect.Width = Constants.BOARD_RECT_WIDTH;
                 boardRect.Height = Constants.BOARD_RECT_HEIGHT;
-                model.board.DrawRect(boardRect, spriteBatch);
+                model.board.DrawRect(boardRect, model.spriteBatch);
 
                 // Draw the token in play.
                 if (model.tokenGenerator.GetCurrentToken() != null) {
-                    model.tokenGenerator.GetCurrentToken().DrawRect(boardRect, spriteBatch);
+                    model.tokenGenerator.GetCurrentToken().DrawRect(boardRect, model.spriteBatch);
                 }
 
                 // Draw the next token.
@@ -83,16 +90,13 @@ namespace MisterToken {
                 nextRect.Y = boardRect.Y - (boardRect.Height / Constants.ROWS);
                 nextRect.Width = boardRect.Width;
                 nextRect.Height = boardRect.Height;
-                model.tokenGenerator.Draw(nextRect, spriteBatch);
+                model.tokenGenerator.Draw(nextRect, model.spriteBatch);
             }
 
 
-            spriteBatch.End();
+            model.spriteBatch.End();
         }
 
         protected PlayingGameModel model;
-
-        protected SpriteBatch spriteBatch;
-        protected QuadDrawer quadDrawer;
     }
 }

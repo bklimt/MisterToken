@@ -56,7 +56,7 @@ namespace MisterToken {
             graphics.ApplyChanges();
 
             spriteManager = new SpriteManager();
-            PlayingGameModel model = new PlayingGameModel(spriteManager);
+            model = new PlayingGameModel(spriteManager);
 
             waitingToPlayState = new WaitingToPlayState();
             setUpBoardState = new SetUpBoardState(model);
@@ -84,6 +84,7 @@ namespace MisterToken {
         }
 
         protected override void LoadContent() {
+            model.LoadContent(GraphicsDevice);
             spriteManager.LoadContent(Content, GraphicsDevice);
             waitingToPlayState.LoadContent(Content, GraphicsDevice);
             setUpBoardState.LoadContent(Content, GraphicsDevice);
@@ -116,6 +117,8 @@ namespace MisterToken {
 
         private GraphicsDeviceManager graphics;
         private SpriteManager spriteManager;
+
+        private PlayingGameModel model;
 
         private GameState state;
         private WaitingToPlayState waitingToPlayState;
