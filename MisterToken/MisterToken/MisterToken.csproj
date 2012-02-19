@@ -75,11 +75,8 @@
     <Compile Include="model\Board.cs" />
     <Compile Include="model\Cell.cs" />
     <Compile Include="Constants.cs" />
-    <Compile Include="model\PlayingGameModel.cs" />
-    <Compile Include="states\ClearingState.cs" />
-    <Compile Include="states\FallingState.cs" />
-    <Compile Include="states\FailedGameState.cs" />
-    <Compile Include="states\SetUpBoardState.cs" />
+    <Compile Include="model\SinglePlayer.cs" />
+    <Compile Include="model\SinglePlayerListener.cs" />
     <Compile Include="util\AnalogInput.cs" />
     <Compile Include="util\BooleanInput.cs" />
     <Compile Include="util\BooleanInputOnce.cs" />
@@ -88,9 +85,6 @@
     <Compile Include="util\Input.cs" />
     <Compile Include="util\InputManager.cs" />
     <Compile Include="util\BooleanInputRepeater.cs" />
-    <Compile Include="states\MovingTokenState.cs" />
-    <Compile Include="states\GameState.cs" />
-    <Compile Include="states\PlayingGameState.cs" />
     <Compile Include="util\SpriteManager.cs" />
     <Compile Include="model\Token.cs" />
     <Compile Include="model\TokenPiece.cs" />
@@ -99,8 +93,6 @@
     <Compile Include="MisterTokenGame.cs" />
     <Compile Include="model\TokenGenerator.cs" />
     <Compile Include="model\TwoPieceToken.cs" />
-    <Compile Include="states\WaitingForTokenState.cs" />
-    <Compile Include="states\WaitingToPlayState.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Game.ico" />

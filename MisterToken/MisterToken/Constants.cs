@@ -19,6 +19,6 @@ namespace MisterToken {
         public const int BOARD_RECT_HEIGHT = 600;    // height of the board in pixels.
 
         public const int TOKEN_START_COLUMN = 4;     // column that new tokens should start in.
-        public const int TOP_FILLED_ROW = 10;        // how high the fixed pieces should start.
+        public const int TOP_FILLED_ROW = 15;        // how high the fixed pieces should start.
     }
 }

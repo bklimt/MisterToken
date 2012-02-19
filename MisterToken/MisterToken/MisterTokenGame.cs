@@ -9,44 +9,8 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 
-//  |             ____________________
-//  |            /                    \
-//  |           |                      |
-// \|/         \|/                     |
-// WaitingToPlayState                  |
-//    |                                |
-//    | OnPressStart()                 |
-//    |                                |
-//   \|/                               |
-// SetUpBoardState                     |
-//    |             ________________   |
-//    |            /                \  |
-//    |           |                 |  |
-//   \|/         \|/                |  |
-// WaitingForTokenState             |  |
-//      |                           |  |
-//      | OnTokenReady()            |  |
-//     / \___________               |  |
-//    /              \              |  | OnPressStart()
-//   |                |             |  |
-//  \|/              \|/            |  |
-// MovingTokenState GameFailedState |  |
-//      |                    \_____ | _/\
-//      | OnTokenCommit()           |    |
-//     \|/                          |    |
-//   ClearingState                  |    |
-//  /|\  |        \                 |    |
-//   |   |        |                 |    |
-//   |  \|/      \|/                |    |
-// FallingState  GameWonState       |    |
-//       |          \______________ | ___/
-//       \__________________________|
-//         
 namespace MisterToken {
-    /// <summary>
-    /// This is the main type for your game
-    /// </summary>
-    public class MisterTokenGame : Microsoft.Xna.Framework.Game {
+    public class MisterTokenGame : Microsoft.Xna.Framework.Game, SinglePlayerListener {
         public MisterTokenGame() {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
@@ -56,27 +20,7 @@ namespace MisterToken {
             graphics.ApplyChanges();
 
             spriteManager = new SpriteManager();
-            model = new PlayingGameModel(spriteManager);
-
-            waitingToPlayState = new WaitingToPlayState();
-            setUpBoardState = new SetUpBoardState(model);
-            waitingForTokenState = new WaitingForTokenState(model);
-            movingTokenState = new MovingTokenState(model);
-            clearingState = new ClearingState(model);
-            fallingState = new FallingState(model);
-            failedGameState = new FailedGameState(model);
-
-            waitingToPlayState.SetSetUpBoardState(setUpBoardState);
-            setUpBoardState.SetWaitingForTokenState(waitingForTokenState);
-            waitingForTokenState.SetMovingTokenState(movingTokenState);
-            waitingForTokenState.setFailedGameState(failedGameState);
-            movingTokenState.setClearingState(clearingState);
-            clearingState.setFallingState(fallingState);
-            fallingState.SetClearingState(clearingState);
-            fallingState.SetWaitingForTokenState(waitingForTokenState);
-            failedGameState.SetWaitingToPlayState(waitingToPlayState);
-
-            state = waitingToPlayState;
+            model = new SinglePlayer(spriteManager, this);
         }
 
         protected override void Initialize() {
@@ -84,49 +28,77 @@ namespace MisterToken {
         }
 
         protected override void LoadContent() {
-            model.LoadContent(GraphicsDevice);
+            spriteBatch = new SpriteBatch(GraphicsDevice);
             spriteManager.LoadContent(Content, GraphicsDevice);
-            waitingToPlayState.LoadContent(Content, GraphicsDevice);
-            setUpBoardState.LoadContent(Content, GraphicsDevice);
-            waitingForTokenState.LoadContent(Content, GraphicsDevice);
-            movingTokenState.LoadContent(Content, GraphicsDevice);
-            clearingState.LoadContent(Content, GraphicsDevice);
-            fallingState.LoadContent(Content, GraphicsDevice);
-            failedGameState.LoadContent(Content, GraphicsDevice);
+            chordSound = Content.Load<SoundEffect>("chord");
         }
 
         protected override void UnloadContent() {
         }
 
         protected override void Update(GameTime gameTime) {
-            if (Keyboard.GetState(PlayerIndex.One).IsKeyDown(Keys.Escape))
+            Input.Update(gameTime);
+
+            if (Keyboard.GetState().IsKeyDown(Keys.Escape))
                 this.Exit();
-            GameState nextState = state.Update(gameTime);
-            if (nextState != state) {
-                nextState.Start();
-                state = nextState;
+
+            switch (state) {
+                case State.WAITING_TO_PLAY:
+                    if (Input.IsDown(BooleanInputHook.PLAYER_ONE_START)) {
+                        model.Start();
+                        state = State.PLAYING;
+                    }
+                    break;
+                case State.PLAYING:
+                    model.Update(gameTime);
+                    break;
             }
             base.Update(gameTime);
         }
 
         protected override void Draw(GameTime gameTime) {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
-            state.Draw(GraphicsDevice, gameTime);
+            switch (state) {
+                case State.WAITING_TO_PLAY:
+                    GraphicsDevice.Clear(Color.Red);
+                    break;
+                case State.PLAYING:
+                    spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend);
+                    model.Draw(GraphicsDevice, spriteBatch);
+                    spriteBatch.End();
+                    break;
+            }
             base.Draw(gameTime);
         }
 
+        public void OnClear() {
+            chordSound.Play();
+        }
+
+        public void OnWon() {
+        }
+
+        public void OnFailed() {
+            chordSound.Play();
+        }
+
+        public void OnFinished() {
+            state = State.WAITING_TO_PLAY;
+        }
+
+        // Game state.
+        private enum State {
+            WAITING_TO_PLAY,
+            PLAYING,
+        }
+        private State state;
+
+        // Data model.
+        private SinglePlayer model;
+
+        // UI stuff.
         private GraphicsDeviceManager graphics;
         private SpriteManager spriteManager;
-
-        private PlayingGameModel model;
-
-        private GameState state;
-        private WaitingToPlayState waitingToPlayState;
-        private SetUpBoardState setUpBoardState;
-        private WaitingForTokenState waitingForTokenState;
-        private MovingTokenState movingTokenState;
-        private ClearingState clearingState;
-        private FallingState fallingState;
-        private FailedGameState failedGameState;
+        private SpriteBatch spriteBatch;
+        private SoundEffect chordSound;
     }
 }

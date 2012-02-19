@@ -38,6 +38,8 @@ namespace MisterToken {
                     }
                 }
             }
+            MarkMatches();
+            ClearMatches();
         }
 
         public Cell GetCell(int row, int column) {
@@ -193,6 +195,18 @@ namespace MisterToken {
                 }
             }
             return any;
+        }
+
+        public int GetLockedCount() {
+            int count = 0;
+            for (int row = 0; row < Constants.ROWS; ++row) {
+                for (int column = 0; column < Constants.COLUMNS; ++column) {
+                    if (GetCell(row, column).locked && !GetCell(row, column).matched) {
+                        ++count;
+                    }
+                }
+            }
+            return count;
         }
 
         private Cell[,] entries;
