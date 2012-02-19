@@ -11,7 +11,6 @@ using Microsoft.Xna.Framework.Input;
 namespace MisterToken {
     public class MovingTokenState : PlayingGameState {
         public MovingTokenState(PlayingGameModel model) : base(model) {
-            slamHandled = false;
             timeUntilNextAdvance = Constants.MILLIS_PER_ADVANCE;
         }
 
@@ -20,7 +19,6 @@ namespace MisterToken {
         }
 
         public override void Start() {
-            slamHandled = true;
         }
 
         public override GameState PlayingUpdate(GameTime gameTime) {
@@ -50,11 +48,13 @@ namespace MisterToken {
                     currentToken.RotateRight();
             }
             if (Input.IsDown(BooleanInputHook.PLAYER_ONE_TOKEN_DOWN)) {
-                if (!slamHandled) {
-                    timeUntilNextAdvance = 0;
+                timeUntilNextAdvance = 0;
+            }
+            if (Input.IsDown(BooleanInputHook.PLAYER_ONE_TOKEN_SLAM)) {
+                timeUntilNextAdvance = 0;
+                while (currentToken.CanMove(1, 0)) {
+                    currentToken.Move(1, 0);
                 }
-            } else {
-                slamHandled = false;
             }
 
             timeUntilNextAdvance -= gameTime.ElapsedGameTime.Milliseconds;
@@ -77,8 +77,6 @@ namespace MisterToken {
         }
 
         int timeUntilNextAdvance;
-
-        bool slamHandled;
 
         private ClearingState clearingState;
     }
