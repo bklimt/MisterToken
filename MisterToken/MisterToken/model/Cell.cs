@@ -9,7 +9,9 @@ namespace MisterToken {
     public class Cell {
         public Cell() {
             this.locked = false;
+            this.loose = false;
             this.matched = false;
+            this.visited = false;
         }
 
         public void DrawRect(Rectangle rect, SpriteBatch spriteBatch) {
@@ -21,25 +23,28 @@ namespace MisterToken {
         }
 
         public void RotateRight() {
-            switch (direction) {
-                case Direction.UP: direction = Direction.RIGHT; break;
-                case Direction.RIGHT: direction = Direction.DOWN; break;
-                case Direction.DOWN: direction = Direction.LEFT; break;
-                case Direction.LEFT: direction = Direction.UP; break;
-            }
+            Direction newDirection = Direction.NONE;
+            if (direction.HasFlag(Direction.UP)) newDirection |= Direction.RIGHT;
+            if (direction.HasFlag(Direction.RIGHT)) newDirection |= Direction.DOWN;
+            if (direction.HasFlag(Direction.DOWN)) newDirection |= Direction.LEFT;
+            if (direction.HasFlag(Direction.LEFT)) newDirection |= Direction.UP;
+            direction = newDirection;
         }
 
         public void RotateLeft() {
-            switch (direction) {
-                case Direction.UP: direction = Direction.LEFT; break;
-                case Direction.RIGHT: direction = Direction.UP; break;
-                case Direction.DOWN: direction = Direction.RIGHT; break;
-                case Direction.LEFT: direction = Direction.DOWN; break;
-            }
+            Direction newDirection = Direction.NONE;
+            if (direction.HasFlag(Direction.UP)) newDirection |= Direction.LEFT;
+            if (direction.HasFlag(Direction.RIGHT)) newDirection |= Direction.UP;
+            if (direction.HasFlag(Direction.DOWN)) newDirection |= Direction.RIGHT;
+            if (direction.HasFlag(Direction.LEFT)) newDirection |= Direction.DOWN;
+            direction = newDirection;
         }
 
         public void Clear() {
             color = Color.BLACK;
+            direction = Direction.NONE;
+            visited = false;
+            loose = false;
             matched = false;
             locked = false;
         }
@@ -62,15 +67,18 @@ namespace MisterToken {
         }
         public Color color;
 
+        [Flags]
         public enum Direction {
-            NONE,
-            UP,
-            RIGHT,
-            DOWN,
-            LEFT,
+            NONE = 0x00,
+            UP = 0x01,
+            RIGHT = 0x02,
+            DOWN = 0x04,
+            LEFT = 0x08,
         }
         public Direction direction;
 
+        public bool visited;
+        public bool loose;
         public bool matched;
         public bool locked;
     }

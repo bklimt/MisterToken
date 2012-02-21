@@ -7,9 +7,6 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace MisterToken {
     public class SpriteManager {
-        public SpriteManager() {
-        }
-
         public void LoadContent(ContentManager content, GraphicsDevice device) {
             tokenTextures = new Texture2D[Cell.COLORS * 6 + 1];
 

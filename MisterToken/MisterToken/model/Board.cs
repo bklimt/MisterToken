@@ -29,7 +29,7 @@ namespace MisterToken {
                         entries[row, column].Clear();
                     } else {
                         entries[row, column].Clear();
-                        if (random.Next(2) == 1) {
+                        if ((float)random.NextDouble() < Constants.PROBABILTIY_FILLED) {
                             entries[row, column].color = Cell.GetRandomColor(random);
                             entries[row, column].locked = true;
                         }
@@ -49,11 +49,7 @@ namespace MisterToken {
         }
 
         public Cell.Color GetColor(int row, int column) {
-            while (row < 0)
-                row += Constants.ROWS;
-            while (column < 0)
-                column += Constants.COLUMNS;
-            return entries[(row + rowOffset) % Constants.ROWS, (column + columnOffset) % Constants.COLUMNS].color;
+            return GetCell(row, column).color;
         }
 
         public void SetCell(int row, int column, Cell cell) {
@@ -104,12 +100,8 @@ namespace MisterToken {
         }
 
         public bool MarkMatches() {
+            VerifyBoard();
             bool any = false;
-            for (int row = 0; row < Constants.ROWS; ++row) {
-                for (int column = 0; column < Constants.COLUMNS; ++column) {
-                    entries[row, column].matched = false;
-                }
-            }
             for (int row = 0; row < Constants.ROWS; ++row) {
                 for (int column = 0; column < Constants.COLUMNS; ++column) {
                     Cell.Color color = GetColor(row, column);
@@ -153,45 +145,109 @@ namespace MisterToken {
             for (int row = 0; row < Constants.ROWS; ++row) {
                 for (int column = 0; column < Constants.COLUMNS; ++column) {
                     if (GetCell(row, column).matched) {
-                        switch (GetCell(row, column).direction) {
-                            case Cell.Direction.UP: GetCell(row - 1, column).direction = Cell.Direction.NONE; break;
-                            case Cell.Direction.DOWN: GetCell(row + 1, column).direction = Cell.Direction.NONE; break;
-                            case Cell.Direction.RIGHT: GetCell(row, column + 1).direction = Cell.Direction.NONE; break;
-                            case Cell.Direction.LEFT: GetCell(row, column - 1).direction = Cell.Direction.NONE; break;
+                        Cell.Direction direction = GetCell(row, column).direction;
+                        if (direction.HasFlag(Cell.Direction.UP)) {
+                            GetCell(row - 1, column).direction &= ~Cell.Direction.DOWN;
+                        }
+                        if (direction.HasFlag(Cell.Direction.DOWN)) {
+                            GetCell(row + 1, column).direction &= ~Cell.Direction.UP;
+                        }
+                        if (direction.HasFlag(Cell.Direction.RIGHT)) {
+                            GetCell(row, column + 1).direction &= ~Cell.Direction.LEFT;
+                        }
+                        if (direction.HasFlag(Cell.Direction.LEFT)) {
+                            GetCell(row, column - 1).direction &= ~Cell.Direction.RIGHT;
                         }
                         GetCell(row, column).Clear();
+                    }
+                }
+            }
+            VerifyBoard();
+        }
+
+        /**
+         * Returns true if the piece can be moved.
+         */
+        public bool CheckCellLoose(int row, int column, bool root) {
+            if (row >= Constants.ROWS) {
+                return false;
+            }
+            Cell cell = GetCell(row, column);
+            if (cell.locked) {
+                return false;
+            }
+            if (cell.color == Cell.Color.BLACK) {
+                return true;
+            }
+            if (cell.loose) {
+                return true;
+            }
+            if (cell.visited) {
+                return true;
+            }
+            cell.visited = true;
+            try {
+                if (!CheckCellLoose(row + 1, column, false)) {
+                    return false;
+                }
+                if (cell.direction.HasFlag(Cell.Direction.UP) && !CheckCellLoose(row - 1, column, false)) {
+                    return false;
+                }
+                if (cell.direction.HasFlag(Cell.Direction.RIGHT) && !CheckCellLoose(row, column + 1, false)) {
+                    return false;
+                }
+                if (cell.direction.HasFlag(Cell.Direction.LEFT) && !CheckCellLoose(row, column - 1, false)) {
+                    return false;
+                }
+            } finally {
+                cell.visited = false;
+            }
+            if (root) {
+                cell.loose = true;
+            }
+            return true;
+        }
+
+        // Makes sure nothing is marked as matched, visited, or loose.
+        public void VerifyBoard() {
+            for (int row = 0; row < Constants.ROWS; ++row) {
+                for (int column = 0; column < Constants.COLUMNS; ++column) {
+                    if (entries[row, column].matched) {
+                        throw new Exception("Invalid matched state.");
+                    }
+                    if (entries[row, column].visited) {
+                        throw new Exception("Invalid visited state.");
+                    }
+                    if (entries[row, column].loose) {
+                        throw new Exception("Invalid loose state.");
                     }
                 }
             }
         }
 
         public bool ApplyGravity() {
+            VerifyBoard();
             bool any = false;
             for (int row = Constants.ROWS - 2; row >= 0; --row) {
                 for (int column = 0; column < Constants.COLUMNS; ++column) {
-                    if (GetColor(row, column) != Cell.Color.BLACK &&
-                        !GetCell(row, column).locked) {
-                        // Can this piece fall?
-                        if (GetColor(row + 1, column) == Cell.Color.BLACK) {
-                            if (GetCell(row, column).direction == Cell.Direction.RIGHT) {
-                                if (GetColor(row + 1, column + 1) == Cell.Color.BLACK) {
-                                    // We can move both.
-                                    SetCell(row + 1, column, GetCell(row, column));
-                                    SetCell(row + 1, column + 1, GetCell(row, column + 1));
-                                    GetCell(row, column).Clear();
-                                    GetCell(row, column + 1).Clear();
-                                    any = true;
-                                }
-                            } else if (GetCell(row, column).direction != Cell.Direction.LEFT) {
-                                // We can move this one.
-                                SetCell(row + 1, column, GetCell(row, column));
-                                GetCell(row, column).Clear();
-                                any = true;
-                            }
+                    CheckCellLoose(row, column, true);
+                }
+            }
+            for (int row = Constants.ROWS - 2; row >= 0; --row) {
+                for (int column = 0; column < Constants.COLUMNS; ++column) {
+                    Cell cell = GetCell(row, column);
+                    if (cell.loose) {
+                        any = true;
+                        Cell below = GetCell(row + 1, column);
+                        if (below.color != Cell.Color.BLACK) {
+                            throw new Exception("Bad gravity logic.");
                         }
+                        SetCell(row + 1, column, cell);
+                        cell.Clear();
                     }
                 }
             }
+            VerifyBoard();
             return any;
         }
 

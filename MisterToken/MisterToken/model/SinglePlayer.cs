@@ -35,7 +35,11 @@ namespace MisterToken {
 
             // Draw the board.
             Rectangle boardRect = new Rectangle();
-            boardRect.X = Constants.BOARD_RECT_X;
+            if (player == PlayerIndex.One) {
+                boardRect.X = Constants.BOARD_ONE_RECT_X;
+            } else {
+                boardRect.X = Constants.BOARD_TWO_RECT_X;
+            }
             boardRect.Y = Constants.BOARD_RECT_Y;
             boardRect.Width = Constants.BOARD_RECT_WIDTH;
             boardRect.Height = Constants.BOARD_RECT_HEIGHT;
@@ -48,7 +52,11 @@ namespace MisterToken {
 
             // Draw the next token.
             Rectangle nextRect = new Rectangle();
-            nextRect.X = (int)(nextTokenReadiness * Constants.BOARD_RECT_X + (boardRect.Width / Constants.COLUMNS) * Constants.TOKEN_START_COLUMN);
+
+            int nextTokenEndX = boardRect.X + (boardRect.Width / Constants.COLUMNS) * Constants.TOKEN_START_COLUMN;
+            int nextTokenStartX = nextTokenEndX - 200;
+
+            nextRect.X = (int)(nextTokenStartX + (nextTokenEndX - nextTokenStartX) * nextTokenReadiness);
             nextRect.Y = boardRect.Y - (boardRect.Height / Constants.ROWS);
             nextRect.Width = boardRect.Width;
             nextRect.Height = boardRect.Height;
@@ -98,7 +106,7 @@ namespace MisterToken {
                     // Game over!
                     token.Commit();
                     state = State.FAILED;
-                    listener.OnFailed();
+                    listener.OnFailed(player);
                 } else {
                     timeUntilNextAdvance = Constants.MILLIS_PER_ADVANCE;
                     state = State.MOVING_TOKEN;
@@ -164,10 +172,10 @@ namespace MisterToken {
                 bool more = board.MarkMatches();
                 if (board.GetLockedCount() == 0) {
                     state = State.WON;
-                    listener.OnWon();
+                    listener.OnWon(player);
                 } else if (more) {
                     timeToClear = Constants.MILLIS_PER_CLEAR;
-                    listener.OnClear();
+                    listener.OnClear(player);
                 } else {
                     timeToNextFall = 0;
                     anythingFell = false;
@@ -198,13 +206,13 @@ namespace MisterToken {
 
         private void DoFailed(GameTime gameTime) {
             if (Input.IsDown(PerPlayerBooleanInputHook.START.ForPlayer(player))) {
-                listener.OnFinished();
+                listener.OnFinished(player);
             }
         }
 
         private void DoWon(GameTime gameTime) {
             if (Input.IsDown(PerPlayerBooleanInputHook.START.ForPlayer(player))) {
-                listener.OnFinished();
+                listener.OnFinished(player);
             }
         }
 

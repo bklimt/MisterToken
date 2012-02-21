@@ -72,7 +72,10 @@
     <Reference Include="System.Net" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Sprites.cs" />
+    <Compile Include="model\ThreePieceElbowToken.cs" />
+    <Compile Include="model\MultiPlayer.cs" />
+    <Compile Include="model\MultiPlayerListener.cs" />
+    <Compile Include="graphics\Sprites.cs" />
     <Compile Include="model\Board.cs" />
     <Compile Include="model\Cell.cs" />
     <Compile Include="Constants.cs" />
@@ -86,7 +89,7 @@
     <Compile Include="input\Input.cs" />
     <Compile Include="input\InputManager.cs" />
     <Compile Include="input\BooleanInputRepeater.cs" />
-    <Compile Include="SpriteManager.cs" />
+    <Compile Include="graphics\SpriteManager.cs" />
     <Compile Include="model\Token.cs" />
     <Compile Include="model\TokenPiece.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -94,6 +97,9 @@
     <Compile Include="MisterTokenGame.cs" />
     <Compile Include="model\TokenGenerator.cs" />
     <Compile Include="model\TwoPieceToken.cs" />
+    <Compile Include="sound\Sound.cs" />
+    <Compile Include="sound\SoundHook.cs" />
+    <Compile Include="sound\SoundManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Game.ico" />

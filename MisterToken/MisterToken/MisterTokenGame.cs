@@ -19,7 +19,7 @@ namespace MisterToken {
             graphics.PreferredBackBufferWidth = 1280;
             graphics.ApplyChanges();
 
-            model = new SinglePlayer(PlayerIndex.One, this);
+            model = new MultiPlayer(this);
         }
 
         protected override void Initialize() {
@@ -29,7 +29,7 @@ namespace MisterToken {
         protected override void LoadContent() {
             spriteBatch = new SpriteBatch(GraphicsDevice);
             Sprites.LoadContent(Content, GraphicsDevice);
-            chordSound = Content.Load<SoundEffect>("chord");
+            Sound.LoadContent(Content);
         }
 
         protected override void UnloadContent() {
@@ -69,18 +69,19 @@ namespace MisterToken {
             base.Draw(gameTime);
         }
 
-        public void OnClear() {
-            chordSound.Play();
+        public void OnClear(PlayerIndex player) {
+            Sound.Play(PerPlayerSoundHook.CLEAR.ForPlayer(player));
         }
 
-        public void OnWon() {
+        public void OnWon(PlayerIndex player) {
+            Sound.Play(PerPlayerSoundHook.WON.ForPlayer(player));
         }
 
-        public void OnFailed() {
-            chordSound.Play();
+        public void OnFailed(PlayerIndex player) {
+            Sound.Play(PerPlayerSoundHook.LOST.ForPlayer(player));
         }
 
-        public void OnFinished() {
+        public void OnFinished(PlayerIndex player) {
             state = State.WAITING_TO_PLAY;
         }
 
@@ -92,11 +93,10 @@ namespace MisterToken {
         private State state;
 
         // Data model.
-        private SinglePlayer model;
+        private MultiPlayer model;
 
         // UI stuff.
         private GraphicsDeviceManager graphics;
         private SpriteBatch spriteBatch;
-        private SoundEffect chordSound;
     }
 }

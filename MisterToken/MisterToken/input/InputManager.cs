@@ -35,6 +35,26 @@ namespace MisterToken {
                 .AddKey(Keys.Z)
                 .AddButton(PlayerIndex.One, Buttons.X));
 
+            booleanMap.Add(BooleanInputHook.PLAYER_TWO_START, new BooleanInputOnce());
+            booleanMap.Add(BooleanInputHook.PLAYER_TWO_TOKEN_SLAM, new BooleanInputOnce()
+                .AddKey(Keys.I)
+                .AddButton(PlayerIndex.Two, Buttons.DPadUp));
+            booleanMap.Add(BooleanInputHook.PLAYER_TWO_TOKEN_DOWN, new BooleanInputRepeater(25)
+                .AddKey(Keys.K)
+                .AddButton(PlayerIndex.Two, Buttons.DPadDown));
+            booleanMap.Add(BooleanInputHook.PLAYER_TWO_TOKEN_RIGHT, new BooleanInputRepeater(200)
+                .AddKey(Keys.L)
+                .AddButton(PlayerIndex.Two, Buttons.DPadRight));
+            booleanMap.Add(BooleanInputHook.PLAYER_TWO_TOKEN_LEFT, new BooleanInputRepeater(200)
+                .AddKey(Keys.J)
+                .AddButton(PlayerIndex.Two, Buttons.DPadLeft));
+            booleanMap.Add(BooleanInputHook.PLAYER_TWO_ROTATE_RIGHT, new BooleanInputRepeater(200)
+                .AddKey(Keys.OemComma)
+                .AddButton(PlayerIndex.Two, Buttons.A));
+            booleanMap.Add(BooleanInputHook.PLAYER_TWO_ROTATE_LEFT, new BooleanInputRepeater(200)
+                .AddKey(Keys.M)
+                .AddButton(PlayerIndex.Two, Buttons.X));
+
             analogMap = new Dictionary<AnalogInputHook, AnalogInput>();
         }
 
