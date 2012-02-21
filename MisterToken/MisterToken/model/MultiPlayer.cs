@@ -9,8 +9,8 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
 namespace MisterToken {
-    public class MultiPlayer : SinglePlayerListener {
-        public MultiPlayer(SinglePlayerListener listener) {
+    public class MultiPlayer : GameListener {
+        public MultiPlayer(GameListener listener) {
             this.listener = listener;
             one = new SinglePlayer(PlayerIndex.One, this);
             two = new SinglePlayer(PlayerIndex.Two, this);
@@ -35,6 +35,15 @@ namespace MisterToken {
             listener.OnClear(player);
         }
 
+        public void OnDump(PlayerIndex player, List<Cell.Color> colors) {
+            if (player == PlayerIndex.One) {
+                two.Dump(colors);
+            } else {
+                one.Dump(colors);
+            }
+            listener.OnDump(player, colors);
+        }
+
         public void OnWon(PlayerIndex player) {
             listener.OnWon(player);
         }
@@ -49,6 +58,6 @@ namespace MisterToken {
 
         private SinglePlayer one;
         private SinglePlayer two;
-        private SinglePlayerListener listener;
+        private GameListener listener;
     }
 }

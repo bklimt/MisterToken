@@ -10,7 +10,7 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 
 namespace MisterToken {
-    public class MisterTokenGame : Microsoft.Xna.Framework.Game, SinglePlayerListener {
+    public class MisterTokenGame : Microsoft.Xna.Framework.Game, GameListener {
         public MisterTokenGame() {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
@@ -71,6 +71,9 @@ namespace MisterToken {
 
         public void OnClear(PlayerIndex player) {
             Sound.Play(PerPlayerSoundHook.CLEAR.ForPlayer(player));
+        }
+
+        public void OnDump(PlayerIndex player, List<Cell.Color> colors) {
         }
 
         public void OnWon(PlayerIndex player) {

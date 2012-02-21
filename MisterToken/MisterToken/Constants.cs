@@ -23,7 +23,7 @@ namespace MisterToken {
         public const int TOP_FILLED_ROW = 10;        // how high the fixed pieces should start.
         public const float PROBABILTIY_FILLED = 0.2f;
 
-        public const float PROBABILITY_TWO_PIECE = 0.90f;
-        public const float PROBABILITY_THREE_PIECE_ELBOW = 0.10f;
+        public const float PROBABILITY_TWO_PIECE = 0.95f;
+        public const float PROBABILITY_THREE_PIECE_ELBOW = 0.05f;
     }
 }

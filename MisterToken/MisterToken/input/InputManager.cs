@@ -10,12 +10,13 @@ namespace MisterToken {
         public InputManager() {
             booleanMap = new Dictionary<BooleanInputHook, BooleanInput>();
             booleanMap.Add(BooleanInputHook.PLAYER_ONE_START, new BooleanInputOnce()
-                .AddKey(Keys.Enter));
+                .AddKey(Keys.Enter)
+                .AddButton(PlayerIndex.One, Buttons.Start));
             booleanMap.Add(BooleanInputHook.PLAYER_ONE_TOKEN_SLAM, new BooleanInputOnce()
                 .AddKey(Keys.W)
                 .AddKey(Keys.Up)
                 .AddKey(Keys.Space)
-                .AddButton(PlayerIndex.One, Buttons.DPadUp));
+                .AddButton(PlayerIndex.One, Buttons.B));
             booleanMap.Add(BooleanInputHook.PLAYER_ONE_TOKEN_DOWN, new BooleanInputRepeater(25)
                 .AddKey(Keys.S)
                 .AddKey(Keys.Down)
@@ -23,10 +24,14 @@ namespace MisterToken {
             booleanMap.Add(BooleanInputHook.PLAYER_ONE_TOKEN_RIGHT, new BooleanInputRepeater(200)
                 .AddKey(Keys.D)
                 .AddKey(Keys.Right)
+                .AddButton(PlayerIndex.One, Buttons.RightTrigger)
+                .AddButton(PlayerIndex.One, Buttons.RightShoulder)
                 .AddButton(PlayerIndex.One, Buttons.DPadRight));
             booleanMap.Add(BooleanInputHook.PLAYER_ONE_TOKEN_LEFT, new BooleanInputRepeater(200)
                 .AddKey(Keys.A)
                 .AddKey(Keys.Left)
+                .AddButton(PlayerIndex.One, Buttons.LeftTrigger)
+                .AddButton(PlayerIndex.One, Buttons.LeftShoulder)
                 .AddButton(PlayerIndex.One, Buttons.DPadLeft));
             booleanMap.Add(BooleanInputHook.PLAYER_ONE_ROTATE_RIGHT, new BooleanInputRepeater(200)
                 .AddKey(Keys.X)
@@ -35,18 +40,23 @@ namespace MisterToken {
                 .AddKey(Keys.Z)
                 .AddButton(PlayerIndex.One, Buttons.X));
 
-            booleanMap.Add(BooleanInputHook.PLAYER_TWO_START, new BooleanInputOnce());
+            booleanMap.Add(BooleanInputHook.PLAYER_TWO_START, new BooleanInputOnce()
+                .AddButton(PlayerIndex.Two, Buttons.Start));
             booleanMap.Add(BooleanInputHook.PLAYER_TWO_TOKEN_SLAM, new BooleanInputOnce()
                 .AddKey(Keys.I)
-                .AddButton(PlayerIndex.Two, Buttons.DPadUp));
+                .AddButton(PlayerIndex.Two, Buttons.B));
             booleanMap.Add(BooleanInputHook.PLAYER_TWO_TOKEN_DOWN, new BooleanInputRepeater(25)
                 .AddKey(Keys.K)
                 .AddButton(PlayerIndex.Two, Buttons.DPadDown));
             booleanMap.Add(BooleanInputHook.PLAYER_TWO_TOKEN_RIGHT, new BooleanInputRepeater(200)
                 .AddKey(Keys.L)
+                .AddButton(PlayerIndex.Two, Buttons.RightTrigger)
+                .AddButton(PlayerIndex.Two, Buttons.RightShoulder)
                 .AddButton(PlayerIndex.Two, Buttons.DPadRight));
             booleanMap.Add(BooleanInputHook.PLAYER_TWO_TOKEN_LEFT, new BooleanInputRepeater(200)
                 .AddKey(Keys.J)
+                .AddButton(PlayerIndex.Two, Buttons.LeftTrigger)
+                .AddButton(PlayerIndex.Two, Buttons.LeftShoulder)
                 .AddButton(PlayerIndex.Two, Buttons.DPadLeft));
             booleanMap.Add(BooleanInputHook.PLAYER_TWO_ROTATE_RIGHT, new BooleanInputRepeater(200)
                 .AddKey(Keys.OemComma)

@@ -99,9 +99,9 @@ namespace MisterToken {
             }
         }
 
-        public bool MarkMatches() {
+        public List<Cell.Color> MarkMatches() {
             VerifyBoard();
-            bool any = false;
+            List<Cell.Color> colors = new List<Cell.Color>();
             for (int row = 0; row < Constants.ROWS; ++row) {
                 for (int column = 0; column < Constants.COLUMNS; ++column) {
                     Cell.Color color = GetColor(row, column);
@@ -109,36 +109,44 @@ namespace MisterToken {
                         continue;
                     }
                     if (row + 3 < Constants.ROWS) {
-                        bool match = true;
-                        for (int otherRow = row + 1; otherRow < row + 4; ++otherRow) {
-                            if (GetColor(otherRow, column) != color) {
-                                match = false;
-                            }
+                        int otherRow = row + 1;
+                        while (otherRow < Constants.ROWS && GetColor(otherRow, column) == color) {
+                            ++otherRow;
                         }
-                        if (match) {
-                            any = true;
-                            for (int otherRow = row; otherRow < row + 4; ++otherRow) {
-                                GetCell(otherRow, column).matched = true;
+                        if (otherRow - row >= 4) {
+                            bool redundant = true;
+                            while (--otherRow >= row) {
+                                if (!GetCell(otherRow, column).matched) {
+                                    GetCell(otherRow, column).matched = true;
+                                    redundant = false;
+                                }
+                            }
+                            if (!redundant) {
+                                colors.Add(color);
                             }
                         }
                     }
                     {
-                        bool match = true;
-                        for (int otherColumn = column + 1; otherColumn < column + 4; ++otherColumn) {
-                            if (GetColor(row, otherColumn) != color) {
-                                match = false;
-                            }
+                        int otherColumn = column + 1;
+                        while (otherColumn < Constants.COLUMNS && GetColor(row, otherColumn) == color) {
+                            ++otherColumn;
                         }
-                        if (match) {
-                            any = true;
-                            for (int otherColumn = column; otherColumn < column + 4; ++otherColumn) {
-                                GetCell(row, otherColumn).matched = true;
+                        if (otherColumn - column >= 4) {
+                            bool redundant = true;
+                            while (--otherColumn >= column) {
+                                if (!GetCell(row, otherColumn).matched) {
+                                    GetCell(row, otherColumn).matched = true;
+                                    redundant = false;
+                                }
+                            }
+                            if (!redundant) {
+                                colors.Add(color);
                             }
                         }
                     }
                 }
             }
-            return any;
+            return colors;
         }
 
         public void ClearMatches() {
