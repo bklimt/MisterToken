@@ -16,8 +16,8 @@ namespace MisterToken {
             manager.LoadContent(content, device);
         }
 
-        public static Texture2D GetTextureForCell(Cell cell) {
-            return manager.GetTextureForCell(cell);
+        public static void DrawCell(Cell cell, Rectangle targetRect, SpriteBatch spriteBatch) {
+            manager.DrawCell(cell, targetRect, spriteBatch);
         }
 
         private static SpriteManager manager = new SpriteManager();

@@ -15,11 +15,7 @@ namespace MisterToken {
         }
 
         public void DrawRect(Rectangle rect, SpriteBatch spriteBatch) {
-            if (matched) {
-                spriteBatch.Draw(Sprites.GetTextureForCell(this), rect, Microsoft.Xna.Framework.Color.Gray);
-            } else {
-                spriteBatch.Draw(Sprites.GetTextureForCell(this), rect, Microsoft.Xna.Framework.Color.White);
-            }
+            Sprites.DrawCell(this, rect, spriteBatch);
         }
 
         public void RotateRight() {
@@ -51,19 +47,30 @@ namespace MisterToken {
 
         public static Color GetRandomColor(Random random) {
             switch (random.Next(COLORS)) {
-                case 0: return Color.RED;
-                case 1: return Color.YELLOW;
-                case 2: return Color.BLUE;
-                default: throw new InvalidOperationException("Invalid color index?");
+                case 0: { return Color.CYAN; }
+                case 1: { return Color.RED; }
+                case 2: { return Color.YELLOW; }
+                case 3: { return Color.GREEN; }
+                case 4: { return Color.WHITE; }
+                case 5: { return Color.PURPLE; }
+                case 6: { return Color.BLUE; }
+                case 7: { return Color.ORANGE; }
+                default:
+                    throw new InvalidOperationException("Invalid color index?");
             }
         }
 
-        public const int COLORS = 3;
+        public const int COLORS = 8;
         public enum Color {
             BLACK,
+            CYAN,
             RED,
             YELLOW,
+            GREEN,
+            WHITE,
+            PURPLE,
             BLUE,
+            ORANGE,
         }
         public Color color;
 
