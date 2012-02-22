@@ -62,14 +62,6 @@ namespace MisterToken {
             sourceRect.Width = 64;
             sourceRect.Height = 64;
 
-            // Cheat
-            if (cell.color == Cell.Color.BLACK) {
-                sourceRect.X = 200;
-                sourceRect.Y = 135;
-                sourceRect.Width = 10;
-                sourceRect.Height = 10;
-            }
-
             spriteBatch.Draw(spriteTexture, targetRect, sourceRect, highlight);
         }
 
