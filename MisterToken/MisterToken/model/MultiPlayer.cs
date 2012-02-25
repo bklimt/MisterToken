@@ -46,14 +46,26 @@ namespace MisterToken {
 
         public void OnWon(PlayerIndex player) {
             listener.OnWon(player);
+            if (player == PlayerIndex.One) {
+                two.Fail();
+            } else {
+                one.Fail();
+            }
         }
 
         public void OnFailed(PlayerIndex player) {
             listener.OnFailed(player);
+            if (player == PlayerIndex.One) {
+                two.Win();
+            } else {
+                one.Win();
+            }
         }
 
         public void OnFinished(PlayerIndex player) {
             listener.OnFinished(player);
+            one.NextLevel();
+            two.NextLevel();
         }
 
         private SinglePlayer one;

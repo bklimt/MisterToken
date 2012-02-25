@@ -41,6 +41,7 @@ namespace MisterToken {
                 .AddButton(PlayerIndex.One, Buttons.X));
 
             booleanMap.Add(BooleanInputHook.PLAYER_TWO_START, new BooleanInputOnce()
+                .AddKey(Keys.Delete)
                 .AddButton(PlayerIndex.Two, Buttons.Start));
             booleanMap.Add(BooleanInputHook.PLAYER_TWO_TOKEN_SLAM, new BooleanInputOnce()
                 .AddKey(Keys.I)

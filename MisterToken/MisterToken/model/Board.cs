@@ -19,18 +19,18 @@ namespace MisterToken {
             }
         }
 
-        public void Randomize(int topRow) {
+        public void Randomize(Level level) {
             Random random = new Random();
             rowOffset = 0;
             columnOffset = 0;
             for (int row = 0; row < Constants.ROWS; ++row) {
                 for (int column = 0; column < Constants.COLUMNS; ++column) {
-                    if (row < topRow) {
+                    if (row < level.topFilledRow) {
                         entries[row, column].Clear();
                     } else {
                         entries[row, column].Clear();
-                        if ((float)random.NextDouble() < Constants.PROBABILTIY_FILLED) {
-                            entries[row, column].color = Cell.GetRandomColor(random);
+                        if ((float)random.NextDouble() < level.probabilityFilled) {
+                            entries[row, column].color = level.GetRandomColor();
                             entries[row, column].locked = true;
                         }
                     }
@@ -61,12 +61,12 @@ namespace MisterToken {
             entries[(row + rowOffset) % Constants.ROWS, (column + columnOffset) % Constants.COLUMNS].direction = cell.direction;
         }
 
-        public void AddNewRow() {
+        public void AddNewRow(Level level) {
             Random random = new Random();
             rowOffset = (rowOffset + 1) % Constants.ROWS;
             int bottomRow = ((Constants.ROWS - 1) + rowOffset) % Constants.ROWS;
             for (int i = 0; i < Constants.COLUMNS; ++i) {
-                entries[bottomRow, i].color = Cell.GetRandomColor(random);
+                entries[bottomRow, i].color = level.GetRandomColor();
             }
         }
 

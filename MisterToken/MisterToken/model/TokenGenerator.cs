@@ -7,8 +7,9 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace MisterToken {
     public class TokenGenerator {
-        public TokenGenerator(Board board) {
+        public TokenGenerator(Board board, Level level) {
             this.board = board;
+            this.level = level;
             this.random = new Random();
             this.nextToken = null;
             LoadNextToken();
@@ -24,15 +25,7 @@ namespace MisterToken {
 
         public void LoadNextToken() {
             currentToken = nextToken;
-            Cell.Color color1 = Cell.GetRandomColor(random);
-            Cell.Color color2 = Cell.GetRandomColor(random);
-            Cell.Color color3 = Cell.GetRandomColor(random);
-            float fraction = (float)random.NextDouble() * (Constants.PROBABILITY_TWO_PIECE + Constants.PROBABILITY_THREE_PIECE_ELBOW);
-            if (fraction < Constants.PROBABILITY_TWO_PIECE) {
-                nextToken = new TwoPieceToken(board, 0, 0, color1, color2);
-            } else {
-                nextToken = new ThreePieceElbowToken(board, 0, 0, color1, color2, color3);
-            }
+            nextToken = level.GetRandomToken(board);
         }
 
         public void Draw(Rectangle boardRect, SpriteBatch spriteBatch) {
@@ -40,6 +33,7 @@ namespace MisterToken {
         }
 
         private Board board;
+        private Level level;
         private Random random;
         private Token currentToken;
         private Token nextToken;

@@ -58,9 +58,13 @@ namespace MisterToken {
         protected override void Draw(GameTime gameTime) {
             switch (state) {
                 case State.WAITING_TO_PLAY:
-                    GraphicsDevice.Clear(Color.Red);
+                    GraphicsDevice.Clear(Color.Black);
+                    spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend);
+                    Sprites.DrawTitle(spriteBatch);
+                    spriteBatch.End();
                     break;
                 case State.PLAYING:
+                    GraphicsDevice.Clear(Color.CornflowerBlue);
                     spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend);
                     model.Draw(GraphicsDevice, spriteBatch);
                     spriteBatch.End();
@@ -77,14 +81,15 @@ namespace MisterToken {
         }
 
         public void OnWon(PlayerIndex player) {
-            Sound.Play(PerPlayerSoundHook.WON.ForPlayer(player));
+            //Sound.Play(PerPlayerSoundHook.WON.ForPlayer(player));
         }
 
         public void OnFailed(PlayerIndex player) {
-            Sound.Play(PerPlayerSoundHook.LOST.ForPlayer(player));
+            //Sound.Play(PerPlayerSoundHook.LOST.ForPlayer(player));
         }
 
         public void OnFinished(PlayerIndex player) {
+            Sound.Play(PerPlayerSoundHook.LOST.ForPlayer(player));
             state = State.WAITING_TO_PLAY;
         }
 
