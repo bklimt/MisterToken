@@ -20,6 +20,18 @@ namespace MisterToken {
             manager.DrawCell(cell, targetRect, spriteBatch);
         }
 
+        public static void DrawTitle(SpriteBatch spriteBatch) {
+            manager.DrawTitle(spriteBatch);
+        }
+
+        public static void DrawSplatter(Rectangle targetRect, SpriteBatch spriteBatch) {
+            manager.DrawSplatter(targetRect, spriteBatch);
+        }
+
+        public static void DrawCloud(Rectangle targetRect, SpriteBatch spriteBatch) {
+            manager.DrawCloud(targetRect, spriteBatch);
+        }
+
         private static SpriteManager manager = new SpriteManager();
     }
 }

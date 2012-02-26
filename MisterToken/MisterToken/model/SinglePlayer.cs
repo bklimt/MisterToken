@@ -12,10 +12,11 @@ namespace MisterToken {
     public class SinglePlayer {
         public SinglePlayer(PlayerIndex player, GameListener listener) {
             this.player = player;
+            this.level = new Level();
             this.listener = listener;
             nextTokenReadiness = 0.0f;
             board = new Board();
-            tokenGenerator = new TokenGenerator(board);
+            tokenGenerator = new TokenGenerator(board, level);
             dumps = new Cell.Color[Constants.COLUMNS];
             matches = new List<Cell.Color>();
             Start();
@@ -24,6 +25,10 @@ namespace MisterToken {
         public void Start() {
             nextTokenReadiness = 0.0f;
             state = State.SETTING_UP_BOARD;
+        }
+
+        public void NextLevel() {
+            level.Next();
         }
 
         public void Dump(List<Cell.Color> colors) {
@@ -45,13 +50,7 @@ namespace MisterToken {
         }
 
         public void Draw(GraphicsDevice device, SpriteBatch spriteBatch) {
-            if (state == State.WON) {
-                device.Clear(Color.Green);
-            } else if (state == State.FAILED) {
-                device.Clear(Color.Red);
-            } else {
-                device.Clear(Color.DarkBlue);
-            }
+            device.Clear(Color.DarkBlue);
 
             // Draw the board.
             Rectangle boardRect = new Rectangle();
@@ -93,6 +92,12 @@ namespace MisterToken {
                 }
                 dumpRect.X += (boardRect.Width / Constants.COLUMNS);
             }
+
+            if (state == State.WON) {
+                Sprites.DrawCloud(boardRect, spriteBatch);
+            } else if (state == State.FAILED) {
+                Sprites.DrawSplatter(boardRect, spriteBatch);
+            }
         }
 
         public void Update(GameTime gameTime) {
@@ -124,8 +129,16 @@ namespace MisterToken {
             }
         }
 
+        public void Win() {
+            state = State.WON;
+        }
+
+        public void Fail() {
+            state = State.FAILED;
+        }
+
         private void DoSettingUpBoard(GameTime gameTime) {
-            board.Randomize(Constants.TOP_FILLED_ROW);
+            board.Randomize(level);
             state = State.WAITING_FOR_TOKEN;
         }
 
@@ -298,6 +311,7 @@ namespace MisterToken {
         // Internal state.
         private PlayerIndex player;
         private Board board;
+        private Level level;
         private TokenGenerator tokenGenerator;
         private float nextTokenReadiness;
         private Cell.Color[] dumps;

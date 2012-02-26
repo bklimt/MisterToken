@@ -45,22 +45,6 @@ namespace MisterToken {
             locked = false;
         }
 
-        public static Color GetRandomColor(Random random) {
-            switch (random.Next(COLORS)) {
-                case 0: { return Color.CYAN; }
-                case 1: { return Color.RED; }
-                case 2: { return Color.YELLOW; }
-                case 3: { return Color.GREEN; }
-                case 4: { return Color.WHITE; }
-                case 5: { return Color.PURPLE; }
-                case 6: { return Color.BLUE; }
-                case 7: { return Color.ORANGE; }
-                default:
-                    throw new InvalidOperationException("Invalid color index?");
-            }
-        }
-
-        public const int COLORS = 8;
         public enum Color {
             BLACK,
             CYAN,

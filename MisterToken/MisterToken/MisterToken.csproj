@@ -72,6 +72,7 @@
     <Reference Include="System.Net" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Level.cs" />
     <Compile Include="model\ThreePieceElbowToken.cs" />
     <Compile Include="model\MultiPlayer.cs" />
     <Compile Include="graphics\Sprites.cs" />

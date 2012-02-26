@@ -10,6 +10,9 @@ namespace MisterToken {
     public class SpriteManager {
         public void LoadContent(ContentManager content, GraphicsDevice device) {
             spriteTexture = content.Load<Texture2D>("sprites");
+            titleTexture = content.Load<Texture2D>("title");
+            splatterTexture = content.Load<Texture2D>("splatter");
+            cloudTexture = content.Load<Texture2D>("cloud");
         }
 
         public void DrawCell(Cell cell, Rectangle targetRect, SpriteBatch spriteBatch) {
@@ -65,6 +68,21 @@ namespace MisterToken {
             spriteBatch.Draw(spriteTexture, targetRect, sourceRect, highlight);
         }
 
+        public void DrawTitle(SpriteBatch spriteBatch) {
+            spriteBatch.Draw(titleTexture, new Vector2(), Color.White);
+        }
+
+        public void DrawSplatter(Rectangle targetRect, SpriteBatch spriteBatch) {
+            spriteBatch.Draw(splatterTexture, targetRect, targetRect, Color.White);
+        }
+
+        public void DrawCloud(Rectangle targetRect, SpriteBatch spriteBatch) {
+            spriteBatch.Draw(cloudTexture, targetRect, targetRect, Color.White);
+        }
+
         Texture2D spriteTexture;
+        Texture2D titleTexture;
+        Texture2D splatterTexture;
+        Texture2D cloudTexture;
     }
 }

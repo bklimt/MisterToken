@@ -20,10 +20,6 @@ namespace MisterToken {
         public const int BOARD_RECT_HEIGHT = 450;    // height of the board in pixels.
 
         public const int TOKEN_START_COLUMN = 4;     // column that new tokens should start in.
-        public const int TOP_FILLED_ROW = 10;        // how high the fixed pieces should start.
-        public const float PROBABILTIY_FILLED = 0.2f;
 
-        public const float PROBABILITY_TWO_PIECE = 0.95f;
-        public const float PROBABILITY_THREE_PIECE_ELBOW = 0.05f;
     }
 }
