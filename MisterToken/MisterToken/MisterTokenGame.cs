@@ -60,12 +60,14 @@ namespace MisterToken {
                 case State.WAITING_TO_PLAY:
                     GraphicsDevice.Clear(Color.Black);
                     spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend);
-                    Sprites.DrawTitle(spriteBatch);
+                    Sprites.DrawLayer(SpriteHook.TITLE_LAYER, spriteBatch);
                     spriteBatch.End();
                     break;
                 case State.PLAYING:
-                    GraphicsDevice.Clear(Color.CornflowerBlue);
+                    GraphicsDevice.Clear(Color.Black);
                     spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend);
+                    Sprites.DrawLayer(SpriteHook.BACKGROUND_LAYER, spriteBatch);
+                    Sprites.DrawLayer(SpriteHook.SCREEN_LAYER, spriteBatch);
                     model.Draw(GraphicsDevice, spriteBatch);
                     spriteBatch.End();
                     break;
@@ -74,22 +76,18 @@ namespace MisterToken {
         }
 
         public void OnClear(PlayerIndex player) {
-            Sound.Play(PerPlayerSoundHook.CLEAR.ForPlayer(player));
         }
 
         public void OnDump(PlayerIndex player, List<Cell.Color> colors) {
         }
 
         public void OnWon(PlayerIndex player) {
-            //Sound.Play(PerPlayerSoundHook.WON.ForPlayer(player));
         }
 
         public void OnFailed(PlayerIndex player) {
-            //Sound.Play(PerPlayerSoundHook.LOST.ForPlayer(player));
         }
 
         public void OnFinished(PlayerIndex player) {
-            Sound.Play(PerPlayerSoundHook.LOST.ForPlayer(player));
             state = State.WAITING_TO_PLAY;
         }
 

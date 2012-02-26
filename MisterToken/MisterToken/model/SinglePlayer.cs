@@ -94,9 +94,11 @@ namespace MisterToken {
             }
 
             if (state == State.WON) {
-                Sprites.DrawCloud(boardRect, spriteBatch);
+                Sprites.DrawLayer(SpriteHook.CLOUD_LAYER, boardRect, spriteBatch);
+                Sprites.DrawCentered(SpriteHook.WINNER, boardRect, spriteBatch);
             } else if (state == State.FAILED) {
-                Sprites.DrawSplatter(boardRect, spriteBatch);
+                Sprites.DrawLayer(SpriteHook.SPLATTER_LAYER, boardRect, spriteBatch);
+                Sprites.DrawCentered(SpriteHook.LOSER, boardRect, spriteBatch);
             }
         }
 

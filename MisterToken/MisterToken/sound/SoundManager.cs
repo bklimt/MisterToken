@@ -11,16 +11,19 @@ namespace MisterToken {
     public class SoundManager {
         public void LoadContent(ContentManager content) {
             map = new Dictionary<SoundHook, SoundEffect>();
-            map[SoundHook.PLAYER_ONE_CLEAR] = content.Load<SoundEffect>("chord");
-            map[SoundHook.PLAYER_TWO_CLEAR] = content.Load<SoundEffect>("chord");
-            map[SoundHook.PLAYER_ONE_WON] = content.Load<SoundEffect>("chord");
-            map[SoundHook.PLAYER_TWO_WON] = content.Load<SoundEffect>("chord");
-            map[SoundHook.PLAYER_ONE_LOST] = content.Load<SoundEffect>("chord");
-            map[SoundHook.PLAYER_TWO_LOST] = content.Load<SoundEffect>("chord");
+            map[SoundHook.CLEAR] = content.Load<SoundEffect>("chord");
+            map[SoundHook.DUMP] = content.Load<SoundEffect>("chord");
+            map[SoundHook.LOST] = content.Load<SoundEffect>("chord");
+            map[SoundHook.ROTATE_LEFT] = content.Load<SoundEffect>("chord");
+            map[SoundHook.ROTATE_RIGHT] = content.Load<SoundEffect>("chord");
+            map[SoundHook.SLAM] = content.Load<SoundEffect>("chord");
+            map[SoundHook.WON] = content.Load<SoundEffect>("chord");
         }
 
         public void Play(SoundHook sound) {
-            map[sound].Play();
+            if (map.ContainsKey(sound)) {
+                map[sound].Play();
+            }
         }
 
         private Dictionary<SoundHook, SoundEffect> map;
