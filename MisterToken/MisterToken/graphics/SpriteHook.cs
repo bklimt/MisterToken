@@ -8,7 +8,8 @@ namespace MisterToken {
         // Layers are all 1280x720.
         TITLE_LAYER,
         BACKGROUND_LAYER,
-        SCREEN_LAYER,
+        SCREEN_80_LAYER,
+        SCREEN_50_LAYER,
         SPLATTER_LAYER,
         CLOUD_LAYER,
 

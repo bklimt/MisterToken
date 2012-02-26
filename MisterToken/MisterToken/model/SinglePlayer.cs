@@ -52,7 +52,7 @@ namespace MisterToken {
         public void Draw(GraphicsDevice device, SpriteBatch spriteBatch) {
             device.Clear(Color.DarkBlue);
 
-            // Draw the board.
+            // Determine the board position.
             Rectangle boardRect = new Rectangle();
             if (player == PlayerIndex.One) {
                 boardRect.X = Constants.BOARD_ONE_RECT_X;
@@ -62,6 +62,17 @@ namespace MisterToken {
             boardRect.Y = Constants.BOARD_RECT_Y;
             boardRect.Width = Constants.COLUMNS * Constants.CELL_SIZE;
             boardRect.Height = Constants.ROWS * Constants.CELL_SIZE;
+
+            // Draw the stripe where the piece will be.
+            Rectangle stripe;
+            stripe.X = boardRect.X + Constants.CELL_SIZE * Constants.TOKEN_START_COLUMN;
+            stripe.Y = boardRect.Y;
+            stripe.Width = Constants.CELL_SIZE * 2;
+            stripe.Height = boardRect.Height;
+            Sprites.DrawLayer(SpriteHook.BACKGROUND_LAYER, stripe, spriteBatch);
+            Sprites.DrawLayer(SpriteHook.SCREEN_50_LAYER, stripe, spriteBatch);
+
+            // Draw the board.
             board.DrawRect(boardRect, spriteBatch);
 
             // Draw the border around the board.
@@ -128,10 +139,11 @@ namespace MisterToken {
             }
 
             if (state == State.WON) {
-                Sprites.DrawLayer(SpriteHook.CLOUD_LAYER, boardRect, spriteBatch);
+                Sprites.DrawLayer(SpriteHook.SCREEN_80_LAYER, boardRect, spriteBatch);
                 Sprites.DrawCentered(SpriteHook.WINNER, boardRect, spriteBatch);
             } else if (state == State.FAILED) {
                 Sprites.DrawLayer(SpriteHook.SPLATTER_LAYER, boardRect, spriteBatch);
+                Sprites.DrawLayer(SpriteHook.SCREEN_50_LAYER, boardRect, spriteBatch);
                 Sprites.DrawCentered(SpriteHook.LOSER, boardRect, spriteBatch);
             }
         }

@@ -13,7 +13,8 @@ namespace MisterToken {
             textures = new Dictionary<SpriteHook, Texture2D>();
             textures[SpriteHook.TITLE_LAYER] = content.Load<Texture2D>("title");
             textures[SpriteHook.BACKGROUND_LAYER] = content.Load<Texture2D>("background");
-            textures[SpriteHook.SCREEN_LAYER] = content.Load<Texture2D>("screen80");
+            textures[SpriteHook.SCREEN_80_LAYER] = content.Load<Texture2D>("screen80");
+            textures[SpriteHook.SCREEN_50_LAYER] = content.Load<Texture2D>("screen50");
             textures[SpriteHook.SPLATTER_LAYER] = content.Load<Texture2D>("splatter");
             textures[SpriteHook.CLOUD_LAYER] = content.Load<Texture2D>("cloud");
             textures[SpriteHook.WINNER] = content.Load<Texture2D>("winner");

@@ -6,7 +6,7 @@ using System.Text;
 namespace MisterToken {
     class Constants {
         public const int MILLIS_PER_TOKEN = 250;     // time for the next token to become available.
-        public const int MILLIS_PER_ADVANCE = 250;   // time for the active token to fall one row.
+        public const int MILLIS_PER_ADVANCE = 300;   // time for the active token to fall one row.
         public const int MILLIS_PER_FALL = 100;      // time for free squares to fall one row.
         public const int MILLIS_PER_CLEAR = 150;     // time for matched pieces to clear.
 

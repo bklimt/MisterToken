@@ -67,7 +67,7 @@ namespace MisterToken {
                     GraphicsDevice.Clear(Color.Black);
                     spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend);
                     Sprites.DrawLayer(SpriteHook.BACKGROUND_LAYER, spriteBatch);
-                    Sprites.DrawLayer(SpriteHook.SCREEN_LAYER, spriteBatch);
+                    Sprites.DrawLayer(SpriteHook.SCREEN_80_LAYER, spriteBatch);
                     model.Draw(GraphicsDevice, spriteBatch);
                     spriteBatch.End();
                     break;
