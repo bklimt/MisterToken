@@ -74,6 +74,7 @@
   <ItemGroup>
     <Compile Include="graphics\SpriteHook.cs" />
     <Compile Include="Level.cs" />
+    <Compile Include="model\Game.cs" />
     <Compile Include="model\ThreePieceElbowToken.cs" />
     <Compile Include="model\MultiPlayer.cs" />
     <Compile Include="graphics\Sprites.cs" />
@@ -91,6 +92,8 @@
     <Compile Include="input\InputManager.cs" />
     <Compile Include="input\BooleanInputRepeater.cs" />
     <Compile Include="graphics\SpriteManager.cs" />
+    <Compile Include="model\TitleMenu.cs" />
+    <Compile Include="model\TitleMenuListener.cs" />
     <Compile Include="model\Token.cs" />
     <Compile Include="model\TokenPiece.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

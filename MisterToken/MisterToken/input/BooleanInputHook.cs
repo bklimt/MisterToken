@@ -7,6 +7,8 @@ using Microsoft.Xna.Framework.Input;
 
 namespace MisterToken {
     public enum BooleanInputHook {
+        MENU_UP,
+        MENU_DOWN,
         PLAYER_ONE_START,
         PLAYER_ONE_TOKEN_SLAM,
         PLAYER_ONE_TOKEN_RIGHT,

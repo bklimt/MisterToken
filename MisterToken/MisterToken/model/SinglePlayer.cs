@@ -9,7 +9,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
 namespace MisterToken {
-    public class SinglePlayer {
+    public class SinglePlayer : Game {
         public SinglePlayer(PlayerIndex player, GameListener listener) {
             this.player = player;
             this.level = new Level();
@@ -19,11 +19,6 @@ namespace MisterToken {
             tokenGenerator = new TokenGenerator(board, level);
             dumps = new Cell.Color[Constants.COLUMNS];
             matches = new List<Cell.Color>();
-            Start();
-        }
-
-        public void Start() {
-            nextTokenReadiness = 0.0f;
             state = State.SETTING_UP_BOARD;
         }
 

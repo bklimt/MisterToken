@@ -14,7 +14,12 @@ namespace MisterToken {
         CLOUD_LAYER,
 
         // Strings are arbitrary size.
+        PLAYER,
         WINNER,
         LOSER,
+
+        // Number strings.
+        NUMBER_1,
+        NUMBER_2,
     }
 }

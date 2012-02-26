@@ -10,7 +10,7 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 
 namespace MisterToken {
-    public class MisterTokenGame : Microsoft.Xna.Framework.Game, GameListener {
+    public class MisterTokenGame : Microsoft.Xna.Framework.Game, GameListener, TitleMenuListener {
         public MisterTokenGame() {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
@@ -19,7 +19,7 @@ namespace MisterToken {
             graphics.PreferredBackBufferWidth = 1280;
             graphics.ApplyChanges();
 
-            model = new MultiPlayer(this);
+            titleMenu = new TitleMenu(this);
         }
 
         protected override void Initialize() {
@@ -43,10 +43,7 @@ namespace MisterToken {
 
             switch (state) {
                 case State.WAITING_TO_PLAY:
-                    if (Input.IsDown(BooleanInputHook.PLAYER_ONE_START)) {
-                        model.Start();
-                        state = State.PLAYING;
-                    }
+                    titleMenu.Update();
                     break;
                 case State.PLAYING:
                     model.Update(gameTime);
@@ -60,7 +57,7 @@ namespace MisterToken {
                 case State.WAITING_TO_PLAY:
                     GraphicsDevice.Clear(Color.Black);
                     spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend);
-                    Sprites.DrawLayer(SpriteHook.TITLE_LAYER, spriteBatch);
+                    titleMenu.Draw(spriteBatch);
                     spriteBatch.End();
                     break;
                 case State.PLAYING:
@@ -91,6 +88,16 @@ namespace MisterToken {
             state = State.WAITING_TO_PLAY;
         }
 
+        public void OnStartSinglePlayer() {
+            model = new SinglePlayer(PlayerIndex.One, this);
+            state = State.PLAYING;
+        }
+
+        public void OnStartMultiPlayer() {
+            model = new MultiPlayer(this);
+            state = State.PLAYING;
+        }
+
         // Game state.
         private enum State {
             WAITING_TO_PLAY,
@@ -99,7 +106,8 @@ namespace MisterToken {
         private State state;
 
         // Data model.
-        private MultiPlayer model;
+        TitleMenu titleMenu;
+        private Game model;
 
         // UI stuff.
         private GraphicsDeviceManager graphics;

@@ -17,8 +17,11 @@ namespace MisterToken {
             textures[SpriteHook.SCREEN_50_LAYER] = content.Load<Texture2D>("screen50");
             textures[SpriteHook.SPLATTER_LAYER] = content.Load<Texture2D>("splatter");
             textures[SpriteHook.CLOUD_LAYER] = content.Load<Texture2D>("cloud");
+            textures[SpriteHook.PLAYER] = content.Load<Texture2D>("player");
             textures[SpriteHook.WINNER] = content.Load<Texture2D>("winner");
             textures[SpriteHook.LOSER] = content.Load<Texture2D>("loser");
+            textures[SpriteHook.NUMBER_1] = content.Load<Texture2D>("1");
+            textures[SpriteHook.NUMBER_2] = content.Load<Texture2D>("2");
         }
 
         public void DrawCell(Cell cell, Rectangle targetRect, SpriteBatch spriteBatch) {
@@ -88,6 +91,10 @@ namespace MisterToken {
             position.X = targetRect.Center.X - (texture.Bounds.Width / 2);
             position.Y = targetRect.Center.Y - (texture.Bounds.Height / 2);
             spriteBatch.Draw(texture, position, Color.White);
+        }
+
+        public void Draw(SpriteHook sprite, Vector2 position, SpriteBatch spriteBatch) {
+            spriteBatch.Draw(textures[sprite], position, Color.White);
         }
 
         private Texture2D spriteTexture;
