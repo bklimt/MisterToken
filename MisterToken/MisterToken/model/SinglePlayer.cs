@@ -45,7 +45,7 @@ namespace MisterToken {
         }
 
         public void Draw(GraphicsDevice device, SpriteBatch spriteBatch) {
-            device.Clear(Color.DarkBlue);
+            device.Clear(Color.Black);
 
             // Determine the board position.
             Rectangle boardRect = new Rectangle();
