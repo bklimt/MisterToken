@@ -60,9 +60,43 @@ namespace MisterToken {
                 boardRect.X = Constants.BOARD_TWO_RECT_X;
             }
             boardRect.Y = Constants.BOARD_RECT_Y;
-            boardRect.Width = Constants.BOARD_RECT_WIDTH;
-            boardRect.Height = Constants.BOARD_RECT_HEIGHT;
+            boardRect.Width = Constants.COLUMNS * Constants.CELL_SIZE;
+            boardRect.Height = Constants.ROWS * Constants.CELL_SIZE;
             board.DrawRect(boardRect, spriteBatch);
+
+            // Draw the border around the board.
+            {
+                // sides.
+                for (int row = 0; row < Constants.ROWS; ++row) {
+                    Cell side = new Cell();
+                    side.color = Cell.Color.WHITE;
+                    side.direction = (row == 0) ? Cell.Direction.DOWN : (Cell.Direction.UP | Cell.Direction.DOWN);
+                    side.DrawRect(Board.GetCellPosition(boardRect, row, -1), spriteBatch);
+                    side.DrawRect(Board.GetCellPosition(boardRect, row, Constants.COLUMNS), spriteBatch);
+                }
+                // top and bottom.
+                for (int column = 0; column < Constants.COLUMNS; ++column) {
+                    Cell bottom = new Cell();
+                    bottom.color = Cell.Color.WHITE;
+                    bottom.direction = Cell.Direction.LEFT | Cell.Direction.RIGHT;
+                    // bottom.DrawRect(Board.GetCellPosition(boardRect, -1, column), spriteBatch);
+                    bottom.DrawRect(Board.GetCellPosition(boardRect, Constants.ROWS, column), spriteBatch);
+                }
+                Cell cell = new Cell();
+                cell.color = Cell.Color.WHITE;
+                // bottom left.
+                cell.direction = Cell.Direction.UP | Cell.Direction.RIGHT;
+                cell.DrawRect(Board.GetCellPosition(boardRect, Constants.ROWS, -1), spriteBatch);
+                // bottom right.
+                cell.direction = Cell.Direction.UP | Cell.Direction.LEFT;
+                cell.DrawRect(Board.GetCellPosition(boardRect, Constants.ROWS, Constants.COLUMNS), spriteBatch);
+                // top right.
+                // cell.direction = Cell.Direction.LEFT | Cell.Direction.DOWN;
+                // cell.DrawRect(Board.GetCellPosition(boardRect, -1, Constants.COLUMNS), spriteBatch);
+                // top left.
+                // cell.direction = Cell.Direction.RIGHT | Cell.Direction.DOWN;
+                // cell.DrawRect(Board.GetCellPosition(boardRect, -1, -1), spriteBatch);
+            }
 
             // Draw the token in play.
             if (tokenGenerator.GetCurrentToken() != null) {

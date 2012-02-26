@@ -15,6 +15,9 @@ namespace MisterToken {
         }
 
         public void DrawRect(Rectangle rect, SpriteBatch spriteBatch) {
+            if (this.color == Cell.Color.BLACK) {
+                return;
+            }
             Sprites.DrawCell(this, rect, spriteBatch);
         }
 

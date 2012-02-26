@@ -82,12 +82,10 @@ namespace MisterToken {
 
         public static Rectangle GetCellPosition(Rectangle boardRect, int row, int column) {
             Rectangle tileRect;
-            int cellWidth = boardRect.Width / Constants.COLUMNS;
-            int cellHeight = boardRect.Height / Constants.ROWS;
-            tileRect.X = boardRect.Left + column * cellWidth;
-            tileRect.Y = boardRect.Top + row * cellHeight;
-            tileRect.Width = cellWidth;
-            tileRect.Height = cellHeight;
+            tileRect.X = boardRect.Left + column * Constants.CELL_SIZE;
+            tileRect.Y = boardRect.Top + row * Constants.CELL_SIZE;
+            tileRect.Width = Constants.CELL_SIZE;
+            tileRect.Height = Constants.CELL_SIZE;
             return tileRect;
         }
 
