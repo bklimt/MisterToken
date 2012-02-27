@@ -20,16 +20,20 @@ namespace MisterToken {
             manager.DrawCell(cell, targetRect, spriteBatch);
         }
 
-        public static void DrawTitle(SpriteBatch spriteBatch) {
-            manager.DrawTitle(spriteBatch);
+        public static void DrawLayer(SpriteHook sprite, SpriteBatch spriteBatch) {
+            manager.DrawLayer(sprite, spriteBatch);
         }
 
-        public static void DrawSplatter(Rectangle targetRect, SpriteBatch spriteBatch) {
-            manager.DrawSplatter(targetRect, spriteBatch);
+        public static void DrawLayer(SpriteHook sprite, Rectangle targetRect, SpriteBatch spriteBatch) {
+            manager.DrawLayer(sprite, targetRect, spriteBatch);
         }
 
-        public static void DrawCloud(Rectangle targetRect, SpriteBatch spriteBatch) {
-            manager.DrawCloud(targetRect, spriteBatch);
+        public static void DrawCentered(SpriteHook sprite, Rectangle targetRect, SpriteBatch spriteBatch) {
+            manager.DrawCentered(sprite, targetRect, spriteBatch);
+        }
+
+        public static void Draw(SpriteHook sprite, Vector2 position, SpriteBatch spriteBatch) {
+            manager.Draw(sprite, position, spriteBatch);
         }
 
         private static SpriteManager manager = new SpriteManager();

@@ -9,6 +9,18 @@ namespace MisterToken {
     public class InputManager {
         public InputManager() {
             booleanMap = new Dictionary<BooleanInputHook, BooleanInput>();
+
+            booleanMap.Add(BooleanInputHook.MENU_UP, new BooleanInputOnce()
+                .AddKey(Keys.Up)
+                .AddKey(Keys.W)
+                .AddButton(PlayerIndex.One, Buttons.DPadUp)
+                .AddButton(PlayerIndex.Two, Buttons.DPadUp));
+            booleanMap.Add(BooleanInputHook.MENU_DOWN, new BooleanInputOnce()
+                .AddKey(Keys.Down)
+                .AddKey(Keys.S)
+                .AddButton(PlayerIndex.One, Buttons.DPadDown)
+                .AddButton(PlayerIndex.Two, Buttons.DPadDown));
+
             booleanMap.Add(BooleanInputHook.PLAYER_ONE_START, new BooleanInputOnce()
                 .AddKey(Keys.Enter)
                 .AddButton(PlayerIndex.One, Buttons.Start));

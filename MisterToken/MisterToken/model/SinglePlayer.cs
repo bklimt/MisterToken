@@ -9,7 +9,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
 namespace MisterToken {
-    public class SinglePlayer {
+    public class SinglePlayer : Game {
         public SinglePlayer(PlayerIndex player, GameListener listener) {
             this.player = player;
             this.level = new Level();
@@ -19,11 +19,6 @@ namespace MisterToken {
             tokenGenerator = new TokenGenerator(board, level);
             dumps = new Cell.Color[Constants.COLUMNS];
             matches = new List<Cell.Color>();
-            Start();
-        }
-
-        public void Start() {
-            nextTokenReadiness = 0.0f;
             state = State.SETTING_UP_BOARD;
         }
 
@@ -50,9 +45,9 @@ namespace MisterToken {
         }
 
         public void Draw(GraphicsDevice device, SpriteBatch spriteBatch) {
-            device.Clear(Color.DarkBlue);
+            device.Clear(Color.Black);
 
-            // Draw the board.
+            // Determine the board position.
             Rectangle boardRect = new Rectangle();
             if (player == PlayerIndex.One) {
                 boardRect.X = Constants.BOARD_ONE_RECT_X;
@@ -60,9 +55,54 @@ namespace MisterToken {
                 boardRect.X = Constants.BOARD_TWO_RECT_X;
             }
             boardRect.Y = Constants.BOARD_RECT_Y;
-            boardRect.Width = Constants.BOARD_RECT_WIDTH;
-            boardRect.Height = Constants.BOARD_RECT_HEIGHT;
+            boardRect.Width = Constants.COLUMNS * Constants.CELL_SIZE;
+            boardRect.Height = Constants.ROWS * Constants.CELL_SIZE;
+
+            // Draw the stripe where the piece will be.
+            Rectangle stripe;
+            stripe.X = boardRect.X + Constants.CELL_SIZE * Constants.TOKEN_START_COLUMN;
+            stripe.Y = boardRect.Y;
+            stripe.Width = Constants.CELL_SIZE * 2;
+            stripe.Height = boardRect.Height;
+            Sprites.DrawLayer(SpriteHook.BACKGROUND_LAYER, stripe, spriteBatch);
+            Sprites.DrawLayer(SpriteHook.SCREEN_50_LAYER, stripe, spriteBatch);
+
+            // Draw the board.
             board.DrawRect(boardRect, spriteBatch);
+
+            // Draw the border around the board.
+            {
+                // sides.
+                for (int row = 0; row < Constants.ROWS; ++row) {
+                    Cell side = new Cell();
+                    side.color = Cell.Color.WHITE;
+                    side.direction = (row == 0) ? Cell.Direction.DOWN : (Cell.Direction.UP | Cell.Direction.DOWN);
+                    side.DrawRect(Board.GetCellPosition(boardRect, row, -1), spriteBatch);
+                    side.DrawRect(Board.GetCellPosition(boardRect, row, Constants.COLUMNS), spriteBatch);
+                }
+                // top and bottom.
+                for (int column = 0; column < Constants.COLUMNS; ++column) {
+                    Cell bottom = new Cell();
+                    bottom.color = Cell.Color.WHITE;
+                    bottom.direction = Cell.Direction.LEFT | Cell.Direction.RIGHT;
+                    // bottom.DrawRect(Board.GetCellPosition(boardRect, -1, column), spriteBatch);
+                    bottom.DrawRect(Board.GetCellPosition(boardRect, Constants.ROWS, column), spriteBatch);
+                }
+                Cell cell = new Cell();
+                cell.color = Cell.Color.WHITE;
+                // bottom left.
+                cell.direction = Cell.Direction.UP | Cell.Direction.RIGHT;
+                cell.DrawRect(Board.GetCellPosition(boardRect, Constants.ROWS, -1), spriteBatch);
+                // bottom right.
+                cell.direction = Cell.Direction.UP | Cell.Direction.LEFT;
+                cell.DrawRect(Board.GetCellPosition(boardRect, Constants.ROWS, Constants.COLUMNS), spriteBatch);
+                // top right.
+                // cell.direction = Cell.Direction.LEFT | Cell.Direction.DOWN;
+                // cell.DrawRect(Board.GetCellPosition(boardRect, -1, Constants.COLUMNS), spriteBatch);
+                // top left.
+                // cell.direction = Cell.Direction.RIGHT | Cell.Direction.DOWN;
+                // cell.DrawRect(Board.GetCellPosition(boardRect, -1, -1), spriteBatch);
+            }
 
             // Draw the token in play.
             if (tokenGenerator.GetCurrentToken() != null) {
@@ -94,9 +134,12 @@ namespace MisterToken {
             }
 
             if (state == State.WON) {
-                Sprites.DrawCloud(boardRect, spriteBatch);
+                Sprites.DrawLayer(SpriteHook.SCREEN_80_LAYER, boardRect, spriteBatch);
+                Sprites.DrawCentered(SpriteHook.WINNER, boardRect, spriteBatch);
             } else if (state == State.FAILED) {
-                Sprites.DrawSplatter(boardRect, spriteBatch);
+                Sprites.DrawLayer(SpriteHook.SPLATTER_LAYER, boardRect, spriteBatch);
+                Sprites.DrawLayer(SpriteHook.SCREEN_50_LAYER, boardRect, spriteBatch);
+                Sprites.DrawCentered(SpriteHook.LOSER, boardRect, spriteBatch);
             }
         }
 

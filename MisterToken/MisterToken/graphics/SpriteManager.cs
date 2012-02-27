@@ -10,9 +10,18 @@ namespace MisterToken {
     public class SpriteManager {
         public void LoadContent(ContentManager content, GraphicsDevice device) {
             spriteTexture = content.Load<Texture2D>("sprites");
-            titleTexture = content.Load<Texture2D>("title");
-            splatterTexture = content.Load<Texture2D>("splatter");
-            cloudTexture = content.Load<Texture2D>("cloud");
+            textures = new Dictionary<SpriteHook, Texture2D>();
+            textures[SpriteHook.TITLE_LAYER] = content.Load<Texture2D>("title");
+            textures[SpriteHook.BACKGROUND_LAYER] = content.Load<Texture2D>("background");
+            textures[SpriteHook.SCREEN_80_LAYER] = content.Load<Texture2D>("screen80");
+            textures[SpriteHook.SCREEN_50_LAYER] = content.Load<Texture2D>("screen50");
+            textures[SpriteHook.SPLATTER_LAYER] = content.Load<Texture2D>("splatter");
+            textures[SpriteHook.CLOUD_LAYER] = content.Load<Texture2D>("cloud");
+            textures[SpriteHook.PLAYER] = content.Load<Texture2D>("player");
+            textures[SpriteHook.WINNER] = content.Load<Texture2D>("winner");
+            textures[SpriteHook.LOSER] = content.Load<Texture2D>("loser");
+            textures[SpriteHook.NUMBER_1] = content.Load<Texture2D>("1");
+            textures[SpriteHook.NUMBER_2] = content.Load<Texture2D>("2");
         }
 
         public void DrawCell(Cell cell, Rectangle targetRect, SpriteBatch spriteBatch) {
@@ -68,21 +77,27 @@ namespace MisterToken {
             spriteBatch.Draw(spriteTexture, targetRect, sourceRect, highlight);
         }
 
-        public void DrawTitle(SpriteBatch spriteBatch) {
-            spriteBatch.Draw(titleTexture, new Vector2(), Color.White);
+        public void DrawLayer(SpriteHook sprite, SpriteBatch spriteBatch) {
+            spriteBatch.Draw(textures[sprite], new Vector2(), Color.White);
         }
 
-        public void DrawSplatter(Rectangle targetRect, SpriteBatch spriteBatch) {
-            spriteBatch.Draw(splatterTexture, targetRect, targetRect, Color.White);
+        public void DrawLayer(SpriteHook sprite, Rectangle targetRect, SpriteBatch spriteBatch) {
+            spriteBatch.Draw(textures[sprite], targetRect, targetRect, Color.White);
         }
 
-        public void DrawCloud(Rectangle targetRect, SpriteBatch spriteBatch) {
-            spriteBatch.Draw(cloudTexture, targetRect, targetRect, Color.White);
+        public void DrawCentered(SpriteHook sprite, Rectangle targetRect, SpriteBatch spriteBatch) {
+            Texture2D texture = textures[sprite];
+            Vector2 position;
+            position.X = targetRect.Center.X - (texture.Bounds.Width / 2);
+            position.Y = targetRect.Center.Y - (texture.Bounds.Height / 2);
+            spriteBatch.Draw(texture, position, Color.White);
         }
 
-        Texture2D spriteTexture;
-        Texture2D titleTexture;
-        Texture2D splatterTexture;
-        Texture2D cloudTexture;
+        public void Draw(SpriteHook sprite, Vector2 position, SpriteBatch spriteBatch) {
+            spriteBatch.Draw(textures[sprite], position, Color.White);
+        }
+
+        private Texture2D spriteTexture;
+        private Dictionary<SpriteHook, Texture2D> textures;
     }
 }

@@ -9,16 +9,11 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
 namespace MisterToken {
-    public class MultiPlayer : GameListener {
+    public class MultiPlayer : Game, GameListener {
         public MultiPlayer(GameListener listener) {
             this.listener = listener;
             one = new SinglePlayer(PlayerIndex.One, this);
             two = new SinglePlayer(PlayerIndex.Two, this);
-        }
-
-        public void Start() {
-            one.Start();
-            two.Start();
         }
 
         public void Draw(GraphicsDevice device, SpriteBatch spriteBatch) {
