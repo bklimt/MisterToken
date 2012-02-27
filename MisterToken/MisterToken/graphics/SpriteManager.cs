@@ -9,7 +9,16 @@ using Microsoft.Xna.Framework.Graphics;
 namespace MisterToken {
     public class SpriteManager {
         public void LoadContent(ContentManager content, GraphicsDevice device) {
-            spriteTexture = content.Load<Texture2D>("sprites");
+            colorTextures = new Dictionary<Cell.Color, Texture2D>();
+            colorTextures[Cell.Color.RED] = content.Load<Texture2D>("red_sprites");
+            colorTextures[Cell.Color.GREEN] = content.Load<Texture2D>("green_sprites");
+            colorTextures[Cell.Color.WHITE] = content.Load<Texture2D>("white_sprites");
+            colorTextures[Cell.Color.YELLOW] = content.Load<Texture2D>("yellow_sprites");
+            colorTextures[Cell.Color.BLUE] = content.Load<Texture2D>("blue_sprites");
+            colorTextures[Cell.Color.CYAN] = content.Load<Texture2D>("cyan_sprites");
+            colorTextures[Cell.Color.PURPLE] = content.Load<Texture2D>("purple_sprites");
+            colorTextures[Cell.Color.ORANGE] = content.Load<Texture2D>("orange_sprites");
+
             textures = new Dictionary<SpriteHook, Texture2D>();
             textures[SpriteHook.TITLE_LAYER] = content.Load<Texture2D>("title");
             textures[SpriteHook.BACKGROUND_LAYER] = content.Load<Texture2D>("background");
@@ -25,42 +34,35 @@ namespace MisterToken {
         }
 
         public void DrawCell(Cell cell, Rectangle targetRect, SpriteBatch spriteBatch) {
+            if (cell.color == Cell.Color.BLACK) {
+                return;
+            }
+
             int x = 0;
             int y = 0;
             switch (cell.direction) {
                 case Cell.Direction.DOWN | Cell.Direction.RIGHT: { x = 0; y = 0; break; }
-                case Cell.Direction.UP | Cell.Direction.DOWN | Cell.Direction.RIGHT: { x = 0; y = 1; break; }
-                case Cell.Direction.UP | Cell.Direction.RIGHT: { x = 0; y = 2; break; }
-                case Cell.Direction.DOWN | Cell.Direction.LEFT | Cell.Direction.RIGHT: { x = 1; y = 0; break; }
-                case Cell.Direction.UP | Cell.Direction.LEFT | Cell.Direction.DOWN | Cell.Direction.RIGHT: { x = 1; y = 1; break; }
-                case Cell.Direction.UP | Cell.Direction.LEFT | Cell.Direction.RIGHT: { x = 1; y = 2; break; }
-                case Cell.Direction.DOWN | Cell.Direction.LEFT: { x = 2; y = 0; break; }
-                case Cell.Direction.UP | Cell.Direction.LEFT | Cell.Direction.DOWN: { x = 2; y = 1; break; }
-                case Cell.Direction.UP | Cell.Direction.LEFT: { x = 2; y = 2; break; }
-                case Cell.Direction.RIGHT: { x = 3; y = 0; break; }
-                case Cell.Direction.NONE: { x = 3; y = 1; break; }
-                // blank
-                case Cell.Direction.RIGHT | Cell.Direction.LEFT: { x = 4; y = 0; break; }
-                // locked
-                // blank
-                case Cell.Direction.LEFT: { x = 5; y = 0; break; }
-                // blank
-                // blank
-                case Cell.Direction.DOWN: { x = 6; y = 0; break; }
-                case Cell.Direction.UP | Cell.Direction.DOWN: { x = 6; y = 1; break; }
-                case Cell.Direction.UP: { x = 6; y = 2; break; }
+                case Cell.Direction.UP | Cell.Direction.DOWN | Cell.Direction.RIGHT: { x = 0; y = 2; break; }
+                case Cell.Direction.UP | Cell.Direction.RIGHT: { x = 0; y = 4; break; }
+                case Cell.Direction.DOWN | Cell.Direction.LEFT | Cell.Direction.RIGHT: { x = 2; y = 0; break; }
+                case Cell.Direction.UP | Cell.Direction.LEFT | Cell.Direction.DOWN | Cell.Direction.RIGHT: { x = 2; y = 2; break; }
+                case Cell.Direction.UP | Cell.Direction.LEFT | Cell.Direction.RIGHT: { x = 2; y = 4; break; }
+                case Cell.Direction.DOWN | Cell.Direction.LEFT: { x = 4; y = 0; break; }
+                case Cell.Direction.UP | Cell.Direction.LEFT | Cell.Direction.DOWN: { x = 4; y = 2; break; }
+                case Cell.Direction.UP | Cell.Direction.LEFT: { x = 4; y = 4; break; }
+
+                case Cell.Direction.RIGHT: { x = 6; y = 0; break; }
+                case Cell.Direction.RIGHT | Cell.Direction.LEFT: { x = 7; y = 0; break; }
+                case Cell.Direction.LEFT: { x = 8; y = 0; break; }
+
+                case Cell.Direction.DOWN: { x = 10; y = 0; break; }
+                case Cell.Direction.UP | Cell.Direction.DOWN: { x = 10; y = 1; break; }
+                case Cell.Direction.UP: { x = 10; y = 2; break; }
+
+                case Cell.Direction.NONE: { x = 6; y = 2; break; }
             }
             if (cell.locked) {
-                x = 4;
-                y = 1;
-            }
-            y += (3 * ((int)(cell.color) - 1));
-            if (y > 11) {
-                y -= 12;
-                x += 7;
-            }
-            if (cell.color == Cell.Color.BLACK) {
-                x = 3;
+                x = 8;
                 y = 2;
             }
             x *= 65;
@@ -74,7 +76,7 @@ namespace MisterToken {
             sourceRect.Width = 64;
             sourceRect.Height = 64;
 
-            spriteBatch.Draw(spriteTexture, targetRect, sourceRect, highlight);
+            spriteBatch.Draw(colorTextures[cell.color], targetRect, sourceRect, highlight);
         }
 
         public void DrawLayer(SpriteHook sprite, SpriteBatch spriteBatch) {
@@ -99,5 +101,6 @@ namespace MisterToken {
 
         private Texture2D spriteTexture;
         private Dictionary<SpriteHook, Texture2D> textures;
+        private Dictionary<Cell.Color, Texture2D> colorTextures;
     }
 }
