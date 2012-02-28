@@ -23,16 +23,45 @@ namespace MisterToken {
             Random random = new Random();
             rowOffset = 0;
             columnOffset = 0;
+
+            // Make a list of the locked cells.
+            int totalCells = (Constants.ROWS - level.topFilledRow) * Constants.COLUMNS;
+            Cell[] cells = new Cell[totalCells];
+            for (int i = 0; i < level.numberFilled && i < totalCells; ++i) {
+                cells[i] = new Cell();
+                cells[i].color = level.GetColor((int)(((float)i / level.numberFilled) * level.GetColorCount()));
+                cells[i].locked = true;
+            }
+            // And a list of the unlocked cells.
+            for (int i = level.numberFilled; i < totalCells; ++i) {
+                cells[i] = new Cell();
+                cells[i].color = Cell.Color.BLACK;
+                cells[i].locked = false;
+            }
+
+            // Shuffle the list.
+            Cell temp = new Cell();
+            for (int i = 0; i < cells.Length - 1; ++i) {
+                int j = random.Next(i + 1, cells.Length);
+                temp.color = cells[i].color;
+                temp.locked = cells[i].locked;
+                cells[i].color = cells[j].color;
+                cells[i].locked = cells[j].locked;
+                cells[j].color = temp.color;
+                cells[j].locked = temp.locked;
+            }
+
+            // Copy the list into the table.
+            int index = 0;
             for (int row = 0; row < Constants.ROWS; ++row) {
                 for (int column = 0; column < Constants.COLUMNS; ++column) {
                     if (row < level.topFilledRow) {
                         entries[row, column].Clear();
                     } else {
                         entries[row, column].Clear();
-                        if ((float)random.NextDouble() < level.probabilityFilled) {
-                            entries[row, column].color = level.GetRandomColor();
-                            entries[row, column].locked = true;
-                        }
+                        entries[row, column].color = cells[index].color;
+                        entries[row, column].locked = cells[index].locked;
+                        ++index;
                     }
                 }
             }

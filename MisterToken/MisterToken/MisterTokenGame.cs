@@ -88,12 +88,12 @@ namespace MisterToken {
         }
 
         public void OnStartSinglePlayer() {
-            model = new SinglePlayer(PlayerIndex.One, this);
+            model = new SinglePlayer(PlayerIndex.One, 1, this);
             state = State.PLAYING;
         }
 
         public void OnStartMultiPlayer() {
-            model = new MultiPlayer(this);
+            model = new MultiPlayer(2, 2, this);
             state = State.PLAYING;
         }
 

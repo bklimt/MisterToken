@@ -8,15 +8,15 @@ namespace MisterToken {
         private int level;
 
         public int topFilledRow;
-        public float probabilityFilled;
+        public int numberFilled;
         private float probabilityTwoPiece;
         private float probabilityThreePieceElbow;
         private List<Cell.Color> colors;
 
         private Random random;
 
-        public Level() {
-            setFromNumber(0);
+        public Level(int i) {
+            setFromNumber(i);
         }
 
         public void setFromNumber(int number) {
@@ -25,8 +25,8 @@ namespace MisterToken {
             colors = new List<Cell.Color>();
             switch (number % 4) {
                 case 0:
-                    topFilledRow = 10;
-                    probabilityFilled = 0.1f;
+                    topFilledRow = 7;
+                    numberFilled = 4;
                     probabilityTwoPiece = 0.95f;
                     probabilityThreePieceElbow = 0.05f;
                     colors.Add(Cell.Color.WHITE);
@@ -34,8 +34,8 @@ namespace MisterToken {
                     colors.Add(Cell.Color.RED);
                     break;
                 case 1:
-                    topFilledRow = 8;
-                    probabilityFilled = 0.2f;
+                    topFilledRow = 5;
+                    numberFilled = 12;
                     probabilityTwoPiece = 0.90f;
                     probabilityThreePieceElbow = 0.10f;
                     colors.Add(Cell.Color.RED);
@@ -44,7 +44,7 @@ namespace MisterToken {
                     break;
                 case 2:
                     topFilledRow = 5;
-                    probabilityFilled = 0.4f;
+                    numberFilled = 20;
                     probabilityTwoPiece = 0.85f;
                     probabilityThreePieceElbow = 0.15f;
                     colors.Add(Cell.Color.BLUE);
@@ -53,7 +53,7 @@ namespace MisterToken {
                     break;
                 case 3:
                     topFilledRow = 3;
-                    probabilityFilled = 0.8f;
+                    numberFilled = 30;
                     probabilityTwoPiece = 0.80f;
                     probabilityThreePieceElbow = 0.20f;
                     colors.Add(Cell.Color.PURPLE);
@@ -62,6 +62,14 @@ namespace MisterToken {
                     colors.Add(Cell.Color.WHITE);
                     break;
             }
+        }
+
+        public int GetColorCount() {
+            return colors.Count;
+        }
+
+        public Cell.Color GetColor(int i) {
+            return colors[i];
         }
 
         public Cell.Color GetRandomColor() {

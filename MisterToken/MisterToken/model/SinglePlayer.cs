@@ -10,13 +10,13 @@ using Microsoft.Xna.Framework.Input;
 
 namespace MisterToken {
     public class SinglePlayer : Game {
-        public SinglePlayer(PlayerIndex player, GameListener listener) {
+        public SinglePlayer(PlayerIndex player, int level, GameListener listener) {
             this.player = player;
-            this.level = new Level();
+            this.level = new Level(level);
             this.listener = listener;
             nextTokenReadiness = 0.0f;
             board = new Board();
-            tokenGenerator = new TokenGenerator(board, level);
+            tokenGenerator = new TokenGenerator(board, this.level);
             dumps = new Cell.Color[Constants.COLUMNS];
             matches = new List<Cell.Color>();
             state = State.SETTING_UP_BOARD;
@@ -57,6 +57,7 @@ namespace MisterToken {
             boardRect.Y = Constants.BOARD_RECT_Y;
             boardRect.Width = Constants.COLUMNS * Constants.CELL_SIZE;
             boardRect.Height = Constants.ROWS * Constants.CELL_SIZE;
+            Sprites.DrawLayer(SpriteHook.SCREEN_80_LAYER, boardRect, spriteBatch);
 
             // Draw the stripe where the piece will be.
             Rectangle stripe;

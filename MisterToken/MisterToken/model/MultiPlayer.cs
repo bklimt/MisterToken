@@ -10,10 +10,10 @@ using Microsoft.Xna.Framework.Input;
 
 namespace MisterToken {
     public class MultiPlayer : Game, GameListener {
-        public MultiPlayer(GameListener listener) {
+        public MultiPlayer(int level1, int level2, GameListener listener) {
             this.listener = listener;
-            one = new SinglePlayer(PlayerIndex.One, this);
-            two = new SinglePlayer(PlayerIndex.Two, this);
+            one = new SinglePlayer(PlayerIndex.One, level1, this);
+            two = new SinglePlayer(PlayerIndex.Two, level2, this);
         }
 
         public void Draw(GraphicsDevice device, SpriteBatch spriteBatch) {
