@@ -99,7 +99,6 @@ namespace MisterToken {
             spriteBatch.Draw(textures[sprite], position, Color.White);
         }
 
-        private Texture2D spriteTexture;
         private Dictionary<SpriteHook, Texture2D> textures;
         private Dictionary<Cell.Color, Texture2D> colorTextures;
     }

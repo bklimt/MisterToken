@@ -110,6 +110,16 @@ namespace MisterToken {
                 tokenGenerator.GetCurrentToken().DrawRect(boardRect, spriteBatch);
             }
 
+            // Draw the winner/loser state.
+            if (state == State.WON) {
+                Sprites.DrawLayer(SpriteHook.SCREEN_80_LAYER, boardRect, spriteBatch);
+                Sprites.DrawCentered(SpriteHook.WINNER, boardRect, spriteBatch);
+            } else if (state == State.FAILED) {
+                Sprites.DrawLayer(SpriteHook.SPLATTER_LAYER, boardRect, spriteBatch);
+                Sprites.DrawLayer(SpriteHook.SCREEN_50_LAYER, boardRect, spriteBatch);
+                Sprites.DrawCentered(SpriteHook.LOSER, boardRect, spriteBatch);
+            }
+
             // Draw the next token.
             Rectangle nextRect = new Rectangle();
             int nextTokenEndX = boardRect.X + (boardRect.Width / Constants.COLUMNS) * Constants.TOKEN_START_COLUMN;
@@ -132,15 +142,6 @@ namespace MisterToken {
                     piece.DrawRect(dumpRect, spriteBatch);
                 }
                 dumpRect.X += (boardRect.Width / Constants.COLUMNS);
-            }
-
-            if (state == State.WON) {
-                Sprites.DrawLayer(SpriteHook.SCREEN_80_LAYER, boardRect, spriteBatch);
-                Sprites.DrawCentered(SpriteHook.WINNER, boardRect, spriteBatch);
-            } else if (state == State.FAILED) {
-                Sprites.DrawLayer(SpriteHook.SPLATTER_LAYER, boardRect, spriteBatch);
-                Sprites.DrawLayer(SpriteHook.SCREEN_50_LAYER, boardRect, spriteBatch);
-                Sprites.DrawCentered(SpriteHook.LOSER, boardRect, spriteBatch);
             }
         }
 
