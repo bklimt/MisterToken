@@ -12,25 +12,21 @@ namespace MisterToken {
     public class SinglePlayer : Game {
         public SinglePlayer(PlayerIndex player, int level, GameListener listener) {
             this.player = player;
-            this.level = new Level(level);
+            this.level = Levels.GetLevel(level);
             this.listener = listener;
             nextTokenReadiness = 0.0f;
             board = new Board();
             tokenGenerator = new TokenGenerator(board, this.level);
-            dumps = new Cell.Color[Constants.COLUMNS];
-            matches = new List<Cell.Color>();
+            dumps = new CellColor[Constants.COLUMNS];
+            matches = new List<CellColor>();
             state = State.SETTING_UP_BOARD;
         }
 
-        public void NextLevel() {
-            level.Next();
-        }
-
-        public void Dump(List<Cell.Color> colors) {
+        public void Dump(List<CellColor> colors) {
             Random random = new Random();
             List<int> freeSpots = new List<int>();
             for (int i = 0; i < Constants.COLUMNS; ++i) {
-                if (dumps[i] == Cell.Color.BLACK) {
+                if (dumps[i] == CellColor.BLACK) {
                     freeSpots.Add(i);
                 }
             }
@@ -76,7 +72,7 @@ namespace MisterToken {
                 // sides.
                 for (int row = 0; row < Constants.ROWS; ++row) {
                     Cell side = new Cell();
-                    side.color = Cell.Color.WHITE;
+                    side.color = CellColor.WHITE;
                     side.direction = (row == 0) ? Cell.Direction.DOWN : (Cell.Direction.UP | Cell.Direction.DOWN);
                     side.DrawRect(Board.GetCellPosition(boardRect, row, -1), spriteBatch);
                     side.DrawRect(Board.GetCellPosition(boardRect, row, Constants.COLUMNS), spriteBatch);
@@ -84,13 +80,13 @@ namespace MisterToken {
                 // top and bottom.
                 for (int column = 0; column < Constants.COLUMNS; ++column) {
                     Cell bottom = new Cell();
-                    bottom.color = Cell.Color.WHITE;
+                    bottom.color = CellColor.WHITE;
                     bottom.direction = Cell.Direction.LEFT | Cell.Direction.RIGHT;
                     // bottom.DrawRect(Board.GetCellPosition(boardRect, -1, column), spriteBatch);
                     bottom.DrawRect(Board.GetCellPosition(boardRect, Constants.ROWS, column), spriteBatch);
                 }
                 Cell cell = new Cell();
-                cell.color = Cell.Color.WHITE;
+                cell.color = CellColor.WHITE;
                 // bottom left.
                 cell.direction = Cell.Direction.UP | Cell.Direction.RIGHT;
                 cell.DrawRect(Board.GetCellPosition(boardRect, Constants.ROWS, -1), spriteBatch);
@@ -136,7 +132,7 @@ namespace MisterToken {
             dumpRect.Width = (boardRect.Width / Constants.COLUMNS);
             dumpRect.Height = (boardRect.Height / Constants.ROWS);
             for (int i = 0; i < Constants.COLUMNS; ++i) {
-                if (dumps[i] != Cell.Color.BLACK) {
+                if (dumps[i] != CellColor.BLACK) {
                     Cell piece = new Cell();
                     piece.color = dumps[i];
                     piece.DrawRect(dumpRect, spriteBatch);
@@ -190,9 +186,9 @@ namespace MisterToken {
         private void DoDumping(GameTime gameTime) {
             state = State.WAITING_FOR_TOKEN;
             for (int i = 0; i < Constants.COLUMNS; ++i) {
-                if (dumps[i] != Cell.Color.BLACK) {
+                if (dumps[i] != CellColor.BLACK) {
                     board.GetCell(0, i).color = dumps[i];
-                    dumps[i] = Cell.Color.BLACK;
+                    dumps[i] = CellColor.BLACK;
                     state = State.FALLING;
                 }
             }
@@ -273,7 +269,7 @@ namespace MisterToken {
             }
             if (timeToClear <= 0) {
                 board.ClearMatches();
-                List<Cell.Color> newMatches = board.MarkMatches();
+                List<CellColor> newMatches = board.MarkMatches();
                 matches.AddRange(newMatches);
                 if (board.GetLockedCount() == 0) {
                     state = State.WON;
@@ -314,13 +310,13 @@ namespace MisterToken {
         }
 
         private void DoFailed(GameTime gameTime) {
-            if (Input.IsDown(PerPlayerBooleanInputHook.START.ForPlayer(player))) {
+            if (Input.IsDown(BooleanInputHook.MENU_ENTER)) {
                 listener.OnFinished(player);
             }
         }
 
         private void DoWon(GameTime gameTime) {
-            if (Input.IsDown(PerPlayerBooleanInputHook.START.ForPlayer(player))) {
+            if (Input.IsDown(BooleanInputHook.MENU_ENTER)) {
                 listener.OnFinished(player);
             }
         }
@@ -347,7 +343,7 @@ namespace MisterToken {
 
         // Clearing.
         private int timeToClear;
-        private List<Cell.Color> matches;
+        private List<CellColor> matches;
 
         // Falling.
         private bool anythingFell;
@@ -359,6 +355,6 @@ namespace MisterToken {
         private Level level;
         private TokenGenerator tokenGenerator;
         private float nextTokenReadiness;
-        private Cell.Color[] dumps;
+        private CellColor[] dumps;
     }
 }

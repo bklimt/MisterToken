@@ -9,6 +9,8 @@ namespace MisterToken {
     public enum BooleanInputHook {
         MENU_UP,
         MENU_DOWN,
+        MENU_ENTER,
+
         PLAYER_ONE_START,
         PLAYER_ONE_TOKEN_SLAM,
         PLAYER_ONE_TOKEN_RIGHT,
@@ -16,6 +18,7 @@ namespace MisterToken {
         PLAYER_ONE_TOKEN_LEFT,
         PLAYER_ONE_ROTATE_RIGHT,
         PLAYER_ONE_ROTATE_LEFT,
+
         PLAYER_TWO_START,
         PLAYER_TWO_TOKEN_SLAM,
         PLAYER_TWO_TOKEN_RIGHT,

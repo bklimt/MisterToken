@@ -30,7 +30,7 @@ namespace MisterToken {
             listener.OnClear(player);
         }
 
-        public void OnDump(PlayerIndex player, List<Cell.Color> colors) {
+        public void OnDump(PlayerIndex player, List<CellColor> colors) {
             if (player == PlayerIndex.One) {
                 two.Dump(colors);
             } else {
@@ -59,8 +59,6 @@ namespace MisterToken {
 
         public void OnFinished(PlayerIndex player) {
             listener.OnFinished(player);
-            one.NextLevel();
-            two.NextLevel();
         }
 
         private SinglePlayer one;

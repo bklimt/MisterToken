@@ -73,9 +73,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="graphics\SpriteHook.cs" />
+    <Compile Include="model\Levels.cs" />
     <Compile Include="model\Level.cs" />
     <Compile Include="model\FourPieceToken.cs" />
     <Compile Include="model\Game.cs" />
+    <Compile Include="model\LevelManager.cs" />
+    <Compile Include="Menu.cs" />
     <Compile Include="model\ThreePieceElbowToken.cs" />
     <Compile Include="model\MultiPlayer.cs" />
     <Compile Include="graphics\Sprites.cs" />
@@ -93,8 +96,6 @@
     <Compile Include="input\InputManager.cs" />
     <Compile Include="input\BooleanInputRepeater.cs" />
     <Compile Include="graphics\SpriteManager.cs" />
-    <Compile Include="model\TitleMenu.cs" />
-    <Compile Include="model\TitleMenuListener.cs" />
     <Compile Include="model\Token.cs" />
     <Compile Include="model\TokenPiece.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -113,6 +114,10 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\MisterTokenLibrary\MisterTokenLibrary.csproj">
+      <Project>{DBB0C95E-4937-4AA4-915B-817E9A421B4F}</Project>
+      <Name>MisterTokenLibrary</Name>
+    </ProjectReference>
     <ProjectReference Include="..\MisterTokenContent\MisterTokenContent.contentproj">
       <Name>MisterTokenContent</Name>
       <XnaReferenceType>Content</XnaReferenceType>

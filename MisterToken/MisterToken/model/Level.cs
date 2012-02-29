@@ -5,87 +5,56 @@ using System.Text;
 
 namespace MisterToken {
     public class Level {
-        private int level;
-
-        public int topFilledRow;
-        public int numberFilled;
+        private String name;
+        private int topFilledRow;
+        private int numberFilled;
         private float probabilityTwoPiece;
         private float probabilityThreePiece;
         private float probabilityFourPiece;
-        private List<Cell.Color> colors;
+        private CellColor[] colors;
 
         private Random random;
 
-        public Level(int i) {
-            setFromNumber(i);
+        public Level(XmlLevel xml) {
+            random = new Random();
+            name = xml.name;
+            topFilledRow = xml.topFilledRow;
+            numberFilled = xml.numberFilled;
+            probabilityTwoPiece = xml.probabilityTwoPiece;
+            probabilityThreePiece = xml.probabilityThreePiece;
+            probabilityFourPiece = xml.probabilityFourPiece;
+            colors = xml.colors;
         }
 
-        public void setFromNumber(int number) {
-            level = number;
-            random = new Random();
-            colors = new List<Cell.Color>();
-            switch (number % 4) {
-                case 0:
-                    topFilledRow = 7;
-                    numberFilled = 4;
-                    probabilityTwoPiece = 0.90f;
-                    probabilityThreePiece = 0.05f;
-                    probabilityFourPiece = 0.05f;
-                    colors.Add(Cell.Color.WHITE);
-                    colors.Add(Cell.Color.GREEN);
-                    colors.Add(Cell.Color.RED);
-                    break;
-                case 1:
-                    topFilledRow = 5;
-                    numberFilled = 12;
-                    probabilityTwoPiece = 0.80f;
-                    probabilityThreePiece = 0.10f;
-                    probabilityFourPiece = 0.10f;
-                    colors.Add(Cell.Color.RED);
-                    colors.Add(Cell.Color.YELLOW);
-                    colors.Add(Cell.Color.BLUE);
-                    break;
-                case 2:
-                    topFilledRow = 5;
-                    numberFilled = 20;
-                    probabilityTwoPiece = 0.70f;
-                    probabilityThreePiece = 0.15f;
-                    probabilityFourPiece = 0.15f;
-                    colors.Add(Cell.Color.BLUE);
-                    colors.Add(Cell.Color.ORANGE);
-                    colors.Add(Cell.Color.WHITE);
-                    break;
-                case 3:
-                    topFilledRow = 3;
-                    numberFilled = 30;
-                    probabilityTwoPiece = 0.60f;
-                    probabilityThreePiece = 0.20f;
-                    probabilityThreePiece = 0.20f;
-                    colors.Add(Cell.Color.PURPLE);
-                    colors.Add(Cell.Color.YELLOW);
-                    colors.Add(Cell.Color.GREEN);
-                    colors.Add(Cell.Color.WHITE);
-                    break;
-            }
+        public String GetName() {
+            return name;
+        }
+
+        public int GetTopFilledRow() {
+            return topFilledRow;
+        }
+
+        public int GetNumberFilled() {
+            return numberFilled;
         }
 
         public int GetColorCount() {
-            return colors.Count;
+            return colors.Length;
         }
 
-        public Cell.Color GetColor(int i) {
+        public CellColor GetColor(int i) {
             return colors[i];
         }
 
-        public Cell.Color GetRandomColor() {
-            return colors[random.Next(colors.Count)];
+        public CellColor GetRandomColor() {
+            return colors[random.Next(colors.Length)];
         }
 
         public Token GetRandomToken(Board board) {
-            Cell.Color color1 = GetRandomColor();
-            Cell.Color color2 = GetRandomColor();
-            Cell.Color color3 = GetRandomColor();
-            Cell.Color color4 = GetRandomColor();
+            CellColor color1 = GetRandomColor();
+            CellColor color2 = GetRandomColor();
+            CellColor color3 = GetRandomColor();
+            CellColor color4 = GetRandomColor();
             float fraction = (float)random.NextDouble() * (probabilityTwoPiece + probabilityThreePiece + probabilityFourPiece);
             if (fraction < probabilityTwoPiece) {
                 return new TwoPieceToken(board, 0, 0, color1, color2);
@@ -94,10 +63,6 @@ namespace MisterToken {
             } else {
                 return new FourPieceToken(board, 0, 0, color1, color2, color3, color4);
             }
-        }
-
-        public void Next() {
-            setFromNumber(level + 1);
         }
     }
 }

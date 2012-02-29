@@ -5,7 +5,7 @@ using System.Text;
 
 namespace MisterToken {
     public class ThreePieceElbowToken : Token {
-        public ThreePieceElbowToken(Board board, int row, int column, Cell.Color color1, Cell.Color color2, Cell.Color color3) {
+        public ThreePieceElbowToken(Board board, int row, int column, CellColor color1, CellColor color2, CellColor color3) {
             Random random = new Random();
             piece = new TokenPiece[3];
             Cell cell1 = new Cell();

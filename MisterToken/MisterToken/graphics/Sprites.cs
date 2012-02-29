@@ -36,6 +36,10 @@ namespace MisterToken {
             manager.Draw(sprite, position, spriteBatch);
         }
 
+        public static void DrawText(String text, Color color, Vector2 position, SpriteBatch spriteBatch) {
+            manager.DrawString(text, color, position, spriteBatch);
+        }
+
         private static SpriteManager manager = new SpriteManager();
     }
 }

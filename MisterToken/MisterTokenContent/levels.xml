@@ -1,0 +1,58 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<XnaContent>
+  <Asset Type="MisterToken.XmlLevel[]">
+    <Item>
+      <name>Level One</name>
+      <topFilledRow>7</topFilledRow>
+      <numberFilled>4</numberFilled>
+      <probabilityTwoPiece>0.9</probabilityTwoPiece>
+      <probabilityThreePiece>0.05</probabilityThreePiece>
+      <probabilityFourPiece>0.05</probabilityFourPiece>
+      <colors>
+        <Item>WHITE</Item>
+        <Item>GREEN</Item>
+        <Item>RED</Item>
+      </colors>
+    </Item>
+    <Item>
+      <name>Level Two</name>
+      <topFilledRow>5</topFilledRow>
+      <numberFilled>12</numberFilled>
+      <probabilityTwoPiece>0.8</probabilityTwoPiece>
+      <probabilityThreePiece>0.1</probabilityThreePiece>
+      <probabilityFourPiece>0.1</probabilityFourPiece>
+      <colors>
+        <Item>RED</Item>
+        <Item>YELLOW</Item>
+        <Item>BLUE</Item>
+      </colors>
+    </Item>
+    <Item>
+      <name>Level Three</name>
+      <topFilledRow>5</topFilledRow>
+      <numberFilled>20</numberFilled>
+      <probabilityTwoPiece>0.7</probabilityTwoPiece>
+      <probabilityThreePiece>0.15</probabilityThreePiece>
+      <probabilityFourPiece>0.15</probabilityFourPiece>
+      <colors>
+        <Item>BLUE</Item>
+        <Item>ORANGE</Item>
+        <Item>WHITE</Item>
+      </colors>
+    </Item>
+    <Item>
+      <name>Level Four</name>
+      <topFilledRow>3</topFilledRow>
+      <numberFilled>30</numberFilled>
+      <probabilityTwoPiece>0.6</probabilityTwoPiece>
+      <probabilityThreePiece>0.2</probabilityThreePiece>
+      <probabilityFourPiece>0.2</probabilityFourPiece>
+      <colors>
+        <Item>PURPLE</Item>
+        <Item>YELLOW</Item>
+        <Item>GREEN</Item>
+        <Item>WHITE</Item>
+      </colors>
+    </Item>
+  </Asset>
+</XnaContent>

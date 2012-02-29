@@ -10,7 +10,7 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 
 namespace MisterToken {
-    public class MisterTokenGame : Microsoft.Xna.Framework.Game, GameListener, TitleMenuListener {
+    public class MisterTokenGame : Microsoft.Xna.Framework.Game, GameListener {
         public MisterTokenGame() {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
@@ -19,7 +19,8 @@ namespace MisterToken {
             graphics.PreferredBackBufferWidth = 1280;
             graphics.ApplyChanges();
 
-            titleMenu = new TitleMenu(this);
+            titleMenu = new Menu();
+            levelMenu = new Menu();
         }
 
         protected override void Initialize() {
@@ -30,6 +31,29 @@ namespace MisterToken {
             spriteBatch = new SpriteBatch(GraphicsDevice);
             Sprites.LoadContent(Content, GraphicsDevice);
             Sound.LoadContent(Content);
+            Levels.LoadContent(Content);
+
+            titleMenu.Add("1 Player", delegate() {
+                singlePlayer = true;
+                state = State.LEVEL_MENU;
+            });
+            titleMenu.Add("2 Player", delegate() {
+                singlePlayer = false;
+                state = State.LEVEL_MENU;
+            });
+
+            for (int i = 0; i < Levels.GetLevelCount(); ++i) {
+                // Capture a copy of i for the delegate closure below.
+                int j = i;
+                levelMenu.Add(Levels.GetLevel(j).GetName(), delegate() {
+                    if (singlePlayer) {
+                        model = new SinglePlayer(PlayerIndex.One, j, this);
+                    } else {
+                        model = new MultiPlayer(j, j, this);
+                    }
+                    state = State.PLAYING;
+                });
+            }
         }
 
         protected override void UnloadContent() {
@@ -42,8 +66,11 @@ namespace MisterToken {
                 this.Exit();
 
             switch (state) {
-                case State.WAITING_TO_PLAY:
+                case State.TITLE_MENU:
                     titleMenu.Update();
+                    break;
+                case State.LEVEL_MENU:
+                    levelMenu.Update();
                     break;
                 case State.PLAYING:
                     model.Update(gameTime);
@@ -54,10 +81,20 @@ namespace MisterToken {
 
         protected override void Draw(GameTime gameTime) {
             switch (state) {
-                case State.WAITING_TO_PLAY:
+                case State.TITLE_MENU:
                     GraphicsDevice.Clear(Color.Black);
                     spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend);
-                    titleMenu.Draw(spriteBatch);
+                    Sprites.DrawLayer(SpriteHook.TITLE_LAYER, spriteBatch);
+                    titleMenu.Draw(new Rectangle(255, 380, 320, 130), true, spriteBatch);
+                    levelMenu.Draw(new Rectangle(655, 380, 320, 260), false, spriteBatch);
+                    spriteBatch.End();
+                    break;
+                case State.LEVEL_MENU:
+                    GraphicsDevice.Clear(Color.Black);
+                    spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend);
+                    Sprites.DrawLayer(SpriteHook.TITLE_LAYER, spriteBatch);
+                    titleMenu.Draw(new Rectangle(255, 380, 320, 130), false, spriteBatch);
+                    levelMenu.Draw(new Rectangle(655, 380, 320, 260), true, spriteBatch);
                     spriteBatch.End();
                     break;
                 case State.PLAYING:
@@ -74,7 +111,7 @@ namespace MisterToken {
         public void OnClear(PlayerIndex player) {
         }
 
-        public void OnDump(PlayerIndex player, List<Cell.Color> colors) {
+        public void OnDump(PlayerIndex player, List<CellColor> colors) {
         }
 
         public void OnWon(PlayerIndex player) {
@@ -84,29 +121,22 @@ namespace MisterToken {
         }
 
         public void OnFinished(PlayerIndex player) {
-            state = State.WAITING_TO_PLAY;
-        }
-
-        public void OnStartSinglePlayer() {
-            model = new SinglePlayer(PlayerIndex.One, 1, this);
-            state = State.PLAYING;
-        }
-
-        public void OnStartMultiPlayer() {
-            model = new MultiPlayer(2, 2, this);
-            state = State.PLAYING;
+            state = State.TITLE_MENU;
         }
 
         // Game state.
         private enum State {
-            WAITING_TO_PLAY,
+            TITLE_MENU,
+            LEVEL_MENU,
             PLAYING,
         }
         private State state;
 
         // Data model.
-        TitleMenu titleMenu;
+        private Menu titleMenu;
+        private Menu levelMenu;
         private Game model;
+        private bool singlePlayer;
 
         // UI stuff.
         private GraphicsDeviceManager graphics;

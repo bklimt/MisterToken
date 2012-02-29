@@ -9,15 +9,15 @@ using Microsoft.Xna.Framework.Graphics;
 namespace MisterToken {
     public class SpriteManager {
         public void LoadContent(ContentManager content, GraphicsDevice device) {
-            colorTextures = new Dictionary<Cell.Color, Texture2D>();
-            colorTextures[Cell.Color.RED] = content.Load<Texture2D>("red_sprites");
-            colorTextures[Cell.Color.GREEN] = content.Load<Texture2D>("green_sprites");
-            colorTextures[Cell.Color.WHITE] = content.Load<Texture2D>("white_sprites");
-            colorTextures[Cell.Color.YELLOW] = content.Load<Texture2D>("yellow_sprites");
-            colorTextures[Cell.Color.BLUE] = content.Load<Texture2D>("blue_sprites");
-            colorTextures[Cell.Color.CYAN] = content.Load<Texture2D>("cyan_sprites");
-            colorTextures[Cell.Color.PURPLE] = content.Load<Texture2D>("purple_sprites");
-            colorTextures[Cell.Color.ORANGE] = content.Load<Texture2D>("orange_sprites");
+            colorTextures = new Dictionary<CellColor, Texture2D>();
+            colorTextures[CellColor.RED] = content.Load<Texture2D>("red_sprites");
+            colorTextures[CellColor.GREEN] = content.Load<Texture2D>("green_sprites");
+            colorTextures[CellColor.WHITE] = content.Load<Texture2D>("white_sprites");
+            colorTextures[CellColor.YELLOW] = content.Load<Texture2D>("yellow_sprites");
+            colorTextures[CellColor.BLUE] = content.Load<Texture2D>("blue_sprites");
+            colorTextures[CellColor.CYAN] = content.Load<Texture2D>("cyan_sprites");
+            colorTextures[CellColor.PURPLE] = content.Load<Texture2D>("purple_sprites");
+            colorTextures[CellColor.ORANGE] = content.Load<Texture2D>("orange_sprites");
 
             textures = new Dictionary<SpriteHook, Texture2D>();
             textures[SpriteHook.TITLE_LAYER] = content.Load<Texture2D>("title");
@@ -31,10 +31,12 @@ namespace MisterToken {
             textures[SpriteHook.LOSER] = content.Load<Texture2D>("loser");
             textures[SpriteHook.NUMBER_1] = content.Load<Texture2D>("1");
             textures[SpriteHook.NUMBER_2] = content.Load<Texture2D>("2");
+
+            roboto = content.Load<SpriteFont>("roboto");
         }
 
         public void DrawCell(Cell cell, Rectangle targetRect, SpriteBatch spriteBatch) {
-            if (cell.color == Cell.Color.BLACK) {
+            if (cell.color == CellColor.BLACK) {
                 return;
             }
 
@@ -99,7 +101,12 @@ namespace MisterToken {
             spriteBatch.Draw(textures[sprite], position, Color.White);
         }
 
+        public void DrawString(String text, Color color, Vector2 position, SpriteBatch spriteBatch) {
+            spriteBatch.DrawString(roboto, text, position, color);
+        }
+
         private Dictionary<SpriteHook, Texture2D> textures;
-        private Dictionary<Cell.Color, Texture2D> colorTextures;
+        private Dictionary<CellColor, Texture2D> colorTextures;
+        private SpriteFont roboto;
     }
 }

@@ -20,6 +20,12 @@ namespace MisterToken {
                 .AddKey(Keys.S)
                 .AddButton(PlayerIndex.One, Buttons.DPadDown)
                 .AddButton(PlayerIndex.Two, Buttons.DPadDown));
+            booleanMap.Add(BooleanInputHook.MENU_ENTER, new BooleanInputOnce()
+                .AddKey(Keys.Enter)
+                .AddButton(PlayerIndex.One, Buttons.Start)
+                .AddButton(PlayerIndex.One, Buttons.X)
+                .AddButton(PlayerIndex.Two, Buttons.Start)
+                .AddButton(PlayerIndex.Two, Buttons.X));
 
             booleanMap.Add(BooleanInputHook.PLAYER_ONE_START, new BooleanInputOnce()
                 .AddKey(Keys.Enter)

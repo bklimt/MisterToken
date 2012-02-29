@@ -15,7 +15,7 @@ namespace MisterToken {
         }
 
         public void DrawRect(Rectangle rect, SpriteBatch spriteBatch) {
-            if (this.color == Cell.Color.BLACK) {
+            if (this.color == CellColor.BLACK) {
                 return;
             }
             Sprites.DrawCell(this, rect, spriteBatch);
@@ -40,7 +40,7 @@ namespace MisterToken {
         }
 
         public void Clear() {
-            color = Color.BLACK;
+            color = CellColor.BLACK;
             direction = Direction.NONE;
             visited = false;
             loose = false;
@@ -48,18 +48,7 @@ namespace MisterToken {
             locked = false;
         }
 
-        public enum Color {
-            BLACK,
-            CYAN,
-            RED,
-            YELLOW,
-            GREEN,
-            WHITE,
-            PURPLE,
-            BLUE,
-            ORANGE,
-        }
-        public Color color;
+        public CellColor color;
 
         [Flags]
         public enum Direction {

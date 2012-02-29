@@ -25,17 +25,17 @@ namespace MisterToken {
             columnOffset = 0;
 
             // Make a list of the locked cells.
-            int totalCells = (Constants.ROWS - level.topFilledRow) * Constants.COLUMNS;
+            int totalCells = (Constants.ROWS - level.GetTopFilledRow()) * Constants.COLUMNS;
             Cell[] cells = new Cell[totalCells];
-            for (int i = 0; i < level.numberFilled && i < totalCells; ++i) {
+            for (int i = 0; i < level.GetNumberFilled() && i < totalCells; ++i) {
                 cells[i] = new Cell();
-                cells[i].color = level.GetColor((int)(((float)i / level.numberFilled) * level.GetColorCount()));
+                cells[i].color = level.GetColor((int)(((float)i / level.GetNumberFilled()) * level.GetColorCount()));
                 cells[i].locked = true;
             }
             // And a list of the unlocked cells.
-            for (int i = level.numberFilled; i < totalCells; ++i) {
+            for (int i = level.GetNumberFilled(); i < totalCells; ++i) {
                 cells[i] = new Cell();
-                cells[i].color = Cell.Color.BLACK;
+                cells[i].color = CellColor.BLACK;
                 cells[i].locked = false;
             }
 
@@ -55,7 +55,7 @@ namespace MisterToken {
             int index = 0;
             for (int row = 0; row < Constants.ROWS; ++row) {
                 for (int column = 0; column < Constants.COLUMNS; ++column) {
-                    if (row < level.topFilledRow) {
+                    if (row < level.GetTopFilledRow()) {
                         entries[row, column].Clear();
                     } else {
                         entries[row, column].Clear();
@@ -77,7 +77,7 @@ namespace MisterToken {
             return entries[(row + rowOffset) % Constants.ROWS, (column + columnOffset) % Constants.COLUMNS];
         }
 
-        public Cell.Color GetColor(int row, int column) {
+        public CellColor GetColor(int row, int column) {
             return GetCell(row, column).color;
         }
 
@@ -126,13 +126,13 @@ namespace MisterToken {
             }
         }
 
-        public List<Cell.Color> MarkMatches() {
+        public List<CellColor> MarkMatches() {
             VerifyBoard();
-            List<Cell.Color> colors = new List<Cell.Color>();
+            List<CellColor> colors = new List<CellColor>();
             for (int row = 0; row < Constants.ROWS; ++row) {
                 for (int column = 0; column < Constants.COLUMNS; ++column) {
-                    Cell.Color color = GetColor(row, column);
-                    if (color == Cell.Color.BLACK) {
+                    CellColor color = GetColor(row, column);
+                    if (color == CellColor.BLACK) {
                         continue;
                     }
                     if (row + 3 < Constants.ROWS) {
@@ -211,7 +211,7 @@ namespace MisterToken {
             if (cell.locked) {
                 return false;
             }
-            if (cell.color == Cell.Color.BLACK) {
+            if (cell.color == CellColor.BLACK) {
                 return true;
             }
             if (cell.loose) {
@@ -274,7 +274,7 @@ namespace MisterToken {
                     if (cell.loose) {
                         any = true;
                         Cell below = GetCell(row + 1, column);
-                        if (below.color != Cell.Color.BLACK) {
+                        if (below.color != CellColor.BLACK) {
                             throw new Exception("Bad gravity logic.");
                         }
                         SetCell(row + 1, column, cell);
