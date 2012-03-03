@@ -6,40 +6,61 @@ using System.Text;
 namespace MisterToken {
     public class Level {
         private String name;
-        private int topFilledRow;
-        private int numberFilled;
         private float probabilityTwoPiece;
         private float probabilityThreePiece;
         private float probabilityFourPiece;
-        private CellColor[] colors;
+        private List<CellColor> colors;
+        private string pattern;
 
         private Random random;
 
         public Level(XmlLevel xml) {
             random = new Random();
             name = xml.name;
-            topFilledRow = xml.topFilledRow;
-            numberFilled = xml.numberFilled;
             probabilityTwoPiece = xml.probabilityTwoPiece;
             probabilityThreePiece = xml.probabilityThreePiece;
             probabilityFourPiece = xml.probabilityFourPiece;
-            colors = xml.colors;
+            pattern = xml.pattern;
         }
 
         public String GetName() {
             return name;
         }
 
-        public int GetTopFilledRow() {
-            return topFilledRow;
-        }
-
-        public int GetNumberFilled() {
-            return numberFilled;
+        public void SetupBoard(Board board) {
+            colors = new List<CellColor>();
+            List<CellColor> cells = PatternParser.ParseExpression(pattern, random);
+            int start = Constants.ROWS * Constants.COLUMNS - cells.Count;
+            if (start < 0) {
+                start = 0;
+            }
+            int offset = 0;
+            for (int row = 0; row < Constants.ROWS; row++) {
+                for (int column = 0; column < Constants.COLUMNS; column++) {
+                    board.GetCell(row, column).Clear();
+                    if (offset >= start) {
+                        CellColor color = cells[offset - start];
+                        if (color != CellColor.BLACK) {
+                            board.GetCell(row, column).color = color;
+                            board.GetCell(row, column).locked = true;
+                            bool present = false;
+                            for (int i = 0; i < colors.Count; ++i) {
+                                if (colors[i] == color) {
+                                    present = true;
+                                }
+                            }
+                            if (!present) {
+                                colors.Add(color);
+                            }
+                        }
+                    }
+                    ++offset;
+                }
+            }
         }
 
         public int GetColorCount() {
-            return colors.Length;
+            return colors.Count;
         }
 
         public CellColor GetColor(int i) {
@@ -47,7 +68,10 @@ namespace MisterToken {
         }
 
         public CellColor GetRandomColor() {
-            return colors[random.Next(colors.Length)];
+            if (colors == null || colors.Count == 0) {
+                return CellColor.BLACK;
+            }
+            return colors[random.Next(colors.Count)];
         }
 
         public Token GetRandomToken(Board board) {

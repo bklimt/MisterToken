@@ -79,6 +79,7 @@
     <Compile Include="model\Game.cs" />
     <Compile Include="model\LevelManager.cs" />
     <Compile Include="Menu.cs" />
+    <Compile Include="model\PatternParser.cs" />
     <Compile Include="model\ThreePieceElbowToken.cs" />
     <Compile Include="model\MultiPlayer.cs" />
     <Compile Include="graphics\Sprites.cs" />

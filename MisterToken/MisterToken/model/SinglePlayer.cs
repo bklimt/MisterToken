@@ -179,7 +179,8 @@ namespace MisterToken {
         }
 
         private void DoSettingUpBoard(GameTime gameTime) {
-            board.Randomize(level);
+            board.Setup(level);
+            tokenGenerator.LoadNextToken();
             state = State.WAITING_FOR_TOKEN;
         }
 

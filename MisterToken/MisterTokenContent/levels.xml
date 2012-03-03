@@ -3,8 +3,6 @@
   <Asset Type="MisterToken.XmlLevel[]">
     <Item>
       <name>Level One</name>
-      <topFilledRow>7</topFilledRow>
-      <numberFilled>4</numberFilled>
       <probabilityTwoPiece>0.9</probabilityTwoPiece>
       <probabilityThreePiece>0.05</probabilityThreePiece>
       <probabilityFourPiece>0.05</probabilityFourPiece>
@@ -13,11 +11,10 @@
         <Item>GREEN</Item>
         <Item>RED</Item>
       </colors>
+      <pattern> shuffle(((rows - 6) * columns - 4) * black + red + white + green) </pattern>
     </Item>
     <Item>
       <name>Level Two</name>
-      <topFilledRow>5</topFilledRow>
-      <numberFilled>12</numberFilled>
       <probabilityTwoPiece>0.8</probabilityTwoPiece>
       <probabilityThreePiece>0.1</probabilityThreePiece>
       <probabilityFourPiece>0.1</probabilityFourPiece>
@@ -26,11 +23,10 @@
         <Item>YELLOW</Item>
         <Item>BLUE</Item>
       </colors>
+      <pattern> shuffle(((rows - 4) * columns - 12) * black + (red + yellow + blue) * 4) </pattern>
     </Item>
     <Item>
       <name>Level Three</name>
-      <topFilledRow>5</topFilledRow>
-      <numberFilled>20</numberFilled>
       <probabilityTwoPiece>0.7</probabilityTwoPiece>
       <probabilityThreePiece>0.15</probabilityThreePiece>
       <probabilityFourPiece>0.15</probabilityFourPiece>
@@ -39,11 +35,10 @@
         <Item>ORANGE</Item>
         <Item>WHITE</Item>
       </colors>
+      <pattern> shuffle(((rows - 4) * columns - 21) * black + (blue + orange + white) * 7) </pattern>
     </Item>
     <Item>
       <name>Level Four</name>
-      <topFilledRow>3</topFilledRow>
-      <numberFilled>30</numberFilled>
       <probabilityTwoPiece>0.6</probabilityTwoPiece>
       <probabilityThreePiece>0.2</probabilityThreePiece>
       <probabilityFourPiece>0.2</probabilityFourPiece>
@@ -53,6 +48,7 @@
         <Item>GREEN</Item>
         <Item>WHITE</Item>
       </colors>
+      <pattern> shuffle(((rows - 2) * columns - 32) * black + (purple + yellow + green + white) * 8) </pattern>
     </Item>
   </Asset>
 </XnaContent>

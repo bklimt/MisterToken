@@ -19,52 +19,8 @@ namespace MisterToken {
             }
         }
 
-        public void Randomize(Level level) {
-            Random random = new Random();
-            rowOffset = 0;
-            columnOffset = 0;
-
-            // Make a list of the locked cells.
-            int totalCells = (Constants.ROWS - level.GetTopFilledRow()) * Constants.COLUMNS;
-            Cell[] cells = new Cell[totalCells];
-            for (int i = 0; i < level.GetNumberFilled() && i < totalCells; ++i) {
-                cells[i] = new Cell();
-                cells[i].color = level.GetColor((int)(((float)i / level.GetNumberFilled()) * level.GetColorCount()));
-                cells[i].locked = true;
-            }
-            // And a list of the unlocked cells.
-            for (int i = level.GetNumberFilled(); i < totalCells; ++i) {
-                cells[i] = new Cell();
-                cells[i].color = CellColor.BLACK;
-                cells[i].locked = false;
-            }
-
-            // Shuffle the list.
-            Cell temp = new Cell();
-            for (int i = 0; i < cells.Length - 1; ++i) {
-                int j = random.Next(i + 1, cells.Length);
-                temp.color = cells[i].color;
-                temp.locked = cells[i].locked;
-                cells[i].color = cells[j].color;
-                cells[i].locked = cells[j].locked;
-                cells[j].color = temp.color;
-                cells[j].locked = temp.locked;
-            }
-
-            // Copy the list into the table.
-            int index = 0;
-            for (int row = 0; row < Constants.ROWS; ++row) {
-                for (int column = 0; column < Constants.COLUMNS; ++column) {
-                    if (row < level.GetTopFilledRow()) {
-                        entries[row, column].Clear();
-                    } else {
-                        entries[row, column].Clear();
-                        entries[row, column].color = cells[index].color;
-                        entries[row, column].locked = cells[index].locked;
-                        ++index;
-                    }
-                }
-            }
+        public void Setup(Level level) {
+            level.SetupBoard(this);
             MarkMatches();
             ClearMatches();
         }
