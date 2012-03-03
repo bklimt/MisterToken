@@ -9,7 +9,6 @@ namespace MisterToken {
         public float probabilityTwoPiece;
         public float probabilityThreePiece;
         public float probabilityFourPiece;
-        public CellColor[] colors;
         public String pattern;
     }
 }

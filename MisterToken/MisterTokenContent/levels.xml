@@ -6,11 +6,6 @@
       <probabilityTwoPiece>0.9</probabilityTwoPiece>
       <probabilityThreePiece>0.05</probabilityThreePiece>
       <probabilityFourPiece>0.05</probabilityFourPiece>
-      <colors>
-        <Item>WHITE</Item>
-        <Item>GREEN</Item>
-        <Item>RED</Item>
-      </colors>
       <pattern> shuffle(((rows - 6) * columns - 4) * black + red + white + green) </pattern>
     </Item>
     <Item>
@@ -18,11 +13,6 @@
       <probabilityTwoPiece>0.8</probabilityTwoPiece>
       <probabilityThreePiece>0.1</probabilityThreePiece>
       <probabilityFourPiece>0.1</probabilityFourPiece>
-      <colors>
-        <Item>RED</Item>
-        <Item>YELLOW</Item>
-        <Item>BLUE</Item>
-      </colors>
       <pattern> shuffle(((rows - 4) * columns - 12) * black + (red + yellow + blue) * 4) </pattern>
     </Item>
     <Item>
@@ -30,11 +20,6 @@
       <probabilityTwoPiece>0.7</probabilityTwoPiece>
       <probabilityThreePiece>0.15</probabilityThreePiece>
       <probabilityFourPiece>0.15</probabilityFourPiece>
-      <colors>
-        <Item>BLUE</Item>
-        <Item>ORANGE</Item>
-        <Item>WHITE</Item>
-      </colors>
       <pattern> shuffle(((rows - 4) * columns - 21) * black + (blue + orange + white) * 7) </pattern>
     </Item>
     <Item>
@@ -42,12 +27,6 @@
       <probabilityTwoPiece>0.6</probabilityTwoPiece>
       <probabilityThreePiece>0.2</probabilityThreePiece>
       <probabilityFourPiece>0.2</probabilityFourPiece>
-      <colors>
-        <Item>PURPLE</Item>
-        <Item>YELLOW</Item>
-        <Item>GREEN</Item>
-        <Item>WHITE</Item>
-      </colors>
       <pattern> shuffle(((rows - 2) * columns - 32) * black + (purple + yellow + green + white) * 8) </pattern>
     </Item>
   </Asset>
