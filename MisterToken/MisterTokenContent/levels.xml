@@ -2,6 +2,14 @@
 <XnaContent>
   <Asset Type="MisterToken.XmlLevel[]">
     <Item>
+      <name>Intro</name>
+      <probabilityTwoPiece>0.4</probabilityTwoPiece>
+      <probabilityThreePiece>0.3</probabilityThreePiece>
+      <probabilityFourPiece>0.3</probabilityFourPiece>
+      <pattern> shuffle(fill_rows(6, red + white + green + yellow)) </pattern>
+      <wrap>true</wrap>
+    </Item>
+    <Item>
       <name>Easy</name>
       <probabilityTwoPiece>1.0</probabilityTwoPiece>
       <probabilityThreePiece>0.0</probabilityThreePiece>
@@ -27,7 +35,7 @@
         (black + red) * COLUMNS / 2 +
         (red + black) * COLUMNS / 2 +
         (black + red) * COLUMNS / 2 +
-        0*green + 0*cyan + 0*purple + 0*yellow
+        0*green + 0*cyan + 0*yellow
       </pattern>
       <wrap>true</wrap>
     </Item>
