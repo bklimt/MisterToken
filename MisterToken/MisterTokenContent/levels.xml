@@ -2,11 +2,19 @@
 <XnaContent>
   <Asset Type="MisterToken.XmlLevel[]">
     <Item>
-      <name>Intro</name>
-      <probabilityTwoPiece>0.4</probabilityTwoPiece>
-      <probabilityThreePiece>0.3</probabilityThreePiece>
-      <probabilityFourPiece>0.3</probabilityFourPiece>
+      <name>Colors</name>
+      <probabilityTwoPiece>1.0</probabilityTwoPiece>
+      <probabilityThreePiece>0.0</probabilityThreePiece>
+      <probabilityFourPiece>0.0</probabilityFourPiece>
       <pattern> shuffle(fill_rows(6, red + white + green + yellow)) </pattern>
+      <wrap>true</wrap>
+    </Item>
+    <Item>
+      <name>Shapes</name>
+      <probabilityTwoPiece>0.2</probabilityTwoPiece>
+      <probabilityThreePiece>0.4</probabilityThreePiece>
+      <probabilityFourPiece>0.4</probabilityFourPiece>
+      <pattern> shuffle(fill_rows(6, red*2 + white*2)) </pattern>
       <wrap>true</wrap>
     </Item>
     <Item>
