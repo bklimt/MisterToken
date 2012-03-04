@@ -26,6 +26,11 @@ namespace MisterToken {
             two.Update(gameTime);
         }
 
+        public void OnPaused(PlayerIndex player, bool paused) {
+            one.SetPaused(paused);
+            two.SetPaused(paused);
+        }
+
         public void OnClear(PlayerIndex player) {
             listener.OnClear(player);
         }

@@ -10,8 +10,9 @@ using Microsoft.Xna.Framework.Media;
 
 namespace MisterToken {
     public class Menu {
-        public Menu() {
+        public Menu(Action back) {
             selected = 0;
+            this.back = back;
             options = new List<Tuple<string, Action>>();
         }
 
@@ -31,6 +32,9 @@ namespace MisterToken {
             }
             if (Input.IsDown(BooleanInputHook.MENU_ENTER)) {
                 options[selected].Item2();
+            }
+            if (Input.IsDown(BooleanInputHook.MENU_BACK)) {
+                back();
             }
         }
 
@@ -60,6 +64,7 @@ namespace MisterToken {
         }
 
         public delegate void Action();
+        private Action back;
         private List<Tuple<String, Action>> options;
         private int selected;
     }

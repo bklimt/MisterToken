@@ -19,8 +19,8 @@ namespace MisterToken {
             graphics.PreferredBackBufferWidth = 1280;
             graphics.ApplyChanges();
 
-            titleMenu = new Menu();
-            levelMenu = new Menu();
+            titleMenu = new Menu(delegate() { Exit(); });
+            levelMenu = new Menu(delegate() { state = State.TITLE_MENU;  });
         }
 
         protected override void Initialize() {
@@ -61,10 +61,6 @@ namespace MisterToken {
 
         protected override void Update(GameTime gameTime) {
             Input.Update(gameTime);
-
-            if (Keyboard.GetState().IsKeyDown(Keys.Escape))
-                this.Exit();
-
             switch (state) {
                 case State.TITLE_MENU:
                     titleMenu.Update();
@@ -106,6 +102,9 @@ namespace MisterToken {
                     break;
             }
             base.Draw(gameTime);
+        }
+
+        public void OnPaused(PlayerIndex player, bool paused) {
         }
 
         public void OnClear(PlayerIndex player) {

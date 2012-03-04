@@ -22,10 +22,23 @@ namespace MisterToken {
                 .AddButton(PlayerIndex.Two, Buttons.DPadDown));
             booleanMap.Add(BooleanInputHook.MENU_ENTER, new BooleanInputOnce()
                 .AddKey(Keys.Enter)
+                .AddKey(Keys.Right)
                 .AddButton(PlayerIndex.One, Buttons.Start)
                 .AddButton(PlayerIndex.One, Buttons.X)
                 .AddButton(PlayerIndex.Two, Buttons.Start)
                 .AddButton(PlayerIndex.Two, Buttons.X));
+            booleanMap.Add(BooleanInputHook.MENU_BACK, new BooleanInputOnce()
+                .AddKey(Keys.Escape)
+                .AddKey(Keys.Left)
+                .AddButton(PlayerIndex.One, Buttons.Back)
+                .AddButton(PlayerIndex.One, Buttons.DPadLeft)
+                .AddButton(PlayerIndex.Two, Buttons.Back)
+                .AddButton(PlayerIndex.Two, Buttons.DPadLeft));
+
+            booleanMap.Add(BooleanInputHook.PAUSE, new BooleanInputOnce()
+                .AddKey(Keys.Escape)
+                .AddButton(PlayerIndex.One, Buttons.Start)
+                .AddButton(PlayerIndex.Two, Buttons.Start));
 
             booleanMap.Add(BooleanInputHook.PLAYER_ONE_START, new BooleanInputOnce()
                 .AddKey(Keys.Enter)

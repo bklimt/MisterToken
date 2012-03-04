@@ -14,12 +14,23 @@ namespace MisterToken {
             this.player = player;
             this.level = Levels.GetLevel(level);
             this.listener = listener;
+            this.paused = false;
             nextTokenReadiness = 0.0f;
             board = new Board();
             tokenGenerator = new TokenGenerator(board, this.level);
             dumps = new CellColor[Constants.COLUMNS];
             matches = new List<CellColor>();
             state = State.SETTING_UP_BOARD;
+
+            pauseMenu = new Menu(delegate() {});
+            pauseMenu.Add("Continue", delegate() {
+                paused = false;
+                listener.OnPaused(player, paused);
+            });
+            pauseMenu.Add("Exit", delegate() {
+                paused = false;
+                listener.OnFinished(player);
+            });
         }
 
         public void Dump(List<CellColor> colors) {
@@ -139,9 +150,22 @@ namespace MisterToken {
                 }
                 dumpRect.X += (boardRect.Width / Constants.COLUMNS);
             }
+
+            if (paused) {
+                Sprites.DrawLayer(SpriteHook.SCREEN_50_LAYER, boardRect, spriteBatch);
+                pauseMenu.Draw(boardRect, true, spriteBatch);
+            }
         }
 
         public void Update(GameTime gameTime) {
+            if (paused) {
+                pauseMenu.Update();
+                return;
+            }
+            if (state != State.FAILED && state != State.WON && Input.IsDown(BooleanInputHook.PAUSE)) {
+                paused = !paused;
+                listener.OnPaused(player, paused);
+            }
             switch (state) {
                 case State.SETTING_UP_BOARD:
                     DoSettingUpBoard(gameTime);
@@ -176,6 +200,10 @@ namespace MisterToken {
 
         public void Fail() {
             state = State.FAILED;
+        }
+
+        public void SetPaused(bool paused) {
+            this.paused = paused;
         }
 
         private void HandleMovement() {
@@ -355,6 +383,10 @@ namespace MisterToken {
         }
         private State state;
         private GameListener listener;
+
+        // Pause state.
+        private bool paused;
+        private Menu pauseMenu;
 
         // Waiting for token.
         private int timeToNextToken;

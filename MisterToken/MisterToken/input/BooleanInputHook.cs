@@ -10,6 +10,9 @@ namespace MisterToken {
         MENU_UP,
         MENU_DOWN,
         MENU_ENTER,
+        MENU_BACK,
+
+        PAUSE,
 
         PLAYER_ONE_START,
         PLAYER_ONE_TOKEN_SLAM,
