@@ -32,8 +32,8 @@ namespace MisterToken {
                 p.Move(deltaRow, deltaColumn);
         }
 
-        public abstract void RotateRight();
-        public abstract void RotateLeft();
+        public abstract void RotateRight(bool allowWrap);
+        public abstract void RotateLeft(bool allowWrap);
         public abstract bool CanRotateRight(bool allowWrap);
         public abstract bool CanRotateLeft(bool allowWrap);
 

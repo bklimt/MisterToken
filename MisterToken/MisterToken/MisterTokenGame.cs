@@ -41,6 +41,9 @@ namespace MisterToken {
                 singlePlayer = false;
                 state = State.LEVEL_MENU;
             });
+            titleMenu.Add("Exit", delegate() {
+                Exit();
+            });
 
             for (int i = 0; i < Levels.GetLevelCount(); ++i) {
                 // Capture a copy of i for the delegate closure below.
@@ -81,7 +84,7 @@ namespace MisterToken {
                     GraphicsDevice.Clear(Color.Black);
                     spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend);
                     Sprites.DrawLayer(SpriteHook.TITLE_LAYER, spriteBatch);
-                    titleMenu.Draw(new Rectangle(255, 380, 320, 130), true, spriteBatch);
+                    titleMenu.Draw(new Rectangle(255, 380, 320, 200), true, spriteBatch);
                     levelMenu.Draw(new Rectangle(655, 180, 320, 510), false, spriteBatch);
                     spriteBatch.End();
                     break;
@@ -89,7 +92,7 @@ namespace MisterToken {
                     GraphicsDevice.Clear(Color.Black);
                     spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend);
                     Sprites.DrawLayer(SpriteHook.TITLE_LAYER, spriteBatch);
-                    titleMenu.Draw(new Rectangle(255, 380, 320, 130), false, spriteBatch);
+                    titleMenu.Draw(new Rectangle(255, 380, 320, 200), false, spriteBatch);
                     levelMenu.Draw(new Rectangle(655, 180, 320, 510), true, spriteBatch);
                     spriteBatch.End();
                     break;
@@ -120,7 +123,7 @@ namespace MisterToken {
         }
 
         public void OnFinished(PlayerIndex player) {
-            state = State.TITLE_MENU;
+            state = State.LEVEL_MENU;
         }
 
         // Game state.

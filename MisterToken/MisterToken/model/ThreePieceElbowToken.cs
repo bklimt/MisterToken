@@ -23,7 +23,7 @@ namespace MisterToken {
             orientation = 0;
         }
 
-        public override void RotateRight() {
+        public override void RotateRight(bool allowWrap) {
             switch (orientation) {
                 case 0:
                     piece[0].Move(0, 1);
@@ -52,7 +52,7 @@ namespace MisterToken {
             orientation = (orientation + 1) % 4;
         }
 
-        public override void RotateLeft() {
+        public override void RotateLeft(bool allowWrap) {
             switch (orientation) {
                 case 0:
                     piece[0].Move(1, 0);

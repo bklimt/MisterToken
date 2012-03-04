@@ -65,6 +65,7 @@ namespace MisterToken {
             boardRect.Width = Constants.COLUMNS * Constants.CELL_SIZE;
             boardRect.Height = Constants.ROWS * Constants.CELL_SIZE;
             Sprites.DrawLayer(SpriteHook.SCREEN_80_LAYER, boardRect, spriteBatch);
+            Sprites.DrawLayer(SpriteHook.SCREEN_50_LAYER, boardRect, spriteBatch);
 
             // Draw the stripe where the piece will be.
             Rectangle stripe;
@@ -73,7 +74,7 @@ namespace MisterToken {
             stripe.Width = Constants.CELL_SIZE * 2;
             stripe.Height = boardRect.Height;
             Sprites.DrawLayer(SpriteHook.BACKGROUND_LAYER, stripe, spriteBatch);
-            Sprites.DrawLayer(SpriteHook.SCREEN_50_LAYER, stripe, spriteBatch);
+            Sprites.DrawLayer(SpriteHook.SCREEN_80_LAYER, stripe, spriteBatch);
 
             // Draw the board.
             board.DrawRect(boardRect, spriteBatch);
@@ -283,11 +284,11 @@ namespace MisterToken {
             if (Input.IsDown(PerPlayerBooleanInputHook.ROTATE_LEFT.ForPlayer(player))) {
                 Sound.Play(SoundHook.ROTATE_LEFT);
                 if (currentToken.CanRotateLeft(level.Wrap()))
-                    currentToken.RotateLeft();
+                    currentToken.RotateLeft(level.Wrap());
             }
             if (Input.IsDown(PerPlayerBooleanInputHook.ROTATE_RIGHT.ForPlayer(player))) {
                 if (currentToken.CanRotateRight(level.Wrap()))
-                    currentToken.RotateRight();
+                    currentToken.RotateRight(level.Wrap());
             }
             if (Input.IsDown(PerPlayerBooleanInputHook.TOKEN_DOWN.ForPlayer(player))) {
                 timeUntilNextAdvance = 0;
