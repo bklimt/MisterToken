@@ -326,6 +326,14 @@ namespace MisterToken {
                 matches.AddRange(newMatches);
                 if (board.GetLockedCount() == 0) {
                     state = State.WON;
+                    int[] previous = Storage.GetSaveData().completed;
+                    if (!previous.Contains(level.GetId())) {
+                        int[] current = new int[previous.Length + 1];
+                        current[0] = level.GetId();
+                        previous.CopyTo(current, 1);
+                        Storage.GetSaveData().completed = current;
+                        Storage.Save();
+                    }
                     listener.OnWon(player);
                 } else if (newMatches.Count > 0) {
                     timeToClear = Constants.MILLIS_PER_CLEAR;

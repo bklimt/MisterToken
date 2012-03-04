@@ -14,18 +14,21 @@ namespace MisterToken {
         public MisterTokenGame() {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
+            Components.Add(new GamerServicesComponent(this));
 
-            graphics.PreferredBackBufferHeight = 720;
-            graphics.PreferredBackBufferWidth = 1280;
-            graphics.ApplyChanges();
-
-            titleMenu = new Menu(delegate() { Exit(); });
+            titleMenu = new Menu(delegate() { SaveAndQuit(); });
             levelMenu = new Menu(delegate() { state = State.TITLE_MENU; });
             videoMenu = new Menu(delegate() { state = State.TITLE_MENU; });
         }
 
         protected override void Initialize() {
             base.Initialize();
+            Storage.Load(delegate() {
+                graphics.PreferredBackBufferHeight = Storage.GetSaveData().height;
+                graphics.PreferredBackBufferWidth = Storage.GetSaveData().width;
+                graphics.IsFullScreen = Storage.GetSaveData().fullscreen;
+                graphics.ApplyChanges();
+            });
         }
 
         protected override void LoadContent() {
@@ -46,7 +49,7 @@ namespace MisterToken {
                 state = State.VIDEO_MENU;
             });
             titleMenu.Add("Exit", delegate() {
-                Exit();
+                SaveAndQuit();
             });
 
             videoMenu.Add("Fullscreen Native", delegate() {
@@ -56,30 +59,51 @@ namespace MisterToken {
                 graphics.PreferredBackBufferHeight = graphics.GraphicsDevice.DisplayMode.Height;
                 graphics.IsFullScreen = true;
                 graphics.ApplyChanges();
+
+                Storage.GetSaveData().height = graphics.PreferredBackBufferHeight;
+                Storage.GetSaveData().width = graphics.PreferredBackBufferWidth;
+                Storage.GetSaveData().fullscreen = graphics.IsFullScreen;
             });
             videoMenu.Add("Window 1280x720 (16:9)", delegate() {
                 graphics.PreferredBackBufferWidth = 1280;
                 graphics.PreferredBackBufferHeight = 720;
                 graphics.IsFullScreen = false;
                 graphics.ApplyChanges();
+
+                Storage.GetSaveData().height = graphics.PreferredBackBufferHeight;
+                Storage.GetSaveData().width = graphics.PreferredBackBufferWidth;
+                Storage.GetSaveData().fullscreen = graphics.IsFullScreen;
             });
             videoMenu.Add("Window 640x480 (4:3)", delegate() {
                 graphics.PreferredBackBufferWidth = 640;
                 graphics.PreferredBackBufferHeight = 480;
                 graphics.IsFullScreen = false;
                 graphics.ApplyChanges();
+
+                Storage.GetSaveData().height = graphics.PreferredBackBufferHeight;
+                Storage.GetSaveData().width = graphics.PreferredBackBufferWidth;
+                Storage.GetSaveData().fullscreen = graphics.IsFullScreen;
             });
             videoMenu.Add("Fullscreen 1280x720", delegate() {
                 graphics.PreferredBackBufferWidth = 1280;
                 graphics.PreferredBackBufferHeight = 720;
                 graphics.IsFullScreen = true;
                 graphics.ApplyChanges();
+
+                Storage.GetSaveData().height = graphics.PreferredBackBufferHeight;
+                Storage.GetSaveData().width = graphics.PreferredBackBufferWidth;
+                Storage.GetSaveData().fullscreen = graphics.IsFullScreen;
             });
             videoMenu.Add("Fullscreen 640x480", delegate() {
                 graphics.PreferredBackBufferWidth = 640;
                 graphics.PreferredBackBufferHeight = 480;
                 graphics.IsFullScreen = true;
                 graphics.ApplyChanges();
+
+                Storage.GetSaveData().height = graphics.PreferredBackBufferHeight;
+                Storage.GetSaveData().width = graphics.PreferredBackBufferWidth;
+                Storage.GetSaveData().fullscreen = graphics.IsFullScreen;
+
             });
             videoMenu.Add("Back", delegate() {
                 state = State.TITLE_MENU;
@@ -169,6 +193,11 @@ namespace MisterToken {
             }
             spriteBatch.End();
             base.Draw(gameTime);
+        }
+
+        public void SaveAndQuit() {
+            Storage.Save();
+            Exit();
         }
 
         public void OnPaused(PlayerIndex player, bool paused) {

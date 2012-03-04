@@ -64,6 +64,7 @@
     <Reference Include="Microsoft.Xna.Framework.Game, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86" />
     <Reference Include="Microsoft.Xna.Framework.Graphics, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86" />
     <Reference Include="Microsoft.Xna.Framework.GamerServices, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86" />
+    <Reference Include="Microsoft.Xna.Framework.Storage, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=MSIL" />
     <Reference Include="mscorlib" />
     <Reference Include="System" />
     <Reference Include="System.Xml" />
@@ -107,6 +108,9 @@
     <Compile Include="sound\Sound.cs" />
     <Compile Include="sound\SoundHook.cs" />
     <Compile Include="sound\SoundManager.cs" />
+    <Compile Include="storage\SaveData.cs" />
+    <Compile Include="storage\Storage.cs" />
+    <Compile Include="storage\StorageManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Game.ico" />

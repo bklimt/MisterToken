@@ -5,18 +5,9 @@ using System.Text;
 
 namespace MisterToken {
     public class Level {
-        private String name;
-        private float probabilityTwoPiece;
-        private float probabilityThreePiece;
-        private float probabilityFourPiece;
-        private List<CellColor> colors;
-        private string pattern;
-        private bool wrap;
-
-        private Random random;
-
         public Level(XmlLevel xml) {
             random = new Random();
+            id = xml.id;
             name = xml.name;
             probabilityTwoPiece = xml.probabilityTwoPiece;
             probabilityThreePiece = xml.probabilityThreePiece;
@@ -24,6 +15,10 @@ namespace MisterToken {
             pattern = xml.pattern;
             colors = PatternParser.GetColors(pattern);
             wrap = xml.wrap;
+        }
+
+        public int GetId() {
+            return id;
         }
 
         public String GetName() {
@@ -82,5 +77,16 @@ namespace MisterToken {
         public bool Wrap() {
             return wrap;
         }
+
+        private int id;
+        private String name;
+        private float probabilityTwoPiece;
+        private float probabilityThreePiece;
+        private float probabilityFourPiece;
+        private List<CellColor> colors;
+        private string pattern;
+        private bool wrap;
+
+        private Random random;
     }
 }
