@@ -104,6 +104,28 @@ namespace MisterToken {
                 }
                 return new Value(pattern);
             }
+
+            public static Value FillRows(Value rows, Value pattern, CellColor color) {
+                if (rows.type != Type.INT) {
+                    throw new Exception("fill_rows expects a first argument of type int.");
+                }
+                if (pattern.type != Type.PATTERN) {
+                    throw new Exception("fill_rows expects a second argument of type pattern.");
+                }
+                int total = rows.intValue * Constants.COLUMNS;
+                int additional = total - pattern.patternValue.Count;
+                if (additional < 0) {
+                    return pattern;
+                }
+                return ((new Value(color)).Multiply(new Value(additional))).Add(pattern);
+            }
+
+            public static Value BlankRows(Value rows) {
+                if (rows.type != Type.INT) {
+                    throw new Exception("blank_rows expects an argument of type int.");
+                }
+                return (new Value(CellColor.BLACK)).Multiply(new Value(rows.intValue * Constants.COLUMNS));
+            }
         }
 
         private PatternParser(string text, Random random) {
@@ -114,6 +136,7 @@ namespace MisterToken {
             constants = new Dictionary<string, Value>();
             constants.Add("rows", new Value(Constants.ROWS));
             constants.Add("columns", new Value(Constants.COLUMNS));
+            constants.Add("_", new Value(CellColor.BLACK));
             foreach (CellColor color in Enum.GetValues(typeof(CellColor))) {
                 constants.Add(Enum.GetName(typeof(CellColor), color).ToLower(), new Value(color));
             }
@@ -132,7 +155,7 @@ namespace MisterToken {
                     tokens.Add(s);
                 } else if (Char.IsLetter(text[position])) {
                     string s = "";
-                    while (position < text.Length && Char.IsLetter(text[position])) {
+                    while (position < text.Length && (Char.IsLetter(text[position]) || text[position] == '_')) {
                         s += text[position++];
                     }
                     tokens.Add(s);
@@ -192,6 +215,29 @@ namespace MisterToken {
         private Value ParseAtom() {
             if (MatchToken("shuffle") != null) {
                 return ParseAtom().Shuffle(random);
+            } else if (MatchToken("blank_rows") != null) {
+                return Value.BlankRows(ParseAtom());
+            } else if (MatchToken("fill_rows") != null) {
+                if (MatchToken("(") == null) {
+                    throw new Exception("Expected (.");
+                }
+                Value rows = ParseSum();
+                if (MatchToken(",") == null) {
+                    throw new Exception("Expected ,.");
+                }
+                Value pattern = ParseSum();
+                CellColor color = CellColor.BLACK;
+                if (MatchToken(",") != null) {
+                    Value colorValue = ParseValue();
+                    if (colorValue.type != Value.Type.PATTERN || colorValue.patternValue.Count != 1) {
+                        throw new Exception("Expected a color.");
+                    }
+                    color = colorValue.patternValue[0];
+                }
+                if (MatchToken(")") == null) {
+                    throw new Exception("Expected ).");
+                }
+                return Value.FillRows(rows, pattern, color);
             } else if (MatchToken("(") != null) {
                 Value value = ParseSum();
                 if (MatchToken(")") == null) {
@@ -231,6 +277,24 @@ namespace MisterToken {
                 }
             }
             return value;
+        }
+
+        public static List<CellColor> GetColors(string text) {
+            List<CellColor> result = new List<CellColor>();
+            PatternParser parser = new PatternParser(text, null);
+            for (int i = 0; i < parser.tokens.Count; ++i) {
+                if (parser.constants.ContainsKey(parser.tokens[i])) {
+                    Value value = parser.constants[parser.tokens[i]];
+                    if (value.type == Value.Type.PATTERN) {
+                        for (int j = 0; j < value.patternValue.Count; ++j) {
+                            if (!result.Contains(value.patternValue[j]) && value.patternValue[j] != CellColor.BLACK) {
+                                result.Add(value.patternValue[j]);
+                            }
+                        }
+                    }
+                }
+            }
+            return result;
         }
 
         public static List<CellColor> ParseExpression(string text, Random random) {

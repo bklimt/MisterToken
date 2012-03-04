@@ -11,6 +11,7 @@ namespace MisterToken {
         private float probabilityFourPiece;
         private List<CellColor> colors;
         private string pattern;
+        private bool wrap;
 
         private Random random;
 
@@ -21,6 +22,8 @@ namespace MisterToken {
             probabilityThreePiece = xml.probabilityThreePiece;
             probabilityFourPiece = xml.probabilityFourPiece;
             pattern = xml.pattern;
+            colors = PatternParser.GetColors(pattern);
+            wrap = xml.wrap;
         }
 
         public String GetName() {
@@ -28,7 +31,6 @@ namespace MisterToken {
         }
 
         public void SetupBoard(Board board) {
-            colors = new List<CellColor>();
             List<CellColor> cells = PatternParser.ParseExpression(pattern, random);
             int start = Constants.ROWS * Constants.COLUMNS - cells.Count;
             if (start < 0) {
@@ -43,15 +45,6 @@ namespace MisterToken {
                         if (color != CellColor.BLACK) {
                             board.GetCell(row, column).color = color;
                             board.GetCell(row, column).locked = true;
-                            bool present = false;
-                            for (int i = 0; i < colors.Count; ++i) {
-                                if (colors[i] == color) {
-                                    present = true;
-                                }
-                            }
-                            if (!present) {
-                                colors.Add(color);
-                            }
                         }
                     }
                     ++offset;
@@ -68,9 +61,6 @@ namespace MisterToken {
         }
 
         public CellColor GetRandomColor() {
-            if (colors == null || colors.Count == 0) {
-                return CellColor.BLACK;
-            }
             return colors[random.Next(colors.Count)];
         }
 
@@ -87,6 +77,10 @@ namespace MisterToken {
             } else {
                 return new FourPieceToken(board, 0, 0, color1, color2, color3, color4);
             }
+        }
+
+        public bool Wrap() {
+            return wrap;
         }
     }
 }

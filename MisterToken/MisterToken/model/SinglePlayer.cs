@@ -178,24 +178,43 @@ namespace MisterToken {
             state = State.FAILED;
         }
 
+        private void HandleMovement() {
+            Token currentToken = tokenGenerator.GetCurrentToken();
+            if (Input.IsDown(PerPlayerBooleanInputHook.TOKEN_RIGHT.ForPlayer(player))) {
+                if (level.Wrap() && (currentToken == null || currentToken.CanMove(0, 1, true))) {
+                    board.ShiftRight();
+                }
+            }
+            if (Input.IsDown(PerPlayerBooleanInputHook.TOKEN_LEFT.ForPlayer(player))) {
+                if (level.Wrap() && (currentToken == null || currentToken.CanMove(0, -1, true))) {
+                    board.ShiftLeft();
+                }
+            }
+        }
+
         private void DoSettingUpBoard(GameTime gameTime) {
             board.Setup(level);
-            tokenGenerator.LoadNextToken();
             state = State.WAITING_FOR_TOKEN;
+            timeToNextToken = Constants.MILLIS_PER_TOKEN;
         }
 
         private void DoDumping(GameTime gameTime) {
+            HandleMovement();
+
             state = State.WAITING_FOR_TOKEN;
             for (int i = 0; i < Constants.COLUMNS; ++i) {
                 if (dumps[i] != CellColor.BLACK) {
                     board.GetCell(0, i).color = dumps[i];
                     dumps[i] = CellColor.BLACK;
+                    timeToNextFall = 0;
                     state = State.FALLING;
                 }
             }
         }
 
         private void DoWaitingForToken(GameTime gameTime) {
+            HandleMovement();
+
             timeToNextToken -= gameTime.ElapsedGameTime.Milliseconds;
             nextTokenReadiness = 1.0f - ((float)timeToNextToken / Constants.MILLIS_PER_TOKEN);
             if (timeToNextToken <= 0) {
@@ -221,22 +240,23 @@ namespace MisterToken {
                 throw new InvalidOperationException("Should never be in MovingTokenState with null current token.");
             }
 
-            if (Input.IsDown(PerPlayerBooleanInputHook.TOKEN_RIGHT.ForPlayer(player))) {
-                if (currentToken.CanMove(0, 1)) {
-                    board.ShiftRight();
+            HandleMovement();
+            if (!level.Wrap() && Input.IsDown(PerPlayerBooleanInputHook.TOKEN_RIGHT.ForPlayer(player))) {
+                if (currentToken.CanMove(0, 1, level.Wrap())) {
+                    currentToken.Move(0, 1);
                 }
             }
-            if (Input.IsDown(PerPlayerBooleanInputHook.TOKEN_LEFT.ForPlayer(player))) {
-                if (currentToken.CanMove(0, -1)) {
-                    board.ShiftLeft();
+            if (!level.Wrap() && Input.IsDown(PerPlayerBooleanInputHook.TOKEN_LEFT.ForPlayer(player))) {
+                if (currentToken.CanMove(0, -1, level.Wrap())) {
+                    currentToken.Move(0, -1);
                 }
             }
             if (Input.IsDown(PerPlayerBooleanInputHook.ROTATE_LEFT.ForPlayer(player))) {
-                if (currentToken.CanRotateLeft())
+                if (currentToken.CanRotateLeft(level.Wrap()))
                     currentToken.RotateLeft();
             }
             if (Input.IsDown(PerPlayerBooleanInputHook.ROTATE_RIGHT.ForPlayer(player))) {
-                if (currentToken.CanRotateRight())
+                if (currentToken.CanRotateRight(level.Wrap()))
                     currentToken.RotateRight();
             }
             if (Input.IsDown(PerPlayerBooleanInputHook.TOKEN_DOWN.ForPlayer(player))) {
@@ -244,7 +264,7 @@ namespace MisterToken {
             }
             if (Input.IsDown(PerPlayerBooleanInputHook.TOKEN_SLAM.ForPlayer(player))) {
                 timeUntilNextAdvance = 0;
-                while (currentToken.CanMove(1, 0)) {
+                while (currentToken.CanMove(1, 0, level.Wrap())) {
                     currentToken.Move(1, 0);
                 }
             }
@@ -253,7 +273,7 @@ namespace MisterToken {
             if (timeUntilNextAdvance <= 0) {
                 timeUntilNextAdvance = Constants.MILLIS_PER_ADVANCE;
                 // If there's a current token, move it down.
-                if (!currentToken.CanMove(1, 0)) {
+                if (!currentToken.CanMove(1, 0, false)) {
                     currentToken.Commit();
                     tokenGenerator.ClearCurrentToken();
                     timeToClear = 0;
@@ -265,6 +285,7 @@ namespace MisterToken {
         }
 
         private void DoClearing(GameTime gameTime) {
+            HandleMovement();
             if (timeToClear > 0) {
                 timeToClear -= gameTime.ElapsedGameTime.Milliseconds;
             }
@@ -280,32 +301,31 @@ namespace MisterToken {
                     listener.OnClear(player);
                 } else {
                     timeToNextFall = 0;
-                    anythingFell = false;
                     state = State.FALLING;
                 }
             }
         }
 
         private void DoFalling(GameTime gameTime) {
+            HandleMovement();
             if (timeToNextFall > 0) {
                 timeToNextFall -= gameTime.ElapsedGameTime.Milliseconds;
             }
             if (timeToNextFall <= 0) {
-                if (board.ApplyGravity()) {
-                    anythingFell = true;
+                bool anythingFell = board.MoveLoose();
+                bool anythingLoose = board.MarkLoose();
+                if (anythingLoose) {
                     timeToNextFall = Constants.MILLIS_PER_FALL;
+                } else if (anythingFell) {
+                    timeToClear = 0;
+                    state = State.CLEARING;
                 } else {
-                    if (anythingFell) {
-                        timeToClear = 0;
-                        state = State.CLEARING;
-                    } else {
-                        timeToNextToken = Constants.MILLIS_PER_TOKEN;
-                        if (matches.Count > 1) {
-                            listener.OnDump(player, matches);
-                        }
-                        matches.Clear();
-                        state = State.DUMPING;
+                    timeToNextToken = Constants.MILLIS_PER_TOKEN;
+                    if (matches.Count > 1) {
+                       listener.OnDump(player, matches);
                     }
+                    matches.Clear();
+                    state = State.DUMPING;
                 }
             }
         }
@@ -347,7 +367,6 @@ namespace MisterToken {
         private List<CellColor> matches;
 
         // Falling.
-        private bool anythingFell;
         private int timeToNextFall;
 
         // Internal state.

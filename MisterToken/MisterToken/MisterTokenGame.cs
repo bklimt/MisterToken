@@ -86,7 +86,7 @@ namespace MisterToken {
                     spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend);
                     Sprites.DrawLayer(SpriteHook.TITLE_LAYER, spriteBatch);
                     titleMenu.Draw(new Rectangle(255, 380, 320, 130), true, spriteBatch);
-                    levelMenu.Draw(new Rectangle(655, 380, 320, 260), false, spriteBatch);
+                    levelMenu.Draw(new Rectangle(655, 180, 320, 460), false, spriteBatch);
                     spriteBatch.End();
                     break;
                 case State.LEVEL_MENU:
@@ -94,7 +94,7 @@ namespace MisterToken {
                     spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend);
                     Sprites.DrawLayer(SpriteHook.TITLE_LAYER, spriteBatch);
                     titleMenu.Draw(new Rectangle(255, 380, 320, 130), false, spriteBatch);
-                    levelMenu.Draw(new Rectangle(655, 380, 320, 260), true, spriteBatch);
+                    levelMenu.Draw(new Rectangle(655, 180, 320, 460), true, spriteBatch);
                     spriteBatch.End();
                     break;
                 case State.PLAYING:

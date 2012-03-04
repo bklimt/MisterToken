@@ -216,19 +216,30 @@ namespace MisterToken {
             }
         }
 
-        public bool ApplyGravity() {
+        /**
+         * Returns true if anything is free to fall.
+         */
+        public bool MarkLoose() {
             VerifyBoard();
             bool any = false;
             for (int row = Constants.ROWS - 2; row >= 0; --row) {
                 for (int column = 0; column < Constants.COLUMNS; ++column) {
                     CheckCellLoose(row, column, true);
+                    if (GetCell(row, column).loose) {
+                        any = true;
+                    }
                 }
             }
+            return any;
+        }
+
+        public bool MoveLoose() {
+            bool anythingFell = false;
             for (int row = Constants.ROWS - 2; row >= 0; --row) {
                 for (int column = 0; column < Constants.COLUMNS; ++column) {
                     Cell cell = GetCell(row, column);
                     if (cell.loose) {
-                        any = true;
+                        anythingFell = true;
                         Cell below = GetCell(row + 1, column);
                         if (below.color != CellColor.BLACK) {
                             throw new Exception("Bad gravity logic.");
@@ -239,7 +250,7 @@ namespace MisterToken {
                 }
             }
             VerifyBoard();
-            return any;
+            return anythingFell;
         }
 
         public int GetLockedCount() {

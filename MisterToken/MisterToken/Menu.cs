@@ -35,14 +35,16 @@ namespace MisterToken {
         }
 
         public void Draw(Rectangle rect, bool focused, SpriteBatch spriteBatch) {
-            Sprites.DrawLayer(SpriteHook.SCREEN_50_LAYER, rect, spriteBatch);
+            if (focused) {
+                Sprites.DrawLayer(SpriteHook.SCREEN_50_LAYER, rect, spriteBatch);
+            }
             int x = rect.Left;
             int y = rect.Top + 10;
             for (int i = 0; i < options.Count; ++i) {
                 Sprites.DrawText(options[i].Item1, Color.Cyan, new Vector2(x + 55, y), spriteBatch);
                 if (i == selected) {
                     Cell cell = new Cell();
-                    cell.color = focused ? CellColor.ORANGE : CellColor.WHITE;
+                    cell.color = focused ? CellColor.ORANGE : CellColor.ORANGE;
                     Rectangle cellRect;
                     cellRect.X = x + 12;
                     cellRect.Y = y + 9;
@@ -51,6 +53,9 @@ namespace MisterToken {
                     Sprites.DrawCell(cell, cellRect, spriteBatch);
                 }
                 y += 60;
+            }
+            if (!focused) {
+                Sprites.DrawLayer(SpriteHook.SCREEN_80_LAYER, rect, spriteBatch);
             }
         }
 

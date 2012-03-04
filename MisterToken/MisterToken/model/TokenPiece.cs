@@ -12,14 +12,17 @@ namespace MisterToken {
             this.cell = cell;
         }
 
-        public bool CanMove(int deltaRow, int deltaColumn) {
+        public bool CanMove(int deltaRow, int deltaColumn, bool allowWrap) {
             if (row + deltaRow < 0) {
                 return false;
             }
             if (row + deltaRow >= Constants.ROWS) {
                 return false;
             }
-            return (board.GetColor(row + deltaRow, column + deltaColumn) == 0);
+            if (!allowWrap && (((column + deltaColumn) < 0) || ((column + deltaColumn >= Constants.COLUMNS)))) {
+                return false;
+            }
+            return (board.GetColor(row + deltaRow, column + deltaColumn) == CellColor.BLACK);
         }
 
         public void Move(int deltaRow, int deltaColumn) {

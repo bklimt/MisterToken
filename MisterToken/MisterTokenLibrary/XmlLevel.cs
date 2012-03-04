@@ -10,5 +10,6 @@ namespace MisterToken {
         public float probabilityThreePiece;
         public float probabilityFourPiece;
         public String pattern;
+        public bool wrap;
     }
 }

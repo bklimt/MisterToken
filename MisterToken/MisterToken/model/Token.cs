@@ -20,9 +20,9 @@ namespace MisterToken {
             return true;
         }
 
-        public bool CanMove(int deltaRow, int deltaColumn) {
+        public bool CanMove(int deltaRow, int deltaColumn, bool allowWrap) {
             foreach (TokenPiece p in piece)
-                if (!p.CanMove(deltaRow, deltaColumn))
+                if (!p.CanMove(deltaRow, deltaColumn, allowWrap))
                     return false;
             return true;
         }
@@ -34,8 +34,8 @@ namespace MisterToken {
 
         public abstract void RotateRight();
         public abstract void RotateLeft();
-        public abstract bool CanRotateRight();
-        public abstract bool CanRotateLeft();
+        public abstract bool CanRotateRight(bool allowWrap);
+        public abstract bool CanRotateLeft(bool allowWrap);
 
         public void DrawRect(Rectangle boardRect, SpriteBatch spriteBatch) {
             foreach (TokenPiece p in piece) {

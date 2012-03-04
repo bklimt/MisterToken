@@ -97,11 +97,11 @@ namespace MisterToken {
             }
         }
 
-        public override bool CanRotateRight() {
+        public override bool CanRotateRight(bool allowWrap) {
             return true;
         }
 
-        public override bool CanRotateLeft() {
+        public override bool CanRotateLeft(bool allowWrap) {
             return true;
         }
 

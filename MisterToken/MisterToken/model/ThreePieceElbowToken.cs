@@ -83,30 +83,30 @@ namespace MisterToken {
             }
         }
 
-        public override bool CanRotateRight() {
+        public override bool CanRotateRight(bool allowWrap) {
             switch (orientation) {
                 case 0:
-                    return piece[2].CanMove(0, -1);
+                    return piece[2].CanMove(0, -1, allowWrap);
                 case 1:
-                    return piece[2].CanMove(-1, 0);
+                    return piece[2].CanMove(-1, 0, allowWrap);
                 case 2:
-                    return piece[2].CanMove(0, 1);
+                    return piece[2].CanMove(0, 1, allowWrap);
                 case 3:
-                    return piece[2].CanMove(1, 0);
+                    return piece[2].CanMove(1, 0, allowWrap);
             }
             return false;
         }
 
-        public override bool CanRotateLeft() {
+        public override bool CanRotateLeft(bool allowWrap) {
             switch (orientation) {
                 case 0:
-                    return piece[2].CanMove(0, -1);
+                    return piece[2].CanMove(0, -1, allowWrap);
                 case 1:
-                    return piece[2].CanMove(-1, 0);
+                    return piece[2].CanMove(-1, 0, allowWrap);
                 case 2:
-                    return piece[2].CanMove(0, 1);
+                    return piece[2].CanMove(0, 1, allowWrap);
                 case 3:
-                    return piece[2].CanMove(1, 0);
+                    return piece[2].CanMove(1, 0, allowWrap);
             }
             return false;
         }
