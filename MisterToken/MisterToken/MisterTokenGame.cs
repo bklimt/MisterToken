@@ -20,7 +20,8 @@ namespace MisterToken {
             graphics.ApplyChanges();
 
             titleMenu = new Menu(delegate() { Exit(); });
-            levelMenu = new Menu(delegate() { state = State.TITLE_MENU;  });
+            levelMenu = new Menu(delegate() { state = State.TITLE_MENU; });
+            videoMenu = new Menu(delegate() { state = State.TITLE_MENU; });
         }
 
         protected override void Initialize() {
@@ -41,8 +42,47 @@ namespace MisterToken {
                 singlePlayer = false;
                 state = State.LEVEL_MENU;
             });
+            titleMenu.Add("Video", delegate() {
+                state = State.VIDEO_MENU;
+            });
             titleMenu.Add("Exit", delegate() {
                 Exit();
+            });
+
+            videoMenu.Add("Fullscreen Native", delegate() {
+                graphics.IsFullScreen = false;
+                graphics.ApplyChanges();
+                graphics.PreferredBackBufferWidth = graphics.GraphicsDevice.DisplayMode.Width;
+                graphics.PreferredBackBufferHeight = graphics.GraphicsDevice.DisplayMode.Height;
+                graphics.IsFullScreen = true;
+                graphics.ApplyChanges();
+            });
+            videoMenu.Add("Window 1280x720 (16:9)", delegate() {
+                graphics.PreferredBackBufferWidth = 1280;
+                graphics.PreferredBackBufferHeight = 720;
+                graphics.IsFullScreen = false;
+                graphics.ApplyChanges();
+            });
+            videoMenu.Add("Window 640x480 (4:3)", delegate() {
+                graphics.PreferredBackBufferWidth = 640;
+                graphics.PreferredBackBufferHeight = 480;
+                graphics.IsFullScreen = false;
+                graphics.ApplyChanges();
+            });
+            videoMenu.Add("Fullscreen 1280x720", delegate() {
+                graphics.PreferredBackBufferWidth = 1280;
+                graphics.PreferredBackBufferHeight = 720;
+                graphics.IsFullScreen = true;
+                graphics.ApplyChanges();
+            });
+            videoMenu.Add("Fullscreen 640x480", delegate() {
+                graphics.PreferredBackBufferWidth = 640;
+                graphics.PreferredBackBufferHeight = 480;
+                graphics.IsFullScreen = true;
+                graphics.ApplyChanges();
+            });
+            videoMenu.Add("Back", delegate() {
+                state = State.TITLE_MENU;
             });
 
             for (int i = 0; i < Levels.GetLevelCount(); ++i) {
@@ -68,6 +108,9 @@ namespace MisterToken {
                 case State.TITLE_MENU:
                     titleMenu.Update();
                     break;
+                case State.VIDEO_MENU:
+                    videoMenu.Update();
+                    break;
                 case State.LEVEL_MENU:
                     levelMenu.Update();
                     break;
@@ -79,31 +122,52 @@ namespace MisterToken {
         }
 
         protected override void Draw(GameTime gameTime) {
+            GraphicsDevice.Clear(Color.Black);
+
+            // Figure out the right transformation for the resolution.
+            Matrix transform = Matrix.Identity;
+            if (GraphicsDevice.Viewport.Height != 720 || GraphicsDevice.Viewport.Width != 1280) {
+                // Rescale it.
+                float scale = GraphicsDevice.Viewport.Height / 720.0f;
+                if ((GraphicsDevice.Viewport.Width / scale) < 1280) {
+                    scale = GraphicsDevice.Viewport.Width / 1280.0f;
+                }
+
+                // Recenter it.
+                int height = (int)Math.Round(GraphicsDevice.Viewport.Height / scale);
+                int width = (int)Math.Round(GraphicsDevice.Viewport.Width / scale);
+                transform = Matrix.CreateTranslation((width - 1280) / 2, (height - 720) / 2, 0);
+                transform *= Matrix.CreateScale(scale);
+            }
+            spriteBatch.Begin(SpriteSortMode.Deferred,
+                              BlendState.AlphaBlend,
+                              SamplerState.LinearClamp,
+                              DepthStencilState.None,
+                              RasterizerState.CullCounterClockwise,
+                              null,
+                              transform);
+            
             switch (state) {
                 case State.TITLE_MENU:
-                    GraphicsDevice.Clear(Color.Black);
-                    spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend);
                     Sprites.DrawLayer(SpriteHook.TITLE_LAYER, spriteBatch);
-                    titleMenu.Draw(new Rectangle(255, 380, 320, 200), true, spriteBatch);
-                    levelMenu.Draw(new Rectangle(655, 180, 320, 510), false, spriteBatch);
-                    spriteBatch.End();
+                    titleMenu.Draw(new Rectangle(255, 380, 320, 260), true, spriteBatch);
+                    break;
+                case State.VIDEO_MENU:
+                    Sprites.DrawLayer(SpriteHook.TITLE_LAYER, spriteBatch);
+                    titleMenu.Draw(new Rectangle(255, 380, 320, 260), false, spriteBatch);
+                    videoMenu.Draw(new Rectangle(620, 280, 640, 380), true, spriteBatch);
                     break;
                 case State.LEVEL_MENU:
-                    GraphicsDevice.Clear(Color.Black);
-                    spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend);
                     Sprites.DrawLayer(SpriteHook.TITLE_LAYER, spriteBatch);
-                    titleMenu.Draw(new Rectangle(255, 380, 320, 200), false, spriteBatch);
+                    titleMenu.Draw(new Rectangle(255, 380, 320, 260), false, spriteBatch);
                     levelMenu.Draw(new Rectangle(655, 180, 320, 510), true, spriteBatch);
-                    spriteBatch.End();
                     break;
                 case State.PLAYING:
-                    GraphicsDevice.Clear(Color.Black);
-                    spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend);
                     Sprites.DrawLayer(SpriteHook.BACKGROUND_LAYER, spriteBatch);
                     model.Draw(GraphicsDevice, spriteBatch);
-                    spriteBatch.End();
                     break;
             }
+            spriteBatch.End();
             base.Draw(gameTime);
         }
 
@@ -129,14 +193,18 @@ namespace MisterToken {
         // Game state.
         private enum State {
             TITLE_MENU,
+            VIDEO_MENU,
             LEVEL_MENU,
             PLAYING,
         }
         private State state;
 
-        // Data model.
+        // Menus
         private Menu titleMenu;
+        private Menu videoMenu;
         private Menu levelMenu;
+
+        // Data model.
         private Game model;
         private bool singlePlayer;
 
