@@ -12,9 +12,6 @@ namespace MisterToken {
         MENU_ENTER,
         MENU_BACK,
 
-        PAUSE,
-
-        PLAYER_ONE_START,
         PLAYER_ONE_TOKEN_SLAM,
         PLAYER_ONE_TOKEN_RIGHT,
         PLAYER_ONE_TOKEN_DOWN,
@@ -22,7 +19,6 @@ namespace MisterToken {
         PLAYER_ONE_ROTATE_RIGHT,
         PLAYER_ONE_ROTATE_LEFT,
 
-        PLAYER_TWO_START,
         PLAYER_TWO_TOKEN_SLAM,
         PLAYER_TWO_TOKEN_RIGHT,
         PLAYER_TWO_TOKEN_DOWN,
@@ -32,7 +28,6 @@ namespace MisterToken {
     }
 
     public enum PerPlayerBooleanInputHook {
-        START,
         TOKEN_SLAM,
         TOKEN_RIGHT,
         TOKEN_DOWN,
@@ -45,8 +40,6 @@ namespace MisterToken {
         public static BooleanInputHook ForPlayer(this PerPlayerBooleanInputHook input, PlayerIndex player) {
             if (player == PlayerIndex.One) {
                 switch (input) {
-                    case PerPlayerBooleanInputHook.START:
-                        return BooleanInputHook.PLAYER_ONE_START;
                     case PerPlayerBooleanInputHook.TOKEN_SLAM:
                         return BooleanInputHook.PLAYER_ONE_TOKEN_SLAM;
                     case PerPlayerBooleanInputHook.TOKEN_RIGHT:
@@ -64,8 +57,6 @@ namespace MisterToken {
                 }
             } else if (player == PlayerIndex.Two) {
                 switch (input) {
-                    case PerPlayerBooleanInputHook.START:
-                        return BooleanInputHook.PLAYER_TWO_START;
                     case PerPlayerBooleanInputHook.TOKEN_SLAM:
                         return BooleanInputHook.PLAYER_TWO_TOKEN_SLAM;
                     case PerPlayerBooleanInputHook.TOKEN_RIGHT:

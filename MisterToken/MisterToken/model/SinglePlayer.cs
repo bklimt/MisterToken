@@ -162,7 +162,8 @@ namespace MisterToken {
                 pauseMenu.Update();
                 return;
             }
-            if (state != State.FAILED && state != State.WON && Input.IsDown(BooleanInputHook.PAUSE)) {
+            if (state != State.FAILED && state != State.WON &&
+                (Input.IsDown(BooleanInputHook.MENU_ENTER) || Input.IsDown(BooleanInputHook.MENU_BACK))) {
                 paused = !paused;
                 listener.OnPaused(player, paused);
             }
@@ -280,6 +281,7 @@ namespace MisterToken {
                 }
             }
             if (Input.IsDown(PerPlayerBooleanInputHook.ROTATE_LEFT.ForPlayer(player))) {
+                Sound.Play(SoundHook.ROTATE_LEFT);
                 if (currentToken.CanRotateLeft(level.Wrap()))
                     currentToken.RotateLeft();
             }
@@ -359,13 +361,13 @@ namespace MisterToken {
         }
 
         private void DoFailed(GameTime gameTime) {
-            if (Input.IsDown(BooleanInputHook.MENU_ENTER)) {
+            if (Input.IsDown(BooleanInputHook.MENU_ENTER) || Input.IsDown(BooleanInputHook.MENU_BACK)) {
                 listener.OnFinished(player);
             }
         }
 
         private void DoWon(GameTime gameTime) {
-            if (Input.IsDown(BooleanInputHook.MENU_ENTER)) {
+            if (Input.IsDown(BooleanInputHook.MENU_ENTER) || Input.IsDown(BooleanInputHook.MENU_BACK)) {
                 listener.OnFinished(player);
             }
         }
