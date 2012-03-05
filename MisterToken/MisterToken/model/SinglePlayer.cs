@@ -295,6 +295,7 @@ namespace MisterToken {
             }
             if (Input.IsDown(PerPlayerBooleanInputHook.TOKEN_SLAM.ForPlayer(player))) {
                 timeUntilNextAdvance = 0;
+                Sound.Play(SoundHook.SLAM);
                 while (currentToken.CanMove(1, 0, level.Wrap())) {
                     currentToken.Move(1, 0);
                 }

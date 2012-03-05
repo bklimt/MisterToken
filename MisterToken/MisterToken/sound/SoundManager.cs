@@ -14,6 +14,7 @@ namespace MisterToken {
             map[SoundHook.CLEAR_1] = content.Load<SoundEffect>("sounds/beam3");
             map[SoundHook.CLEAR_2] = content.Load<SoundEffect>("sounds/beam4");
             map[SoundHook.CLEAR_3] = content.Load<SoundEffect>("sounds/beam5");
+            map[SoundHook.SLAM] = content.Load<SoundEffect>("sounds/beep18");
         }
 
         public void Play(SoundHook sound) {
