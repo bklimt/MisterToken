@@ -23,9 +23,7 @@ namespace MisterToken {
             booleanMap.Add(BooleanInputHook.MENU_ENTER, new BooleanInputOnce()
                 .AddKey(Keys.Enter)
                 .AddButton(PlayerIndex.One, Buttons.Start)
-                .AddButton(PlayerIndex.One, Buttons.X)
-                .AddButton(PlayerIndex.Two, Buttons.Start)
-                .AddButton(PlayerIndex.Two, Buttons.X));
+                .AddButton(PlayerIndex.Two, Buttons.Start));
             booleanMap.Add(BooleanInputHook.MENU_BACK, new BooleanInputOnce()
                 .AddKey(Keys.Escape)
                 .AddButton(PlayerIndex.One, Buttons.Back)
@@ -35,7 +33,7 @@ namespace MisterToken {
                 .AddKey(Keys.W)
                 .AddKey(Keys.Up)
                 .AddKey(Keys.Space)
-                .AddButton(PlayerIndex.One, Buttons.B));
+                .AddButton(PlayerIndex.One, Buttons.RightShoulder));
             booleanMap.Add(BooleanInputHook.PLAYER_ONE_TOKEN_DOWN, new BooleanInputRepeater(25)
                 .AddKey(Keys.S)
                 .AddKey(Keys.Down)
@@ -44,7 +42,6 @@ namespace MisterToken {
                 .AddKey(Keys.D)
                 .AddKey(Keys.Right)
                 .AddButton(PlayerIndex.One, Buttons.RightTrigger)
-                .AddButton(PlayerIndex.One, Buttons.RightShoulder)
                 .AddButton(PlayerIndex.One, Buttons.DPadRight));
             booleanMap.Add(BooleanInputHook.PLAYER_ONE_TOKEN_LEFT, new BooleanInputRepeater(200)
                 .AddKey(Keys.A)
@@ -57,18 +54,18 @@ namespace MisterToken {
                 .AddButton(PlayerIndex.One, Buttons.A));
             booleanMap.Add(BooleanInputHook.PLAYER_ONE_ROTATE_LEFT, new BooleanInputRepeater(200)
                 .AddKey(Keys.Z)
-                .AddButton(PlayerIndex.One, Buttons.X));
+                .AddButton(PlayerIndex.One, Buttons.X)
+                .AddButton(PlayerIndex.One, Buttons.B));
 
             booleanMap.Add(BooleanInputHook.PLAYER_TWO_TOKEN_SLAM, new BooleanInputOnce()
                 .AddKey(Keys.I)
-                .AddButton(PlayerIndex.Two, Buttons.B));
+                .AddButton(PlayerIndex.Two, Buttons.RightShoulder));
             booleanMap.Add(BooleanInputHook.PLAYER_TWO_TOKEN_DOWN, new BooleanInputRepeater(25)
                 .AddKey(Keys.K)
                 .AddButton(PlayerIndex.Two, Buttons.DPadDown));
             booleanMap.Add(BooleanInputHook.PLAYER_TWO_TOKEN_RIGHT, new BooleanInputRepeater(200)
                 .AddKey(Keys.L)
                 .AddButton(PlayerIndex.Two, Buttons.RightTrigger)
-                .AddButton(PlayerIndex.Two, Buttons.RightShoulder)
                 .AddButton(PlayerIndex.Two, Buttons.DPadRight));
             booleanMap.Add(BooleanInputHook.PLAYER_TWO_TOKEN_LEFT, new BooleanInputRepeater(200)
                 .AddKey(Keys.J)
@@ -80,7 +77,8 @@ namespace MisterToken {
                 .AddButton(PlayerIndex.Two, Buttons.A));
             booleanMap.Add(BooleanInputHook.PLAYER_TWO_ROTATE_LEFT, new BooleanInputRepeater(200)
                 .AddKey(Keys.M)
-                .AddButton(PlayerIndex.Two, Buttons.X));
+                .AddButton(PlayerIndex.Two, Buttons.X)
+                .AddButton(PlayerIndex.Two, Buttons.B));
 
             analogMap = new Dictionary<AnalogInputHook, AnalogInput>();
         }
