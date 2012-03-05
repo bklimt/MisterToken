@@ -48,6 +48,9 @@ namespace MisterToken {
             titleMenu.Add("Video", delegate() {
                 state = State.VIDEO_MENU;
             });
+            titleMenu.Add("Help", delegate() {
+                state = State.HELP_SCREEN;
+            });
             titleMenu.Add("Exit", delegate() {
                 SaveAndQuit();
             });
@@ -138,6 +141,11 @@ namespace MisterToken {
                 case State.LEVEL_MENU:
                     levelMenu.Update();
                     break;
+                case State.HELP_SCREEN:
+                    if (Input.IsDown(BooleanInputHook.MENU_BACK) || Input.IsDown(BooleanInputHook.MENU_ENTER)) {
+                        state = State.TITLE_MENU;
+                    }
+                    break;
                 case State.PLAYING:
                     model.Update(gameTime);
                     break;
@@ -174,17 +182,20 @@ namespace MisterToken {
             switch (state) {
                 case State.TITLE_MENU:
                     Sprites.DrawLayer(SpriteHook.TITLE_LAYER, spriteBatch);
-                    titleMenu.Draw(new Rectangle(255, 380, 320, 260), true, spriteBatch);
+                    titleMenu.Draw(new Rectangle(255, 280, 320, 320), true, spriteBatch);
                     break;
                 case State.VIDEO_MENU:
                     Sprites.DrawLayer(SpriteHook.TITLE_LAYER, spriteBatch);
-                    titleMenu.Draw(new Rectangle(255, 380, 320, 260), false, spriteBatch);
+                    titleMenu.Draw(new Rectangle(255, 280, 320, 320), false, spriteBatch);
                     videoMenu.Draw(new Rectangle(620, 280, 640, 380), true, spriteBatch);
                     break;
                 case State.LEVEL_MENU:
                     Sprites.DrawLayer(SpriteHook.TITLE_LAYER, spriteBatch);
-                    titleMenu.Draw(new Rectangle(255, 380, 320, 260), false, spriteBatch);
+                    titleMenu.Draw(new Rectangle(255, 280, 320, 320), false, spriteBatch);
                     levelMenu.Draw(new Rectangle(655, 180, 320, 510), true, spriteBatch);
+                    break;
+                case State.HELP_SCREEN:
+                    Sprites.DrawLayer(SpriteHook.HELP_LAYER, spriteBatch);
                     break;
                 case State.PLAYING:
                     Sprites.DrawLayer(SpriteHook.BACKGROUND_LAYER, spriteBatch);
@@ -224,6 +235,7 @@ namespace MisterToken {
             TITLE_MENU,
             VIDEO_MENU,
             LEVEL_MENU,
+            HELP_SCREEN,
             PLAYING,
         }
         private State state;
