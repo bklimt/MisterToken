@@ -11,7 +11,7 @@ namespace MisterToken {
         public const int MILLIS_PER_CLEAR = 150;     // time for matched pieces to clear.
 
         public const int ROWS = 15;                  // rows on the board.
-        public const int COLUMNS = 10;               // columns on the board.
+        public const int COLUMNS = 12;               // columns on the board.
         public const int CELL_SIZE = 32;             // size of each cell in pixels.
 
         public const int BOARD_ONE_RECT_X = 190;     // x offset for drawing the board.

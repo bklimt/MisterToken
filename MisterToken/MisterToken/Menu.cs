@@ -51,12 +51,12 @@ namespace MisterToken {
                     cell.color = focused ? CellColor.ORANGE : CellColor.ORANGE;
                     Rectangle cellRect;
                     cellRect.X = x + 12;
-                    cellRect.Y = y + 9;
+                    cellRect.Y = y + 2;
                     cellRect.Width = Constants.CELL_SIZE;
                     cellRect.Height = Constants.CELL_SIZE;
                     Sprites.DrawCell(cell, cellRect, spriteBatch);
                 }
-                y += 60;
+                y += 40;
             }
             if (!focused) {
                 Sprites.DrawLayer(SpriteHook.SCREEN_80_LAYER, rect, spriteBatch);

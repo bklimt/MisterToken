@@ -231,6 +231,9 @@ namespace MisterToken {
         }
 
         private Value ParseValue() {
+            if (Peek() == "!") {
+                Next();
+            }
             if (constants.ContainsKey(Peek())) {
                 return constants[Next()];
             }
@@ -318,6 +321,9 @@ namespace MisterToken {
             List<CellColor> result = new List<CellColor>();
             PatternParser parser = new PatternParser(text, null);
             for (int i = 0; i < parser.tokens.Count; ++i) {
+                if (i > 0 && parser.tokens[i-1] == "!") {
+                    continue;
+                }
                 if (parser.constants.ContainsKey(parser.tokens[i])) {
                     Value value = parser.constants[parser.tokens[i]];
                     if (value.type == Value.Type.PATTERN) {
