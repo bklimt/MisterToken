@@ -26,7 +26,7 @@ namespace MisterToken {
         }
 
         public void SetupBoard(Board board) {
-            List<CellColor> cells = PatternParser.ParseExpression(pattern, random);
+            List<Cell> cells = PatternParser.ParseExpression(pattern, random);
             int start = Constants.ROWS * Constants.COLUMNS - cells.Count;
             if (start < 0) {
                 start = 0;
@@ -36,10 +36,10 @@ namespace MisterToken {
                 for (int column = 0; column < Constants.COLUMNS; column++) {
                     board.GetCell(row, column).Clear();
                     if (offset >= start) {
-                        CellColor color = cells[offset - start];
+                        CellColor color = cells[offset - start].color;
                         if (color != CellColor.BLACK) {
                             board.GetCell(row, column).color = color;
-                            board.GetCell(row, column).locked = true;
+                            board.GetCell(row, column).locked = cells[offset - start].locked;
                         }
                     }
                     ++offset;

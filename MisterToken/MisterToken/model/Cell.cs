@@ -8,10 +8,19 @@ using Microsoft.Xna.Framework.Graphics;
 namespace MisterToken {
     public class Cell {
         public Cell() {
+            this.color = CellColor.BLACK;
             this.locked = false;
             this.loose = false;
             this.matched = false;
             this.visited = false;
+        }
+
+        public Cell(Cell other) {
+            this.color = other.color;
+            this.locked = other.locked;
+            this.loose = other.loose;
+            this.matched = other.matched;
+            this.visited = other.visited;
         }
 
         public void DrawRect(Rectangle rect, SpriteBatch spriteBatch) {

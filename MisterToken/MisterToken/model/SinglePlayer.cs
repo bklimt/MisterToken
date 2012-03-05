@@ -224,7 +224,8 @@ namespace MisterToken {
 
         private void DoSettingUpBoard(GameTime gameTime) {
             board.Setup(level);
-            state = State.WAITING_FOR_TOKEN;
+            state = State.FALLING;
+            timeToNextFall = 0;
             timeToNextToken = Constants.MILLIS_PER_TOKEN;
         }
 

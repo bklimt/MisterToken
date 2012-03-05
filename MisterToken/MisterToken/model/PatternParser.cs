@@ -12,7 +12,7 @@ namespace MisterToken {
 
         private class Value {
             public int intValue = 0;
-            public List<CellColor> patternValue = null;
+            public List<Cell> patternValue = null;
             public enum Type {
                 INT,
                 PATTERN
@@ -25,23 +25,39 @@ namespace MisterToken {
             }
 
             public Value(CellColor color) {
-                patternValue = new List<CellColor>();
-                patternValue.Add(color);
+                patternValue = new List<Cell>();
+                Cell cell = new Cell();
+                cell.color = color;
+                cell.locked = true;
+                patternValue.Add(cell);
                 type = Type.PATTERN;
             }
 
-            public Value(List<CellColor> pattern) {
-                patternValue = pattern;
+            public Value(List<Cell> pattern) {
                 type = Type.PATTERN;
+                patternValue = new List<Cell>();
+                for (int i = 0; i < pattern.Count; ++i) {
+                    patternValue.Add(new Cell(pattern[i]));
+                }
             }
 
             public Value Add(Value other) {
                 if (type == Type.INT && other.type == Type.INT) {
                     return new Value(intValue + other.intValue);
                 } else if (type == Type.PATTERN && other.type == Type.PATTERN) {
-                    List<CellColor> pattern = new List<CellColor>(patternValue.Count + other.patternValue.Count);
-                    pattern.AddRange(patternValue);
-                    pattern.AddRange(other.patternValue);
+                    List<Cell> pattern = new List<Cell>(patternValue.Count + other.patternValue.Count);
+                    for (int i = 0; i < patternValue.Count; ++i) {
+                        Cell cell = new Cell();
+                        cell.color = patternValue[i].color;
+                        cell.locked = patternValue[i].locked;
+                        pattern.Add(cell);
+                    }
+                    for (int i = 0; i < other.patternValue.Count; ++i) {
+                        Cell cell = new Cell();
+                        cell.color = other.patternValue[i].color;
+                        cell.locked = other.patternValue[i].locked;
+                        pattern.Add(cell);
+                    }
                     return new Value(pattern);
                 } else {
                     throw new Exception("Invalid addition: " + type + " + " + other.type);
@@ -60,15 +76,19 @@ namespace MisterToken {
                 if (type == Type.INT && other.type == Type.INT) {
                     return new Value(intValue * other.intValue);
                 } else if (type == Type.INT && other.type == Type.PATTERN) {
-                    List<CellColor> pattern = new List<CellColor>(intValue * other.patternValue.Count);
+                    List<Cell> pattern = new List<Cell>(intValue * other.patternValue.Count);
                     for (int i = 0; i < intValue; ++i) {
-                        pattern.AddRange(other.patternValue);
+                        for (int j = 0; j < other.patternValue.Count; ++j) {
+                            pattern.Add(new Cell(other.patternValue[j]));
+                        }
                     }
                     return new Value(pattern);
                 } else if (type == Type.PATTERN && other.type == Type.INT) {
-                    List<CellColor> pattern = new List<CellColor>(other.intValue * patternValue.Count);
+                    List<Cell> pattern = new List<Cell>(other.intValue * patternValue.Count);
                     for (int i = 0; i < other.intValue; ++i) {
-                        pattern.AddRange(patternValue);
+                        for (int j = 0; j < patternValue.Count; ++j) {
+                            pattern.Add(new Cell(patternValue[j]));
+                        }
                     }
                     return new Value(pattern);
                 } else {
@@ -80,9 +100,9 @@ namespace MisterToken {
                 if (type == Type.INT && other.type == Type.INT) {
                     return new Value(intValue / other.intValue);
                 } else if (type == Type.PATTERN && other.type == Type.INT) {
-                    List<CellColor> pattern = new List<CellColor>(patternValue.Count / other.intValue);
+                    List<Cell> pattern = new List<Cell>(patternValue.Count / other.intValue);
                     for (int i = 0; i < (patternValue.Count / other.intValue); ++i) {
-                        pattern.Add(patternValue[i]);
+                        pattern.Add(new Cell(patternValue[i]));
                     }
                     return new Value(pattern);
                 } else {
@@ -94,15 +114,28 @@ namespace MisterToken {
                 if (type != Type.PATTERN) {
                     throw new Exception("Tried to shuffle an integer.");
                 }
-                List<CellColor> pattern = new List<CellColor>(patternValue.Count);
-                pattern.AddRange(patternValue);
+                List<Cell> pattern = new List<Cell>(patternValue.Count);
+                for (int j = 0; j < patternValue.Count; ++j) {
+                    pattern.Add(patternValue[j]);
+                }
                 for (int i = 0; i < pattern.Count - 1; ++i) {
                     int other = random.Next(i, pattern.Count);
-                    CellColor temp = pattern[i];
-                    pattern[i] = pattern[other];
-                    pattern[other] = temp;
+                    Cell temp = pattern[i];
+                    pattern[i] = new Cell(pattern[other]);
+                    pattern[other] = new Cell(temp);
                 }
                 return new Value(pattern);
+            }
+
+            public Value SetLocked(bool locked) {
+                if (type != Type.PATTERN) {
+                    throw new Exception("Tried to unlock an int.");
+                }
+                Value other = new Value(patternValue);
+                for (int i = 0; i < other.patternValue.Count; ++i) {
+                    other.patternValue[i].locked = locked;
+                }
+                return other;
             }
 
             public static Value FillRows(Value rows, Value pattern, CellColor color) {
@@ -213,7 +246,9 @@ namespace MisterToken {
         }
 
         private Value ParseAtom() {
-            if (MatchToken("shuffle") != null) {
+            if (MatchToken("$") != null) {
+                return ParseAtom().SetLocked(false);
+            } else if (MatchToken("shuffle") != null) {
                 return ParseAtom().Shuffle(random);
             } else if (MatchToken("blank_rows") != null) {
                 return Value.BlankRows(ParseAtom());
@@ -232,7 +267,7 @@ namespace MisterToken {
                     if (colorValue.type != Value.Type.PATTERN || colorValue.patternValue.Count != 1) {
                         throw new Exception("Expected a color.");
                     }
-                    color = colorValue.patternValue[0];
+                    color = colorValue.patternValue[0].color;
                 }
                 if (MatchToken(")") == null) {
                     throw new Exception("Expected ).");
@@ -287,8 +322,8 @@ namespace MisterToken {
                     Value value = parser.constants[parser.tokens[i]];
                     if (value.type == Value.Type.PATTERN) {
                         for (int j = 0; j < value.patternValue.Count; ++j) {
-                            if (!result.Contains(value.patternValue[j]) && value.patternValue[j] != CellColor.BLACK) {
-                                result.Add(value.patternValue[j]);
+                            if (!result.Contains(value.patternValue[j].color) && value.patternValue[j].color != CellColor.BLACK) {
+                                result.Add(value.patternValue[j].color);
                             }
                         }
                     }
@@ -297,7 +332,7 @@ namespace MisterToken {
             return result;
         }
 
-        public static List<CellColor> ParseExpression(string text, Random random) {
+        public static List<Cell> ParseExpression(string text, Random random) {
             PatternParser parser = new PatternParser(text, random);
             Value value = parser.ParseSum();
             if (!parser.End()) {

@@ -7,7 +7,7 @@
       <probabilityTwoPiece>1.0</probabilityTwoPiece>
       <probabilityThreePiece>0.0</probabilityThreePiece>
       <probabilityFourPiece>0.0</probabilityFourPiece>
-      <pattern> shuffle(fill_rows(6, red + white + green + yellow)) </pattern>
+      <pattern> shuffle(fill_rows(6, (red + white + green + yellow)*2)) </pattern>
       <wrap>true</wrap>
     </Item>
     <Item>
@@ -77,6 +77,20 @@
       <probabilityThreePiece>0.2</probabilityThreePiece>
       <probabilityFourPiece>0.2</probabilityFourPiece>
       <pattern> shuffle(fill_rows(6, 8 * (purple + yellow + green + white))) </pattern>
+      <wrap>true</wrap>
+    </Item>
+    <Item>
+      <id>9</id>
+      <name>Bridge</name>
+      <probabilityTwoPiece>1.0</probabilityTwoPiece>
+      <probabilityThreePiece>0.0</probabilityThreePiece>
+      <probabilityFourPiece>0.0</probabilityFourPiece>
+      <pattern>
+        (2*black+$blue)*columns/3 +
+        (2*black+yellow)*columns/3 +
+        fill_rows(5, black) +
+        (2*blue+black)*columns/3
+      </pattern>
       <wrap>true</wrap>
     </Item>
   </Asset>
