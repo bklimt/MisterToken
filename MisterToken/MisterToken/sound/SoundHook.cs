@@ -7,7 +7,9 @@ using Microsoft.Xna.Framework.Input;
 
 namespace MisterToken {
     public enum SoundHook {
-        CLEAR,
+        CLEAR_1,
+        CLEAR_2,
+        CLEAR_3,
         DUMP,
         LOST,
         ROTATE_LEFT,

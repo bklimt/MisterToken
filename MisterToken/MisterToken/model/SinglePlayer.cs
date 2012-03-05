@@ -324,6 +324,15 @@ namespace MisterToken {
                 board.ClearMatches();
                 List<CellColor> newMatches = board.MarkMatches();
                 matches.AddRange(newMatches);
+                if (newMatches.Count > 0) {
+                    if (matches.Count == 1) {
+                        Sound.Play(SoundHook.CLEAR_1);
+                    } else if (matches.Count == 2) {
+                        Sound.Play(SoundHook.CLEAR_2);
+                    } else {
+                        Sound.Play(SoundHook.CLEAR_3);
+                    }
+                }
                 if (board.GetLockedCount() == 0) {
                     state = State.WON;
                     int[] previous = Storage.GetSaveData().completed;

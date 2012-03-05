@@ -27,12 +27,8 @@ namespace MisterToken {
             textures[SpriteHook.SPLATTER_LAYER] = content.Load<Texture2D>("splatter");
             textures[SpriteHook.CLOUD_LAYER] = content.Load<Texture2D>("cloud");
 
-            textures[SpriteHook.PLAYER] = content.Load<Texture2D>("player");
             textures[SpriteHook.WINNER] = content.Load<Texture2D>("winner");
             textures[SpriteHook.LOSER] = content.Load<Texture2D>("loser");
-            textures[SpriteHook.NUMBER_1] = content.Load<Texture2D>("1");
-            textures[SpriteHook.NUMBER_2] = content.Load<Texture2D>("2");
-            textures[SpriteHook.PRESS_START_TO_CONTINUE] = content.Load<Texture2D>("press_start_to_continue");
 
             roboto = content.Load<SpriteFont>("roboto");
         }
