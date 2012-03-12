@@ -118,7 +118,8 @@
         black  + black  + blue   + blue   + red    + blue   + blue   + blue   + black  + black  + black  + black  +
         black  + blue   + blue   + blue   + red    + blue   + blue   + red    + blue   + blue   + blue   + black  +
         blue   + blue   + blue   + blue   + red    + red    + red    + red    + blue   + blue   + blue   + blue   +
-        yellow + yellow + blue   + red    + yellow + red    + red    + yellow + red    + blue   + yellow + yellow
+        yellow + yellow + blue   + red    + yellow + red    + red    + yellow + red    + blue   + yellow + yellow +
+        bomb*0
       </pattern>
       <wrap>false</wrap>
     </Item>

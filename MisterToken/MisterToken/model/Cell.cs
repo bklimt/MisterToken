@@ -13,7 +13,6 @@ namespace MisterToken {
             this.loose = false;
             this.matched = false;
             this.visited = false;
-            this.bomb = false;
         }
 
         public Cell(Cell other) {
@@ -22,7 +21,6 @@ namespace MisterToken {
             this.loose = other.loose;
             this.matched = other.matched;
             this.visited = other.visited;
-            this.bomb = other.bomb;
         }
 
         public void DrawRect(Rectangle rect, SpriteBatch spriteBatch) {
@@ -54,7 +52,6 @@ namespace MisterToken {
             loose = false;
             matched = false;
             locked = false;
-            bomb = false;
         }
 
         public CellColor color;
@@ -73,6 +70,5 @@ namespace MisterToken {
         public bool loose;
         public bool matched;
         public bool locked;
-        public bool bomb;
     }
 }

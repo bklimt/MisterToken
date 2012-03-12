@@ -36,15 +36,20 @@ namespace MisterToken {
         }
 
         public void DrawCell(Cell cell, Rectangle targetRect, SpriteBatch spriteBatch) {
-            if (cell.bomb) {
-                spriteBatch.Draw(textures[SpriteHook.BOMB], targetRect, Color.White);
-                return;
-            }
-
             if (cell.color == CellColor.BLACK) {
                 return;
             }
 
+            if (cell.color == CellColor.BOMB) {
+                DrawCell(cell, CellColor.RED, targetRect, spriteBatch);
+                spriteBatch.Draw(textures[SpriteHook.BOMB], targetRect, Color.White);
+                return;
+            }
+
+            DrawCell(cell, cell.color, targetRect, spriteBatch);
+       }
+
+        public void DrawCell(Cell cell, CellColor color, Rectangle targetRect, SpriteBatch spriteBatch) {
             int x = 0;
             int y = 0;
             switch (cell.direction) {
@@ -83,7 +88,7 @@ namespace MisterToken {
             sourceRect.Width = 64;
             sourceRect.Height = 64;
 
-            spriteBatch.Draw(colorTextures[cell.color], targetRect, sourceRect, highlight);
+            spriteBatch.Draw(colorTextures[color], targetRect, sourceRect, highlight);
         }
 
         public void DrawLayer(SpriteHook sprite, SpriteBatch spriteBatch) {

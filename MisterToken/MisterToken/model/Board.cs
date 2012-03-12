@@ -44,7 +44,6 @@ namespace MisterToken {
                 column += Constants.COLUMNS;
             entries[(row + rowOffset) % Constants.ROWS, (column + columnOffset) % Constants.COLUMNS].color = cell.color;
             entries[(row + rowOffset) % Constants.ROWS, (column + columnOffset) % Constants.COLUMNS].direction = cell.direction;
-            entries[(row + rowOffset) % Constants.ROWS, (column + columnOffset) % Constants.COLUMNS].bomb = cell.bomb;
         }
 
         public void AddNewRow(Level level) {
@@ -97,7 +96,7 @@ namespace MisterToken {
             List<CellColor> colors = new List<CellColor>();
             for (int row = 0; row < Constants.ROWS; ++row) {
                 for (int column = 0; column < Constants.COLUMNS; ++column) {
-                    if (GetCell(row, column).bomb) {
+                    if (GetCell(row, column).color == CellColor.BOMB) {
                         CellColor match = CellColor.BLACK;
                         if (row > 0) {
                             if (GetCell(row - 1, column - 1).color != CellColor.BLACK) {
@@ -137,7 +136,7 @@ namespace MisterToken {
                             }
                         }
                         if (match != CellColor.BLACK) {
-                            colors.Add(match);
+                            colors.Add(CellColor.BOMB);
                         }
                     }
                 }

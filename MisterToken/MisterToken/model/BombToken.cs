@@ -8,8 +8,7 @@ namespace MisterToken {
         public BombToken(Board board, int row, int column) {
             piece = new TokenPiece[1];
             Cell cell = new Cell();
-            cell.color = CellColor.BLACK;
-            cell.bomb = true;
+            cell.color = CellColor.BOMB;
             piece[0] = new TokenPiece(board, row, column, cell);
         }
 
