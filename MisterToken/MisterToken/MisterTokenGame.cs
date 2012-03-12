@@ -154,6 +154,7 @@ namespace MisterToken {
         }
 
         protected override void Draw(GameTime gameTime) {
+            Sprites.Update(gameTime);
             GraphicsDevice.Clear(Color.Black);
 
             // Figure out the right transformation for the resolution.

@@ -12,6 +12,10 @@ namespace MisterToken {
         private Sprites() {
         }
 
+        public static void Update(GameTime gameTime) {
+            manager.Update(gameTime);
+        }
+
         public static void LoadContent(ContentManager content, GraphicsDevice device) {
             manager.LoadContent(content, device);
         }

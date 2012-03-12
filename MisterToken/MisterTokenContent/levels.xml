@@ -69,16 +69,16 @@
       <id>4</id>
       <name>Novelty</name>
       <tokens>
-        1.0 2
+        0.9 2
+        0.1 skull
       </tokens>
       <colors>
         0.15 red
         0.15 white
         0.15 green
         0.15 yellow
-        0.15 bomb
-        0.15 skull
-        0.10 wild
+        0.20 bomb
+        0.20 wild
       </colors>
       <pattern> shuffle(fill_rows(6, 8 * (red + yellow + green + white))) </pattern>
       <wrap>true</wrap>

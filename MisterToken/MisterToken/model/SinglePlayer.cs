@@ -213,11 +213,19 @@ namespace MisterToken {
             if (Input.IsDown(PerPlayerBooleanInputHook.TOKEN_RIGHT.ForPlayer(player))) {
                 if (level.Wrap() && (currentToken == null || currentToken.Move(true, 0, 1, true))) {
                     board.ShiftRight();
+                    if (currentToken != null) {
+                        currentToken.Move(false, 0, -1, true);
+                        currentToken.Move(false, 0, 1, true);
+                    }
                 }
             }
             if (Input.IsDown(PerPlayerBooleanInputHook.TOKEN_LEFT.ForPlayer(player))) {
                 if (level.Wrap() && (currentToken == null || currentToken.Move(true, 0, -1, true))) {
                     board.ShiftLeft();
+                    if (currentToken != null) {
+                        currentToken.Move(false, 0, 1, true);
+                        currentToken.Move(false, 0, -1, true);
+                    }
                 }
             }
         }
@@ -297,7 +305,11 @@ namespace MisterToken {
 
             timeUntilNextAdvance -= gameTime.ElapsedGameTime.Milliseconds;
             if (timeUntilNextAdvance <= 0) {
-                timeUntilNextAdvance = Constants.MILLIS_PER_ADVANCE;
+                if (currentToken.GetType().Equals(typeof(SkullToken))) {
+                    timeUntilNextAdvance = Constants.MILLIS_PER_ADVANCE / 5;
+                } else {
+                    timeUntilNextAdvance = Constants.MILLIS_PER_ADVANCE;
+                }
                 // If there's a current token, move it down.
                 if (!currentToken.Move(false, 1, 0, false)) {
                     currentToken.Commit();

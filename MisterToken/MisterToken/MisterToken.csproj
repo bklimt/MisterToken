@@ -73,9 +73,13 @@
     <Reference Include="System.Net" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="graphics\Animation.cs" />
+    <Compile Include="graphics\Drawable.cs" />
+    <Compile Include="graphics\Image.cs" />
     <Compile Include="graphics\SpriteHook.cs" />
     <Compile Include="model\BombToken.cs" />
     <Compile Include="model\ColorDistribution.cs" />
+    <Compile Include="model\SkullToken.cs" />
     <Compile Include="model\FourPieceIToken.cs" />
     <Compile Include="model\FourPieceJToken.cs" />
     <Compile Include="model\FourPieceLToken.cs" />

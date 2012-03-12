@@ -28,7 +28,11 @@ namespace MisterToken {
                     return false;
                 }
                 if (board.GetColor(row + deltaRow, column + deltaColumn) != CellColor.BLACK) {
-                    return false;
+                    if (cell.color == CellColor.SKULL) {
+                        // Well, it's still okay if it's a skull.
+                    } else if (!board.GetCell(row + deltaRow, column + deltaColumn).matched) {
+                        return false;
+                    }
                 }
             }
             if (!dryRun) {
@@ -42,6 +46,12 @@ namespace MisterToken {
                 }
                 row %= Constants.ROWS;
                 column %= Constants.COLUMNS;
+                if (cell.color == CellColor.SKULL) {
+                    if (board.GetCell(row, column).color != CellColor.BLACK) {
+                        board.GetCell(row, column).color = CellColor.SKULL;
+                        board.GetCell(row, column).matched = true;
+                    }
+                }
             }
             return true;
         }
@@ -52,6 +62,9 @@ namespace MisterToken {
 
         public void Commit() {
             board.SetCell(row, column, cell);
+            if (cell.color == CellColor.SKULL) {
+                board.GetCell(row, column).matched = true;
+            }
         }
 
         public void RotateRight() {

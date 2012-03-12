@@ -70,6 +70,12 @@ namespace MisterToken {
                 }, weight);
                 return;
             }
+            if (tokenName.Equals("skull")) {
+                Add(delegate(Board board, CellColor color1, CellColor color2) {
+                    return new SkullToken(board, 0, 0);
+                }, weight);
+                return;
+            }
             if (tokenName.Equals("2")) {
                 Add(delegate(Board board, CellColor color1, CellColor color2) {
                     return new TwoPieceToken(board, 0, 0, color1, color2);

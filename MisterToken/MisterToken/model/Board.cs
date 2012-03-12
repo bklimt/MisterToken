@@ -185,7 +185,7 @@ namespace MisterToken {
                             }
                             ++otherRow;
                         }
-                        if (((otherRow - row) >= 4) && hadUnlocked) {
+                        if ((color != CellColor.BLACK) && ((otherRow - row) >= 4) && hadUnlocked) {
                             bool redundant = true;
                             while (--otherRow >= row) {
                                 if (!GetCell(otherRow, column).matched) {
@@ -200,6 +200,7 @@ namespace MisterToken {
                     }
                     // Horizontal
                     {
+                        color = GetColor(row, column);
                         hadUnlocked = !GetCell(row, column).locked;
                         int otherColumn = column + 1;
                         while (otherColumn < Constants.COLUMNS &&
@@ -212,7 +213,7 @@ namespace MisterToken {
                             }
                             ++otherColumn;
                         }
-                        if (((otherColumn - column) >= 4) && hadUnlocked) {
+                        if ((color != CellColor.BLACK) && ((otherColumn - column) >= 4) && hadUnlocked) {
                             bool redundant = true;
                             while (--otherColumn >= column) {
                                 if (!GetCell(row, otherColumn).matched) {
