@@ -20,22 +20,26 @@ namespace MisterToken {
             return true;
         }
 
-        public bool CanMove(int deltaRow, int deltaColumn, bool allowWrap) {
-            foreach (TokenPiece p in piece)
-                if (!p.CanMove(deltaRow, deltaColumn, allowWrap))
+        public bool Move(bool dryRun, int deltaRow, int deltaColumn, bool allowWrap) {
+            return Move(dryRun, deltaRow, deltaColumn, allowWrap, false);
+        }
+
+        public bool Move(bool dryRun, int deltaRow, int deltaColumn, bool allowWrap, bool force) {
+            if (!force && !dryRun) {
+                if (!Move(true, deltaRow, deltaColumn, allowWrap, false)) {
                     return false;
+                }
+            }
+            foreach (TokenPiece p in piece) {
+                if (!p.Move(dryRun, deltaRow, deltaColumn, allowWrap, force)) {
+                    return false;
+                }
+            }
             return true;
         }
 
-        public void Move(int deltaRow, int deltaColumn) {
-            foreach (TokenPiece p in piece)
-                p.Move(deltaRow, deltaColumn);
-        }
-
-        public abstract void RotateRight(bool allowWrap);
-        public abstract void RotateLeft(bool allowWrap);
-        public abstract bool CanRotateRight(bool allowWrap);
-        public abstract bool CanRotateLeft(bool allowWrap);
+        public abstract bool RotateRight(bool dryRun, bool allowWrap);
+        public abstract bool RotateLeft(bool dryRun, bool allowWrap);
 
         public void DrawRect(Rectangle boardRect, SpriteBatch spriteBatch) {
             foreach (TokenPiece p in piece) {

@@ -12,28 +12,38 @@ namespace MisterToken {
             this.cell = cell;
         }
 
-        public bool CanMove(int deltaRow, int deltaColumn, bool allowWrap) {
-            if (row + deltaRow < 0) {
-                return false;
-            }
-            if (row + deltaRow >= Constants.ROWS) {
-                return false;
-            }
-            if (!allowWrap && (((column + deltaColumn) < 0) || ((column + deltaColumn >= Constants.COLUMNS)))) {
-                return false;
-            }
-            return (board.GetColor(row + deltaRow, column + deltaColumn) == CellColor.BLACK);
+        public bool Move(bool dryRun, int deltaRow, int deltaColumn, bool allowWrap) {
+            return Move(dryRun, deltaRow, deltaColumn, allowWrap, false);
         }
 
-        public void Move(int deltaRow, int deltaColumn) {
-            row += deltaRow;
-            column += deltaColumn;
-            if (row < 0)
-                row += Constants.ROWS;
-            if (column < 0)
-                column += Constants.COLUMNS;
-            row %= Constants.ROWS;
-            column %= Constants.COLUMNS;
+        public bool Move(bool dryRun, int deltaRow, int deltaColumn, bool allowWrap, bool force) {
+            if (!force) {
+                if (row + deltaRow < 0) {
+                    return false;
+                }
+                if (row + deltaRow >= Constants.ROWS) {
+                    return false;
+                }
+                if (!allowWrap && (((column + deltaColumn) < 0) || ((column + deltaColumn >= Constants.COLUMNS)))) {
+                    return false;
+                }
+                if (board.GetColor(row + deltaRow, column + deltaColumn) != CellColor.BLACK) {
+                    return false;
+                }
+            }
+            if (!dryRun) {
+                row += deltaRow;
+                column += deltaColumn;
+                if (row < 0) {
+                    row += Constants.ROWS;
+                }
+                if (column < 0) {
+                    column += Constants.COLUMNS;
+                }
+                row %= Constants.ROWS;
+                column %= Constants.COLUMNS;
+            }
+            return true;
         }
 
         public bool IsValid() {

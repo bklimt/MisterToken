@@ -9,9 +9,7 @@ namespace MisterToken {
             random = new Random();
             id = xml.id;
             name = xml.name;
-            probabilityTwoPiece = xml.probabilityTwoPiece;
-            probabilityThreePiece = xml.probabilityThreePiece;
-            probabilityFourPiece = xml.probabilityFourPiece;
+            tokens = new TokenDistribution(xml.tokens);
             pattern = xml.pattern;
             colors = PatternParser.GetColors(pattern);
             wrap = xml.wrap;
@@ -62,16 +60,7 @@ namespace MisterToken {
         public Token GetRandomToken(Board board) {
             CellColor color1 = GetRandomColor();
             CellColor color2 = GetRandomColor();
-            CellColor color3 = GetRandomColor();
-            CellColor color4 = GetRandomColor();
-            float fraction = (float)random.NextDouble() * (probabilityTwoPiece + probabilityThreePiece + probabilityFourPiece);
-            if (fraction < probabilityTwoPiece) {
-                return new TwoPieceToken(board, 0, 0, color1, color2);
-            } else if (fraction < (probabilityTwoPiece + probabilityThreePiece)) {
-                return new ThreePieceElbowToken(board, 0, 0, color1, color2, color3);
-            } else {
-                return new FourPieceToken(board, 0, 0, color1, color2, color3, color4);
-            }
+            return tokens.GetRandomToken(board, color1, color2, random);
         }
 
         public bool Wrap() {
@@ -79,10 +68,8 @@ namespace MisterToken {
         }
 
         private int id;
-        private String name;
-        private float probabilityTwoPiece;
-        private float probabilityThreePiece;
-        private float probabilityFourPiece;
+        private string name;
+        private TokenDistribution tokens;
         private List<CellColor> colors;
         private string pattern;
         private bool wrap;

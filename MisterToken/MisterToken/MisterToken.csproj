@@ -74,9 +74,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="graphics\SpriteHook.cs" />
+    <Compile Include="model\BombToken.cs" />
+    <Compile Include="model\FourPieceIToken.cs" />
+    <Compile Include="model\FourPieceJToken.cs" />
+    <Compile Include="model\FourPieceLToken.cs" />
+    <Compile Include="model\FourPieceZToken.cs" />
+    <Compile Include="model\FourPieceSToken.cs" />
+    <Compile Include="model\FourPieceTToken.cs" />
     <Compile Include="model\Levels.cs" />
     <Compile Include="model\Level.cs" />
-    <Compile Include="model\FourPieceToken.cs" />
+    <Compile Include="model\FourPieceSquareToken.cs" />
     <Compile Include="model\Game.cs" />
     <Compile Include="model\LevelManager.cs" />
     <Compile Include="Menu.cs" />
@@ -99,6 +106,7 @@
     <Compile Include="input\BooleanInputRepeater.cs" />
     <Compile Include="graphics\SpriteManager.cs" />
     <Compile Include="model\Token.cs" />
+    <Compile Include="model\TokenDistribution.cs" />
     <Compile Include="model\TokenPiece.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />
