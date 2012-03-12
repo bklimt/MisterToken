@@ -31,6 +31,8 @@ namespace MisterToken {
             textures[SpriteHook.WINNER] = content.Load<Texture2D>("winner");
             textures[SpriteHook.LOSER] = content.Load<Texture2D>("loser");
             textures[SpriteHook.BOMB] = content.Load<Texture2D>("nuclear");
+            textures[SpriteHook.WILD] = content.Load<Texture2D>("wild");
+            textures[SpriteHook.SKULL] = content.Load<Texture2D>("skull");
 
             roboto = content.Load<SpriteFont>("roboto");
         }
@@ -43,6 +45,18 @@ namespace MisterToken {
             if (cell.color == CellColor.BOMB) {
                 DrawCell(cell, CellColor.RED, targetRect, spriteBatch);
                 spriteBatch.Draw(textures[SpriteHook.BOMB], targetRect, Color.White);
+                return;
+            }
+
+            if (cell.color == CellColor.WILD) {
+                DrawCell(cell, CellColor.WHITE, targetRect, spriteBatch);
+                spriteBatch.Draw(textures[SpriteHook.WILD], targetRect, Color.White);
+                return;
+            }
+
+            if (cell.color == CellColor.SKULL) {
+                DrawCell(cell, CellColor.PURPLE, targetRect, spriteBatch);
+                spriteBatch.Draw(textures[SpriteHook.SKULL], targetRect, Color.White);
                 return;
             }
 

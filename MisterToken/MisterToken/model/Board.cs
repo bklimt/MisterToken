@@ -171,10 +171,15 @@ namespace MisterToken {
                     if (color == CellColor.BLACK) {
                         continue;
                     }
+                    // Vertical
                     bool hadUnlocked = !GetCell(row, column).locked;
                     if (row + 3 < Constants.ROWS) {
                         int otherRow = row + 1;
-                        while (otherRow < Constants.ROWS && GetColor(otherRow, column) == color) {
+                        while (otherRow < Constants.ROWS &&
+                               (GetColor(otherRow, column) == color || GetColor(otherRow, column) == CellColor.WILD || color == CellColor.WILD)) {
+                            if (color == CellColor.WILD) {
+                                color = GetColor(otherRow, column);
+                            }
                             if (!GetCell(otherRow, column).locked) {
                                 hadUnlocked = true;
                             }
@@ -193,9 +198,15 @@ namespace MisterToken {
                             }
                         }
                     }
+                    // Horizontal
                     {
+                        hadUnlocked = !GetCell(row, column).locked;
                         int otherColumn = column + 1;
-                        while (otherColumn < Constants.COLUMNS && GetColor(row, otherColumn) == color) {
+                        while (otherColumn < Constants.COLUMNS &&
+                               (GetColor(row, otherColumn) == color || GetColor(row, otherColumn) == CellColor.WILD || color == CellColor.WILD)) {
+                            if (color == CellColor.WILD) {
+                                color = GetColor(row, otherColumn);
+                            }
                             if (!GetCell(row, otherColumn).locked) {
                                 hadUnlocked = true;
                             }

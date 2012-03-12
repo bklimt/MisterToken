@@ -20,5 +20,7 @@ namespace MisterToken {
 
         // Other.
         BOMB,
+        WILD,
+        SKULL,
     }
 }

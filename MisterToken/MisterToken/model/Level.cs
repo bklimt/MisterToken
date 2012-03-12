@@ -10,8 +10,8 @@ namespace MisterToken {
             id = xml.id;
             name = xml.name;
             tokens = new TokenDistribution(xml.tokens);
+            colors = new ColorDistribution(xml.colors);
             pattern = xml.pattern;
-            colors = PatternParser.GetColors(pattern);
             wrap = xml.wrap;
         }
 
@@ -45,16 +45,8 @@ namespace MisterToken {
             }
         }
 
-        public int GetColorCount() {
-            return colors.Count;
-        }
-
-        public CellColor GetColor(int i) {
-            return colors[i];
-        }
-
         public CellColor GetRandomColor() {
-            return colors[random.Next(colors.Count)];
+            return colors.GetRandomColor(random);
         }
 
         public Token GetRandomToken(Board board) {
@@ -70,7 +62,7 @@ namespace MisterToken {
         private int id;
         private string name;
         private TokenDistribution tokens;
-        private List<CellColor> colors;
+        private ColorDistribution colors;
         private string pattern;
         private bool wrap;
 

@@ -5,6 +5,12 @@
       <id>1</id>
       <name>Colors</name>
       <tokens>1.0 2</tokens>
+      <colors>
+        0.25 red
+        0.25 white
+        0.25 green
+        0.25 yellow
+      </colors>
       <pattern> shuffle(fill_rows(6, (red + white + green + yellow)*2)) </pattern>
       <wrap>true</wrap>
     </Item>
@@ -24,6 +30,10 @@
         0.09 4I
         0.09 bomb
       </tokens>
+      <colors>
+        0.5 red
+        0.5 white
+      </colors>
       <pattern> shuffle(fill_rows(6, red*4 + white*4)) </pattern>
       <wrap>true</wrap>
     </Item>
@@ -33,6 +43,11 @@
       <tokens>
         1.0 2
       </tokens>
+      <colors>
+        0.33 red
+        0.33 white
+        0.34 green
+      </colors>
       <pattern> shuffle(fill_rows(6, (red + white + green)*4)) </pattern>
       <wrap>true</wrap>
     </Item>
@@ -42,8 +57,31 @@
       <tokens>
         1.0 2
       </tokens>
+      <colors>
+        0.33 red
+        0.33 yellow
+        0.34 blue
+      </colors>
       <pattern> shuffle(fill_rows(8, 4 * (red + yellow + blue))) </pattern>
       <wrap>false</wrap>
+    </Item>
+    <Item>
+      <id>4</id>
+      <name>Novelty</name>
+      <tokens>
+        1.0 2
+      </tokens>
+      <colors>
+        0.15 red
+        0.15 white
+        0.15 green
+        0.15 yellow
+        0.15 bomb
+        0.15 skull
+        0.10 wild
+      </colors>
+      <pattern> shuffle(fill_rows(6, 8 * (red + yellow + green + white))) </pattern>
+      <wrap>true</wrap>
     </Item>
     <Item>
       <id>5</id>
@@ -53,12 +91,17 @@
         0.45 4T
         0.10 bomb
       </tokens>
+      <colors>
+        0.25 red
+        0.25 green
+        0.25 cyan
+        0.25 yellow
+      </colors>
       <pattern>
         (red + black) * COLUMNS / 2 +
         (black + red) * COLUMNS / 2 +
         (red + black) * COLUMNS / 2 +
-        (black + red) * COLUMNS / 2 +
-        0*green + 0*cyan + 0*yellow
+        (black + red) * COLUMNS / 2
       </pattern>
       <wrap>true</wrap>
     </Item>
@@ -69,6 +112,11 @@
         0.2 2
         0.8 3elbow
       </tokens>
+      <colors>
+        0.33 blue
+        0.33 orange
+        0.34 white
+      </colors>
       <pattern> shuffle(fill_rows(8, 3 * (blue + orange + white))) </pattern>
       <wrap>true</wrap>
     </Item>
@@ -79,6 +127,11 @@
         0.05 2
         0.95 4square
       </tokens>
+      <colors>
+        0.33 purple
+        0.33 green
+        0.34 white
+      </colors>
       <pattern> shuffle(fill_rows(5, 2 * (purple + green + white))) </pattern>
       <wrap>true</wrap>
     </Item>
@@ -97,6 +150,12 @@
         0.05 4I
         0.05 bomb
       </tokens>
+      <colors>
+        0.25 purple
+        0.25 yellow
+        0.25 green
+        0.25 white
+      </colors>
       <pattern> shuffle(fill_rows(6, 8 * (purple + yellow + green + white))) </pattern>
       <wrap>true</wrap>
     </Item>
@@ -107,6 +166,12 @@
         0.95 2
         0.05 bomb
       </tokens>
+      <colors>
+        0.3 red
+        0.3 yellow
+        0.3 blue
+        0.1 bomb
+      </colors>
       <pattern>
         black  + black  + black  + red    + red    + red    + red    + red    + black  + black  + black  + black  +
         black  + black  + red    + red    + red    + red    + red    + red    + red    + red    + red    + black  +
@@ -118,8 +183,7 @@
         black  + black  + blue   + blue   + red    + blue   + blue   + blue   + black  + black  + black  + black  +
         black  + blue   + blue   + blue   + red    + blue   + blue   + red    + blue   + blue   + blue   + black  +
         blue   + blue   + blue   + blue   + red    + red    + red    + red    + blue   + blue   + blue   + blue   +
-        yellow + yellow + blue   + red    + yellow + red    + red    + yellow + red    + blue   + yellow + yellow +
-        bomb*0
+        yellow + yellow + blue   + red    + yellow + red    + red    + yellow + red    + blue   + yellow + yellow
       </pattern>
       <wrap>false</wrap>
     </Item>
@@ -136,6 +200,12 @@
         0.14 4L
         0.10 4I
       </tokens>
+      <colors>
+        0.25 purple
+        0.25 yellow
+        0.25 green
+        0.25 white
+      </colors>
       <pattern> shuffle(fill_rows(6, 8 * (purple + yellow + green + white))) </pattern>
       <wrap>true</wrap>
     </Item>

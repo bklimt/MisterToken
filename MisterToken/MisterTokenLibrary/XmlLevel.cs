@@ -8,6 +8,7 @@ namespace MisterToken {
         public int id;
         public string name;
         public string tokens;
+        public string colors;
         public String pattern;
         public bool wrap;
     }

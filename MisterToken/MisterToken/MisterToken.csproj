@@ -75,6 +75,7 @@
   <ItemGroup>
     <Compile Include="graphics\SpriteHook.cs" />
     <Compile Include="model\BombToken.cs" />
+    <Compile Include="model\ColorDistribution.cs" />
     <Compile Include="model\FourPieceIToken.cs" />
     <Compile Include="model\FourPieceJToken.cs" />
     <Compile Include="model\FourPieceLToken.cs" />
