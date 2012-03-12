@@ -49,7 +49,9 @@
       <id>5</id>
       <name>Seeing Red</name>
       <tokens>
-        1.0 2
+        0.45 3elbow
+        0.45 4T
+        0.10 bomb
       </tokens>
       <pattern>
         (red + black) * COLUMNS / 2 +
@@ -99,27 +101,6 @@
       <wrap>true</wrap>
     </Item>
     <Item>
-      <id>9</id>
-      <name>Bridge</name>
-      <tokens>
-        1.0 2
-      </tokens>
-      <pattern>
-        (2*black+$!blue)*columns/3 +
-        (2*black+$!blue)*columns/3 +
-        (2*black+yellow)*columns/3 +
-        (2*$!green+black)*columns/3 +
-        (2*$yellow+black)*columns/3 +
-        (2*$!green+black)*columns/3 +
-        (2*$yellow+black)*columns/3 +
-        (2*$!green+black)*columns/3 +
-        (2*$yellow+black)*columns/3 +
-        (2*!blue+black)*columns/3 +
-        (2*black+yellow)*columns/3
-      </pattern>
-      <wrap>true</wrap>
-    </Item>
-    <Item>
       <id>10</id>
       <name>Idols</name>
       <tokens>
@@ -140,25 +121,6 @@
         yellow + yellow + blue   + red    + yellow + red    + red    + yellow + red    + blue   + yellow + yellow
       </pattern>
       <wrap>false</wrap>
-    </Item>
-    <Item>
-      <id>11</id>
-      <name>Tumblers</name>
-      <tokens>
-        1.0 2
-      </tokens>
-      <pattern>
-        fill_rows(1, black+blue*0, blue) +
-        fill_rows(1, black+orange*1, orange) +
-        fill_rows(1, black+white*2, white) +
-        fill_rows(1, black+blue*3, blue) +
-        fill_rows(1, black+orange*4, orange) +
-        fill_rows(1, black+white*5, white) +
-        fill_rows(1, black+blue*6, blue) +
-        fill_rows(1, black+orange*7, orange) +
-        fill_rows(1, black+white*8, white)
-      </pattern>
-      <wrap>true</wrap>
     </Item>
     <Item>
       <id>12</id>
