@@ -6,10 +6,8 @@ using System.Text;
 namespace MisterToken {
     public class XmlLevel {
         public int id;
-        public String name;
-        public float probabilityTwoPiece;
-        public float probabilityThreePiece;
-        public float probabilityFourPiece;
+        public string name;
+        public string tokens;
         public String pattern;
         public bool wrap;
     }

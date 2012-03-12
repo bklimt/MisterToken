@@ -6,6 +6,7 @@ using System.Text;
 namespace MisterToken {
     public enum CellColor {
         BLACK,
+        BOMB,
         CYAN,
         RED,
         YELLOW,

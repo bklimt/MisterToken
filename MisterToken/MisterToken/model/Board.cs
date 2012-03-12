@@ -84,6 +84,86 @@ namespace MisterToken {
 
         public List<CellColor> MarkMatches() {
             VerifyBoard();
+            List<CellColor> byBomb = MarkMatchesByBomb();
+            List<CellColor> byRow = MarkMatchesByRow();
+            List<CellColor> byColor = MarkMatchesByColor();
+            byBomb.AddRange(byRow);
+            byBomb.AddRange(byColor);
+            return byBomb;
+        }
+
+        private List<CellColor> MarkMatchesByBomb() {
+            List<CellColor> colors = new List<CellColor>();
+            for (int row = 0; row < Constants.ROWS; ++row) {
+                for (int column = 0; column < Constants.COLUMNS; ++column) {
+                    if (GetCell(row, column).color == CellColor.BOMB) {
+                        CellColor match = CellColor.BLACK;
+                        if (row > 0) {
+                            if (GetCell(row - 1, column - 1).color != CellColor.BLACK) {
+                                GetCell(row - 1, column - 1).matched = true;
+                                match = GetCell(row - 1, column - 1).color;
+                            }
+                            if (GetCell(row - 1, column).color != CellColor.BLACK) {
+                                GetCell(row - 1, column).matched = true;
+                                match = GetCell(row - 1, column).color;
+                            }
+                            if (GetCell(row - 1, column + 1).color != CellColor.BLACK) {
+                                GetCell(row - 1, column + 1).matched = true;
+                                match = GetCell(row - 1, column + 1).color;
+                            }
+                        }
+                        if (GetCell(row, column - 1).color != CellColor.BLACK) {
+                            GetCell(row, column - 1).matched = true;
+                            match = GetCell(row, column - 1).color;
+                        }
+                        GetCell(row, column).Clear();
+                        if (GetCell(row, column + 1).color != CellColor.BLACK) {
+                            GetCell(row, column + 1).matched = true;
+                            match = GetCell(row, column + 1).color;
+                        }
+                        if (row < Constants.ROWS - 1) {
+                            if (GetCell(row + 1, column - 1).color != CellColor.BLACK) {
+                                GetCell(row + 1, column - 1).matched = true;
+                                match = GetCell(row + 1, column - 1).color;
+                            }
+                            if (GetCell(row + 1, column).color != CellColor.BLACK) {
+                                GetCell(row + 1, column).matched = true;
+                                match = GetCell(row + 1, column).color;
+                            }
+                            if (GetCell(row + 1, column + 1).color != CellColor.BLACK) {
+                                GetCell(row + 1, column + 1).matched = true;
+                                match = GetCell(row + 1, column + 1).color;
+                            }
+                        }
+                        if (match != CellColor.BLACK) {
+                            colors.Add(CellColor.BOMB);
+                        }
+                    }
+                }
+            }
+            return colors;
+        }
+
+        private List<CellColor> MarkMatchesByRow() {
+            List<CellColor> colors = new List<CellColor>();
+            for (int row = 0; row < Constants.ROWS; ++row) {
+                bool complete = true;
+                for (int column = 0; column < Constants.COLUMNS; ++column) {
+                    if (GetCell(row, column).color == CellColor.BLACK) {
+                        complete = false;
+                    }
+                }
+                if (complete) {
+                    colors.Add(GetCell(row, 0).color);
+                    for (int column = 0; column < Constants.COLUMNS; ++column) {
+                        GetCell(row, column).matched = true;
+                    }
+                }
+            }
+            return colors;
+        }
+
+        private List<CellColor> MarkMatchesByColor() {
             List<CellColor> colors = new List<CellColor>();
             for (int row = 0; row < Constants.ROWS; ++row) {
                 for (int column = 0; column < Constants.COLUMNS; ++column) {

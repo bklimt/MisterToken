@@ -4,45 +4,55 @@
     <Item>
       <id>1</id>
       <name>Colors</name>
-      <probabilityTwoPiece>1.0</probabilityTwoPiece>
-      <probabilityThreePiece>0.0</probabilityThreePiece>
-      <probabilityFourPiece>0.0</probabilityFourPiece>
+      <tokens>1.0 2</tokens>
       <pattern> shuffle(fill_rows(6, (red + white + green + yellow)*2)) </pattern>
       <wrap>true</wrap>
     </Item>
     <Item>
       <id>2</id>
       <name>Shapes</name>
-      <probabilityTwoPiece>0.2</probabilityTwoPiece>
-      <probabilityThreePiece>0.4</probabilityThreePiece>
-      <probabilityFourPiece>0.4</probabilityFourPiece>
-      <pattern> shuffle(fill_rows(6, red*2 + white*2)) </pattern>
+      <tokens>
+        0.10 2
+        0.09 3elbow
+        0.09 4square
+        0.09 4square
+        0.09 4T
+        0.09 4S
+        0.09 4Z
+        0.09 4J
+        0.09 4L
+        0.09 4I
+        0.09 bomb
+      </tokens>
+      <pattern> shuffle(fill_rows(6, red*4 + white*4)) </pattern>
       <wrap>true</wrap>
     </Item>
     <Item>
       <id>3</id>
       <name>Easy</name>
-      <probabilityTwoPiece>1.0</probabilityTwoPiece>
-      <probabilityThreePiece>0.0</probabilityThreePiece>
-      <probabilityFourPiece>0.0</probabilityFourPiece>
+      <tokens>
+        1.0 2
+      </tokens>
       <pattern> shuffle(fill_rows(6, (red + white + green)*4)) </pattern>
       <wrap>true</wrap>
     </Item>
     <Item>
       <id>4</id>
       <name>Classic</name>
-      <probabilityTwoPiece>1.0</probabilityTwoPiece>
-      <probabilityThreePiece>0.0</probabilityThreePiece>
-      <probabilityFourPiece>0.0</probabilityFourPiece>
+      <tokens>
+        1.0 2
+      </tokens>
       <pattern> shuffle(fill_rows(8, 4 * (red + yellow + blue))) </pattern>
       <wrap>false</wrap>
     </Item>
     <Item>
       <id>5</id>
       <name>Seeing Red</name>
-      <probabilityTwoPiece>1.0</probabilityTwoPiece>
-      <probabilityThreePiece>0.0</probabilityThreePiece>
-      <probabilityFourPiece>0.0</probabilityFourPiece>
+      <tokens>
+        0.45 3elbow
+        0.45 4T
+        0.10 bomb
+      </tokens>
       <pattern>
         (red + black) * COLUMNS / 2 +
         (black + red) * COLUMNS / 2 +
@@ -55,57 +65,48 @@
     <Item>
       <id>6</id>
       <name>All Thumbs</name>
-      <probabilityTwoPiece>0.2</probabilityTwoPiece>
-      <probabilityThreePiece>0.8</probabilityThreePiece>
-      <probabilityFourPiece>0.0</probabilityFourPiece>
+      <tokens>
+        0.2 2
+        0.8 3elbow
+      </tokens>
       <pattern> shuffle(fill_rows(8, 3 * (blue + orange + white))) </pattern>
       <wrap>true</wrap>
     </Item>
     <Item>
       <id>7</id>
       <name>Hip 2 B</name>
-      <probabilityTwoPiece>0.05</probabilityTwoPiece>
-      <probabilityThreePiece>0.0</probabilityThreePiece>
-      <probabilityFourPiece>0.95</probabilityFourPiece>
+      <tokens>
+        0.05 2
+        0.95 4square
+      </tokens>
       <pattern> shuffle(fill_rows(5, 2 * (purple + green + white))) </pattern>
       <wrap>true</wrap>
     </Item>
     <Item>
       <id>8</id>
       <name>Hard</name>
-      <probabilityTwoPiece>0.6</probabilityTwoPiece>
-      <probabilityThreePiece>0.2</probabilityThreePiece>
-      <probabilityFourPiece>0.2</probabilityFourPiece>
+      <tokens>
+        0.4 2
+        0.1 3elbow
+        0.1 4S
+        0.1 4Z
+        0.05 4square
+        0.05 4T
+        0.05 4J
+        0.05 4L
+        0.05 4I
+        0.05 bomb
+      </tokens>
       <pattern> shuffle(fill_rows(6, 8 * (purple + yellow + green + white))) </pattern>
-      <wrap>true</wrap>
-    </Item>
-    <Item>
-      <id>9</id>
-      <name>Bridge</name>
-      <probabilityTwoPiece>1.0</probabilityTwoPiece>
-      <probabilityThreePiece>0.0</probabilityThreePiece>
-      <probabilityFourPiece>0.0</probabilityFourPiece>
-      <pattern>
-        (2*black+$!blue)*columns/3 +
-        (2*black+$!blue)*columns/3 +
-        (2*black+yellow)*columns/3 +
-        (2*$!green+black)*columns/3 +
-        (2*$yellow+black)*columns/3 +
-        (2*$!green+black)*columns/3 +
-        (2*$yellow+black)*columns/3 +
-        (2*$!green+black)*columns/3 +
-        (2*$yellow+black)*columns/3 +
-        (2*!blue+black)*columns/3 +
-        (2*black+yellow)*columns/3
-      </pattern>
       <wrap>true</wrap>
     </Item>
     <Item>
       <id>10</id>
       <name>Idols</name>
-      <probabilityTwoPiece>1.0</probabilityTwoPiece>
-      <probabilityThreePiece>0.0</probabilityThreePiece>
-      <probabilityFourPiece>0.0</probabilityFourPiece>
+      <tokens>
+        0.95 2
+        0.05 bomb
+      </tokens>
       <pattern>
         black  + black  + black  + red    + red    + red    + red    + red    + black  + black  + black  + black  +
         black  + black  + red    + red    + red    + red    + red    + red    + red    + red    + red    + black  +
@@ -117,46 +118,25 @@
         black  + black  + blue   + blue   + red    + blue   + blue   + blue   + black  + black  + black  + black  +
         black  + blue   + blue   + blue   + red    + blue   + blue   + red    + blue   + blue   + blue   + black  +
         blue   + blue   + blue   + blue   + red    + red    + red    + red    + blue   + blue   + blue   + blue   +
-        yellow + yellow + blue   + red    + yellow + red    + red    + yellow + red    + blue   + yellow + yellow
+        yellow + yellow + blue   + red    + yellow + red    + red    + yellow + red    + blue   + yellow + yellow +
+        bomb*0
       </pattern>
       <wrap>false</wrap>
     </Item>
     <Item>
-      <id>11</id>
-      <name>Tumblers</name>
-      <probabilityTwoPiece>1.0</probabilityTwoPiece>
-      <probabilityThreePiece>0.0</probabilityThreePiece>
-      <probabilityFourPiece>0.0</probabilityFourPiece>
-      <pattern>
-        fill_rows(1, black+blue*0, blue) +
-        fill_rows(1, black+orange*1, orange) +
-        fill_rows(1, black+white*2, white) +
-        fill_rows(1, black+blue*3, blue) +
-        fill_rows(1, black+orange*4, orange) +
-        fill_rows(1, black+white*5, white) +
-        fill_rows(1, black+blue*6, blue) +
-        fill_rows(1, black+orange*7, orange) +
-        fill_rows(1, black+white*8, white)
-      </pattern>
-      <wrap>true</wrap>
-    </Item>
-    <Item>
       <id>12</id>
-      <name>Mine</name>
-      <probabilityTwoPiece>1.0</probabilityTwoPiece>
-      <probabilityThreePiece>0.0</probabilityThreePiece>
-      <probabilityFourPiece>0.0</probabilityFourPiece>
-      <pattern>
-        fill_rows(1, blue*0+black, blue) +
-        fill_rows(1, orange*1+black, orange) +
-        fill_rows(1, white*2+black, white) +
-        fill_rows(1, blue*3+black, blue) +
-        fill_rows(1, orange*4+black, orange) +
-        fill_rows(1, white*5+black, white) +
-        fill_rows(1, blue*6+black, blue) +
-        fill_rows(1, orange*7+black, orange) +
-        fill_rows(1, white*8+black, white)
-      </pattern>
+      <name>Moskau</name>
+      <tokens>
+        0.06 bomb
+        0.14 4square
+        0.14 4T
+        0.14 4S
+        0.14 4Z
+        0.14 4J
+        0.14 4L
+        0.10 4I
+      </tokens>
+      <pattern> shuffle(fill_rows(6, 8 * (purple + yellow + green + white))) </pattern>
       <wrap>true</wrap>
     </Item>
   </Asset>

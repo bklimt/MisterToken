@@ -211,12 +211,12 @@ namespace MisterToken {
         private void HandleMovement() {
             Token currentToken = tokenGenerator.GetCurrentToken();
             if (Input.IsDown(PerPlayerBooleanInputHook.TOKEN_RIGHT.ForPlayer(player))) {
-                if (level.Wrap() && (currentToken == null || currentToken.CanMove(0, 1, true))) {
+                if (level.Wrap() && (currentToken == null || currentToken.Move(true, 0, 1, true))) {
                     board.ShiftRight();
                 }
             }
             if (Input.IsDown(PerPlayerBooleanInputHook.TOKEN_LEFT.ForPlayer(player))) {
-                if (level.Wrap() && (currentToken == null || currentToken.CanMove(0, -1, true))) {
+                if (level.Wrap() && (currentToken == null || currentToken.Move(true, 0, -1, true))) {
                     board.ShiftLeft();
                 }
             }
@@ -252,7 +252,7 @@ namespace MisterToken {
                 tokenGenerator.LoadNextToken();
                 nextTokenReadiness = 0.0f;
                 Token token = tokenGenerator.GetCurrentToken();
-                token.Move(0, Constants.TOKEN_START_COLUMN);
+                token.Move(false, 0, Constants.TOKEN_START_COLUMN, level.Wrap(), true);
                 if (!token.IsValid()) {
                     // Game over!
                     token.Commit();
@@ -273,23 +273,16 @@ namespace MisterToken {
 
             HandleMovement();
             if (!level.Wrap() && Input.IsDown(PerPlayerBooleanInputHook.TOKEN_RIGHT.ForPlayer(player))) {
-                if (currentToken.CanMove(0, 1, level.Wrap())) {
-                    currentToken.Move(0, 1);
-                }
+                currentToken.Move(false, 0, 1, level.Wrap());
             }
             if (!level.Wrap() && Input.IsDown(PerPlayerBooleanInputHook.TOKEN_LEFT.ForPlayer(player))) {
-                if (currentToken.CanMove(0, -1, level.Wrap())) {
-                    currentToken.Move(0, -1);
-                }
+                currentToken.Move(false, 0, -1, level.Wrap());
             }
             if (Input.IsDown(PerPlayerBooleanInputHook.ROTATE_LEFT.ForPlayer(player))) {
-                Sound.Play(SoundHook.ROTATE_LEFT);
-                if (currentToken.CanRotateLeft(level.Wrap()))
-                    currentToken.RotateLeft(level.Wrap());
+                currentToken.RotateLeft(false, level.Wrap());
             }
             if (Input.IsDown(PerPlayerBooleanInputHook.ROTATE_RIGHT.ForPlayer(player))) {
-                if (currentToken.CanRotateRight(level.Wrap()))
-                    currentToken.RotateRight(level.Wrap());
+                currentToken.RotateRight(false, level.Wrap());
             }
             if (Input.IsDown(PerPlayerBooleanInputHook.TOKEN_DOWN.ForPlayer(player))) {
                 timeUntilNextAdvance = 0;
@@ -297,8 +290,8 @@ namespace MisterToken {
             if (Input.IsDown(PerPlayerBooleanInputHook.TOKEN_SLAM.ForPlayer(player))) {
                 timeUntilNextAdvance = 0;
                 Sound.Play(SoundHook.SLAM);
-                while (currentToken.CanMove(1, 0, level.Wrap())) {
-                    currentToken.Move(1, 0);
+                while (currentToken.Move(false, 1, 0, level.Wrap())) {
+                    // Do nothing.
                 }
             }
 
@@ -306,13 +299,11 @@ namespace MisterToken {
             if (timeUntilNextAdvance <= 0) {
                 timeUntilNextAdvance = Constants.MILLIS_PER_ADVANCE;
                 // If there's a current token, move it down.
-                if (!currentToken.CanMove(1, 0, false)) {
+                if (!currentToken.Move(false, 1, 0, false)) {
                     currentToken.Commit();
                     tokenGenerator.ClearCurrentToken();
                     timeToClear = 0;
                     state = State.CLEARING;
-                } else {
-                    currentToken.Move(1, 0);
                 }
             }
         }

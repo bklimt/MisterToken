@@ -17,5 +17,8 @@ namespace MisterToken {
         // Strings are arbitrary size.
         WINNER,
         LOSER,
+
+        // Other.
+        BOMB,
     }
 }
