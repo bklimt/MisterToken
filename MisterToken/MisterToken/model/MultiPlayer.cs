@@ -63,6 +63,9 @@ namespace MisterToken {
         }
 
         public void OnFinished(PlayerIndex player, bool shouldContinue, int level) {
+            if (level >= Levels.GetLevelCount()) {
+                listener.OnFinished(player, shouldContinue, Levels.GetLevelCount() - 1);
+            }
             listener.OnFinished(player, shouldContinue, level);
         }
 

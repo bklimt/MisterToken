@@ -34,6 +34,8 @@ namespace MisterToken {
             });
             pauseMenu.Add("Exit", delegate() {
                 paused = false;
+                otherPaused = false;
+                listener.OnPaused(player, false);
                 listener.OnFinished(player, false, level);
             });
 

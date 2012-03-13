@@ -57,6 +57,31 @@
 
     <Item>
       <id>3</id>
+      <name>Easy</name>
+      <help>
+        I don't mean to criticize,
+        but you need some practice.
+        
+        Okay, you might say
+        this level is just filler.
+        
+        But I think you deserve a level
+        that isn't a tutorial or a gimmick.
+      </help>
+      <tokens>
+        1.0 2
+      </tokens>
+      <colors>
+        0.33 red
+        0.33 white
+        0.34 green
+      </colors>
+      <pattern> shuffle(fill_rows(6, (red + white + green)*4)) </pattern>
+      <wrap>true</wrap>
+    </Item>
+
+    <Item>
+      <id>4</id>
       <name>Shapes</name>
       <help>
         Tokens, like humans, come in all
@@ -84,22 +109,6 @@
         0.5 white
       </colors>
       <pattern> shuffle(fill_rows(6, red*4 + white*4)) </pattern>
-      <wrap>true</wrap>
-    </Item>
-    
-    <Item>
-      <id>4</id>
-      <name>Easy</name>
-      <help></help>
-      <tokens>
-        1.0 2
-      </tokens>
-      <colors>
-        0.33 red
-        0.33 white
-        0.34 green
-      </colors>
-      <pattern> shuffle(fill_rows(6, (red + white + green)*4)) </pattern>
       <wrap>true</wrap>
     </Item>
     

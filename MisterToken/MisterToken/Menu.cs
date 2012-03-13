@@ -52,12 +52,12 @@ namespace MisterToken {
 
         public void Draw(Rectangle rect, bool focused, SpriteBatch spriteBatch) {
             if (focused) {
-                Sprites.DrawLayer(SpriteHook.SCREEN_50_LAYER, rect, spriteBatch);
+                Sprites.DrawLayer(SpriteHook.SCREEN_80_LAYER, rect, spriteBatch);
             }
             int x = rect.Left;
             int y = rect.Top + 10;
             for (int i = 0; i < options.Count; ++i) {
-                Sprites.DrawText(options[i].Item1, Color.Cyan, new Vector2(x + 55, y), spriteBatch);
+                Sprites.DrawText(options[i].Item1, Color.YellowGreen, new Vector2(x + 55, y), spriteBatch);
                 if (i == selected) {
                     Cell cell = new Cell();
                     cell.color = focused ? CellColor.ORANGE : CellColor.ORANGE;
