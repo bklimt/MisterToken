@@ -24,8 +24,9 @@ namespace MisterToken {
                 float value = base.GetValue();
                 if (((threshold > 0) && (value > threshold)) || ((threshold < 0) && (value < threshold))) {
                     isDown = true;
-                    float fraction = Math.Abs(value) / (1.0f - Math.Abs(threshold));
-                    millisRemaining = (int)(minMillisPerRepeat + ((1.0f - fraction) * (maxMillisPerRepeat - minMillisPerRepeat)));
+                    float fraction = 1.0f - (Math.Abs(value) / (1.0f - Math.Abs(threshold)));
+                    fraction = (float)Math.Pow(2, fraction) - 1.0f;  // Make it scale exponentially.
+                    millisRemaining = (int)(minMillisPerRepeat + (fraction * (maxMillisPerRepeat - minMillisPerRepeat)));
                 } else {
                     millisRemaining = 0;
                 }
