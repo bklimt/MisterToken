@@ -46,13 +46,10 @@ namespace MisterToken {
             booleanMap.Add(BooleanInputHook.PLAYER_ONE_TOKEN_RIGHT, new BooleanInputRepeater(200)
                 .AddKey(Keys.D)
                 .AddKey(Keys.Right)
-                .AddButton(PlayerIndex.One, Buttons.RightTrigger)
                 .AddButton(PlayerIndex.One, Buttons.DPadRight));
             booleanMap.Add(BooleanInputHook.PLAYER_ONE_TOKEN_LEFT, new BooleanInputRepeater(200)
                 .AddKey(Keys.A)
                 .AddKey(Keys.Left)
-                .AddButton(PlayerIndex.One, Buttons.LeftTrigger)
-                .AddButton(PlayerIndex.One, Buttons.LeftShoulder)
                 .AddButton(PlayerIndex.One, Buttons.DPadLeft));
             booleanMap.Add(BooleanInputHook.PLAYER_ONE_ROTATE_RIGHT, new BooleanInputRepeater(200)
                 .AddKey(Keys.X)
@@ -70,12 +67,9 @@ namespace MisterToken {
                 .AddButton(PlayerIndex.Two, Buttons.DPadDown));
             booleanMap.Add(BooleanInputHook.PLAYER_TWO_TOKEN_RIGHT, new BooleanInputRepeater(200)
                 .AddKey(Keys.L)
-                .AddButton(PlayerIndex.Two, Buttons.RightTrigger)
                 .AddButton(PlayerIndex.Two, Buttons.DPadRight));
             booleanMap.Add(BooleanInputHook.PLAYER_TWO_TOKEN_LEFT, new BooleanInputRepeater(200)
                 .AddKey(Keys.J)
-                .AddButton(PlayerIndex.Two, Buttons.LeftTrigger)
-                .AddButton(PlayerIndex.Two, Buttons.LeftShoulder)
                 .AddButton(PlayerIndex.Two, Buttons.DPadLeft));
             booleanMap.Add(BooleanInputHook.PLAYER_TWO_ROTATE_RIGHT, new BooleanInputRepeater(200)
                 .AddKey(Keys.OemComma)
@@ -85,14 +79,42 @@ namespace MisterToken {
                 .AddButton(PlayerIndex.Two, Buttons.X)
                 .AddButton(PlayerIndex.Two, Buttons.B));
 
-            analogMap = new Dictionary<AnalogInputHook, AnalogInput>();
+            analogMap = new Dictionary<AnalogInputHook, AnalogInputRepeater>();
+
+            float threshold = 0.2f;
+            int minMillisPerRepeat = 160;
+            int maxMillisPerRepeat = 500;
+
+            analogMap.Add(AnalogInputHook.PLAYER_ONE_TOKEN_LEFT,
+                          new AnalogInputRepeater(PlayerIndex.One, AnalogStick.LEFT_X, -threshold, minMillisPerRepeat, maxMillisPerRepeat));
+            analogMap.Add(AnalogInputHook.PLAYER_ONE_TOKEN_RIGHT,
+                          new AnalogInputRepeater(PlayerIndex.One, AnalogStick.LEFT_X, threshold, minMillisPerRepeat, maxMillisPerRepeat));
+            analogMap.Add(AnalogInputHook.PLAYER_TWO_TOKEN_LEFT,
+                          new AnalogInputRepeater(PlayerIndex.Two, AnalogStick.LEFT_X, -threshold, minMillisPerRepeat, maxMillisPerRepeat));
+            analogMap.Add(AnalogInputHook.PLAYER_TWO_TOKEN_RIGHT,
+                          new AnalogInputRepeater(PlayerIndex.Two, AnalogStick.LEFT_X, threshold, minMillisPerRepeat, maxMillisPerRepeat));
+
+            analogMap.Add(AnalogInputHook.PLAYER_ONE_TOKEN_DOWN,
+                          new AnalogInputRepeater(PlayerIndex.One, AnalogStick.LEFT_Y, -0.2f, 10, 150));
+            analogMap.Add(AnalogInputHook.PLAYER_TWO_TOKEN_DOWN,
+                          new AnalogInputRepeater(PlayerIndex.Two, AnalogStick.LEFT_Y, -0.2f, 10, 150));
+
+
+            analogMap.Add(AnalogInputHook.PLAYER_ONE_MENU_DOWN,
+                          new AnalogInputRepeater(PlayerIndex.One, AnalogStick.LEFT_Y, -threshold, minMillisPerRepeat, maxMillisPerRepeat));
+            analogMap.Add(AnalogInputHook.PLAYER_ONE_MENU_UP,
+                          new AnalogInputRepeater(PlayerIndex.One, AnalogStick.LEFT_Y, threshold, minMillisPerRepeat, maxMillisPerRepeat));
+            analogMap.Add(AnalogInputHook.PLAYER_TWO_MENU_DOWN,
+                          new AnalogInputRepeater(PlayerIndex.Two, AnalogStick.LEFT_Y, -threshold, minMillisPerRepeat, maxMillisPerRepeat));
+            analogMap.Add(AnalogInputHook.PLAYER_TWO_MENU_UP,
+                          new AnalogInputRepeater(PlayerIndex.Two, AnalogStick.LEFT_Y, threshold, minMillisPerRepeat, maxMillisPerRepeat));
         }
 
         public void Update(GameTime gameTime) {
             foreach (KeyValuePair<BooleanInputHook, BooleanInput> pair in booleanMap) {
                 pair.Value.Update(gameTime);
             }
-            foreach (KeyValuePair<AnalogInputHook, AnalogInput> pair in analogMap) {
+            foreach (KeyValuePair<AnalogInputHook, AnalogInputRepeater> pair in analogMap) {
                 pair.Value.Update(gameTime);
             }
         }
@@ -101,11 +123,11 @@ namespace MisterToken {
             return booleanMap[input].IsDown();
         }
 
-        public double GetDelta(AnalogInputHook input) {
-            return analogMap[input].GetDelta();
+        public bool IsDown(AnalogInputHook input) {
+            return analogMap[input].IsDown();
         }
 
         private Dictionary<BooleanInputHook, BooleanInput> booleanMap;
-        private Dictionary<AnalogInputHook, AnalogInput> analogMap;
+        private Dictionary<AnalogInputHook, AnalogInputRepeater> analogMap;
     }
 }

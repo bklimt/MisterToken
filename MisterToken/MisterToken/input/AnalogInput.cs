@@ -16,10 +16,9 @@ namespace MisterToken {
     }
 
     public class AnalogInput {
-        public AnalogInput(PlayerIndex player, AnalogStick stick, float velocityPerSecond) {
+        public AnalogInput(PlayerIndex player, AnalogStick stick) {
             this.player = player;
             this.stick = stick;
-            this.velocityPerSecond = velocityPerSecond;
         }
 
         public static float GetCurrentValue(PlayerIndex player, AnalogStick stick) {
@@ -41,16 +40,10 @@ namespace MisterToken {
             }
         }
 
-        public void Update(GameTime gameTime) {
-            delta = GetCurrentValue(player, stick) * velocityPerSecond * (gameTime.ElapsedGameTime.TotalMilliseconds / 1000.0);
+        public float GetValue() {
+            return GetCurrentValue(player, stick);
         }
 
-        public double GetDelta() {
-            return delta;
-        }
-
-        private double delta;
-        private double velocityPerSecond;
         private PlayerIndex player;
         private AnalogStick stick;
     }

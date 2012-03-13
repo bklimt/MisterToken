@@ -22,19 +22,23 @@ namespace MisterToken {
         }
 
         public void Update() {
-            if (Input.IsDown(PerPlayerBooleanInputHook.MENU_DOWN.ForPlayer(player))) {
+            if (Input.IsDown(PerPlayerBooleanInputHook.MENU_DOWN.ForPlayer(player)) ||
+                Input.IsDown(PerPlayerAnalogInputHook.MENU_DOWN.ForPlayer(player))) {
                 selected = (selected + 1) % options.Count;
             }
-            if (Input.IsDown(PerPlayerBooleanInputHook.MENU_UP.ForPlayer(player))) {
+            if (Input.IsDown(PerPlayerBooleanInputHook.MENU_UP.ForPlayer(player)) ||
+                Input.IsDown(PerPlayerAnalogInputHook.MENU_UP.ForPlayer(player))) {
                 selected--;
                 if (selected < 0) {
                     selected = options.Count - 1;
                 }
             }
-            if (Input.IsDown(PerPlayerBooleanInputHook.MENU_ENTER.ForPlayer(player))) {
+            if (Input.IsDown(PerPlayerBooleanInputHook.MENU_ENTER.ForPlayer(player)) ||
+                Input.IsDown(PerPlayerBooleanInputHook.ROTATE_RIGHT.ForPlayer(player))) {
                 options[selected].Item2();
             }
-            if (Input.IsDown(PerPlayerBooleanInputHook.MENU_BACK.ForPlayer(player))) {
+            if (Input.IsDown(PerPlayerBooleanInputHook.MENU_BACK.ForPlayer(player)) ||
+                Input.IsDown(PerPlayerBooleanInputHook.ROTATE_LEFT.ForPlayer(player))) {
                 back();
             }
         }

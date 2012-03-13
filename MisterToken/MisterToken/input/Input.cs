@@ -18,8 +18,8 @@ namespace MisterToken {
             return manager.IsDown(input);
         }
 
-        public static double GetDelta(AnalogInputHook input) {
-            return manager.GetDelta(input);
+        public static bool IsDown(AnalogInputHook input) {
+            return manager.IsDown(input);
         }
 
         private static InputManager manager = new InputManager();

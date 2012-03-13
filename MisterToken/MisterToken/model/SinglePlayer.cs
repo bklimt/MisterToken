@@ -24,7 +24,10 @@ namespace MisterToken {
             matches = new List<CellColor>();
             state = State.SETTING_UP_BOARD;
 
-            pauseMenu = new Menu(player, delegate() {});
+            pauseMenu = new Menu(player, delegate() {
+                paused = false;
+                listener.OnPaused(player, paused);
+            });
             pauseMenu.Add("Continue", delegate() {
                 paused = false;
                 listener.OnPaused(player, paused);
@@ -250,7 +253,8 @@ namespace MisterToken {
 
         private void HandleMovement() {
             Token currentToken = tokenGenerator.GetCurrentToken();
-            if (Input.IsDown(PerPlayerBooleanInputHook.TOKEN_RIGHT.ForPlayer(player))) {
+            if (Input.IsDown(PerPlayerBooleanInputHook.TOKEN_RIGHT.ForPlayer(player)) ||
+                Input.IsDown(PerPlayerAnalogInputHook.TOKEN_RIGHT.ForPlayer(player))) {
                 if (level.Wrap() && (currentToken == null || currentToken.Move(true, 0, 1, true))) {
                     board.ShiftRight();
                     if (currentToken != null) {
@@ -259,7 +263,8 @@ namespace MisterToken {
                     }
                 }
             }
-            if (Input.IsDown(PerPlayerBooleanInputHook.TOKEN_LEFT.ForPlayer(player))) {
+            if (Input.IsDown(PerPlayerBooleanInputHook.TOKEN_LEFT.ForPlayer(player)) ||
+                Input.IsDown(PerPlayerAnalogInputHook.TOKEN_LEFT.ForPlayer(player))) {
                 if (level.Wrap() && (currentToken == null || currentToken.Move(true, 0, -1, true))) {
                     board.ShiftLeft();
                     if (currentToken != null) {
@@ -321,10 +326,14 @@ namespace MisterToken {
             }
 
             HandleMovement();
-            if (!level.Wrap() && Input.IsDown(PerPlayerBooleanInputHook.TOKEN_RIGHT.ForPlayer(player))) {
+            if (!level.Wrap() &&
+                (Input.IsDown(PerPlayerBooleanInputHook.TOKEN_RIGHT.ForPlayer(player)) ||
+                 Input.IsDown(PerPlayerAnalogInputHook.TOKEN_RIGHT.ForPlayer(player)))) {
                 currentToken.Move(false, 0, 1, level.Wrap());
             }
-            if (!level.Wrap() && Input.IsDown(PerPlayerBooleanInputHook.TOKEN_LEFT.ForPlayer(player))) {
+            if (!level.Wrap() &&
+                (Input.IsDown(PerPlayerBooleanInputHook.TOKEN_LEFT.ForPlayer(player)) ||
+                 Input.IsDown(PerPlayerAnalogInputHook.TOKEN_LEFT.ForPlayer(player)))) {
                 currentToken.Move(false, 0, -1, level.Wrap());
             }
             if (Input.IsDown(PerPlayerBooleanInputHook.ROTATE_LEFT.ForPlayer(player))) {
@@ -333,7 +342,8 @@ namespace MisterToken {
             if (Input.IsDown(PerPlayerBooleanInputHook.ROTATE_RIGHT.ForPlayer(player))) {
                 currentToken.RotateRight(false, level.Wrap());
             }
-            if (Input.IsDown(PerPlayerBooleanInputHook.TOKEN_DOWN.ForPlayer(player))) {
+            if (Input.IsDown(PerPlayerBooleanInputHook.TOKEN_DOWN.ForPlayer(player)) ||
+                Input.IsDown(PerPlayerAnalogInputHook.TOKEN_DOWN.ForPlayer(player))) {
                 timeUntilNextAdvance = 0;
             }
             if (Input.IsDown(PerPlayerBooleanInputHook.TOKEN_SLAM.ForPlayer(player))) {
