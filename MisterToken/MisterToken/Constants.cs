@@ -15,7 +15,7 @@ namespace MisterToken {
         public const int CELL_SIZE = 32;             // size of each cell in pixels.
 
         public const int BOARD_ONE_RECT_X = 150;     // x offset for drawing the board.
-        public const int BOARD_TWO_RECT_X = 720;     // x offset for drawing the board.
+        public const int BOARD_TWO_RECT_X = 770;     // x offset for drawing the board.
         public const int BOARD_RECT_Y = 170;          // y offset for drawing the board.
 
         public const int TOKEN_START_COLUMN = 4;     // column that new tokens should start in.

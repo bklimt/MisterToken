@@ -10,8 +10,9 @@ using Microsoft.Xna.Framework.Media;
 
 namespace MisterToken {
     public class Menu {
-        public Menu(Action back) {
+        public Menu(PlayerIndex player, Action back) {
             selected = 0;
+            this.player = player;
             this.back = back;
             options = new List<Tuple<string, Action>>();
         }
@@ -21,19 +22,19 @@ namespace MisterToken {
         }
 
         public void Update() {
-            if (Input.IsDown(BooleanInputHook.MENU_DOWN)) {
+            if (Input.IsDown(PerPlayerBooleanInputHook.MENU_DOWN.ForPlayer(player))) {
                 selected = (selected + 1) % options.Count;
             }
-            if (Input.IsDown(BooleanInputHook.MENU_UP)) {
+            if (Input.IsDown(PerPlayerBooleanInputHook.MENU_UP.ForPlayer(player))) {
                 selected--;
                 if (selected < 0) {
                     selected = options.Count - 1;
                 }
             }
-            if (Input.IsDown(BooleanInputHook.MENU_ENTER)) {
+            if (Input.IsDown(PerPlayerBooleanInputHook.MENU_ENTER.ForPlayer(player))) {
                 options[selected].Item2();
             }
-            if (Input.IsDown(BooleanInputHook.MENU_BACK)) {
+            if (Input.IsDown(PerPlayerBooleanInputHook.MENU_BACK.ForPlayer(player))) {
                 back();
             }
         }
@@ -41,8 +42,8 @@ namespace MisterToken {
         public void SetSelected(int selected) {
             this.selected = selected;
             // Clear the current keyboard state.
-            Input.IsDown(BooleanInputHook.MENU_UP);
-            Input.IsDown(BooleanInputHook.MENU_DOWN);
+            Input.IsDown(PerPlayerBooleanInputHook.MENU_UP.ForPlayer(player));
+            Input.IsDown(PerPlayerBooleanInputHook.MENU_DOWN.ForPlayer(player));
         }
 
         public void Draw(Rectangle rect, bool focused, SpriteBatch spriteBatch) {
@@ -71,6 +72,7 @@ namespace MisterToken {
         }
 
         public delegate void Action();
+        private PlayerIndex player;
         private Action back;
         private List<Tuple<String, Action>> options;
         private int selected;

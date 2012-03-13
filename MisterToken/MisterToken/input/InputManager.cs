@@ -10,23 +10,28 @@ namespace MisterToken {
         public InputManager() {
             booleanMap = new Dictionary<BooleanInputHook, BooleanInput>();
 
-            booleanMap.Add(BooleanInputHook.MENU_UP, new BooleanInputOnce()
+            booleanMap.Add(BooleanInputHook.PLAYER_ONE_MENU_UP, new BooleanInputOnce()
                 .AddKey(Keys.Up)
                 .AddKey(Keys.W)
-                .AddButton(PlayerIndex.One, Buttons.DPadUp)
-                .AddButton(PlayerIndex.Two, Buttons.DPadUp));
-            booleanMap.Add(BooleanInputHook.MENU_DOWN, new BooleanInputOnce()
+                .AddButton(PlayerIndex.One, Buttons.DPadUp));
+            booleanMap.Add(BooleanInputHook.PLAYER_ONE_MENU_DOWN, new BooleanInputOnce()
                 .AddKey(Keys.Down)
                 .AddKey(Keys.S)
-                .AddButton(PlayerIndex.One, Buttons.DPadDown)
-                .AddButton(PlayerIndex.Two, Buttons.DPadDown));
-            booleanMap.Add(BooleanInputHook.MENU_ENTER, new BooleanInputOnce()
+                .AddButton(PlayerIndex.One, Buttons.DPadDown));
+            booleanMap.Add(BooleanInputHook.PLAYER_ONE_MENU_ENTER, new BooleanInputOnce()
                 .AddKey(Keys.Enter)
-                .AddButton(PlayerIndex.One, Buttons.Start)
-                .AddButton(PlayerIndex.Two, Buttons.Start));
-            booleanMap.Add(BooleanInputHook.MENU_BACK, new BooleanInputOnce()
+                .AddButton(PlayerIndex.One, Buttons.Start));
+            booleanMap.Add(BooleanInputHook.PLAYER_ONE_MENU_BACK, new BooleanInputOnce()
                 .AddKey(Keys.Escape)
-                .AddButton(PlayerIndex.One, Buttons.Back)
+                .AddButton(PlayerIndex.One, Buttons.Back));
+
+            booleanMap.Add(BooleanInputHook.PLAYER_TWO_MENU_UP, new BooleanInputOnce()
+                .AddButton(PlayerIndex.Two, Buttons.DPadUp));
+            booleanMap.Add(BooleanInputHook.PLAYER_TWO_MENU_DOWN, new BooleanInputOnce()
+                .AddButton(PlayerIndex.Two, Buttons.DPadDown));
+            booleanMap.Add(BooleanInputHook.PLAYER_TWO_MENU_ENTER, new BooleanInputOnce()
+                .AddButton(PlayerIndex.Two, Buttons.Start));
+            booleanMap.Add(BooleanInputHook.PLAYER_TWO_MENU_BACK, new BooleanInputOnce()
                 .AddButton(PlayerIndex.Two, Buttons.Back));
 
             booleanMap.Add(BooleanInputHook.PLAYER_ONE_TOKEN_SLAM, new BooleanInputOnce()

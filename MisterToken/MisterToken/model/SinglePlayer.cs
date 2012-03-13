@@ -10,12 +10,13 @@ using Microsoft.Xna.Framework.Input;
 
 namespace MisterToken {
     public class SinglePlayer : Game {
-        public SinglePlayer(PlayerIndex player, int level, bool showHelp, GameListener listener) {
+        public SinglePlayer(PlayerIndex player, int level, bool singlePlayer, GameListener listener) {
             this.player = player;
             this.level = Levels.GetLevel(level);
-            this.showHelp = showHelp;
+            this.singlePlayer = singlePlayer;
             this.listener = listener;
             this.paused = false;
+            this.otherPaused = false;
             nextTokenReadiness = 0.0f;
             board = new Board();
             tokenGenerator = new TokenGenerator(board, this.level);
@@ -23,7 +24,7 @@ namespace MisterToken {
             matches = new List<CellColor>();
             state = State.SETTING_UP_BOARD;
 
-            pauseMenu = new Menu(delegate() {});
+            pauseMenu = new Menu(player, delegate() {});
             pauseMenu.Add("Continue", delegate() {
                 paused = false;
                 listener.OnPaused(player, paused);
@@ -33,7 +34,7 @@ namespace MisterToken {
                 listener.OnFinished(player, false, level);
             });
 
-            wonMenu = new Menu(delegate() {});
+            wonMenu = new Menu(player, delegate() {});
             wonMenu.Add("Continue", delegate() {
                 listener.OnFinished(player, true, level + 1);
             });
@@ -44,7 +45,7 @@ namespace MisterToken {
                 listener.OnFinished(player, false, level  + 1);
             });
 
-            failedMenu = new Menu(delegate() { });
+            failedMenu = new Menu(player, delegate() { });
             failedMenu.Add("Retry", delegate() {
                 listener.OnFinished(player, true, level);
             });
@@ -88,8 +89,8 @@ namespace MisterToken {
             Sprites.DrawLayer(SpriteHook.SCREEN_50_LAYER, boardRect, spriteBatch);
 
             // Determine where to draw the help.
-            Rectangle helpRect = new Rectangle();
-            if (showHelp) {
+            if (singlePlayer) {
+                Rectangle helpRect = new Rectangle();
                 helpRect.X = Constants.BOARD_TWO_RECT_X - Constants.CELL_SIZE;
                 helpRect.Y = Constants.BOARD_RECT_Y;
                 helpRect.Width = (2 + Constants.COLUMNS) * Constants.CELL_SIZE;
@@ -156,7 +157,9 @@ namespace MisterToken {
                 Sprites.DrawCentered(SpriteHook.WINNER, boardRect, spriteBatch);
             } else if (state == State.FAILED) {
                 Sprites.DrawLayer(SpriteHook.SPLATTER_LAYER, boardRect, spriteBatch);
-                failedMenu.Draw(boardRect, true, spriteBatch);
+                if (singlePlayer) {
+                    failedMenu.Draw(boardRect, true, spriteBatch);
+                }
                 Sprites.DrawCentered(SpriteHook.LOSER, boardRect, spriteBatch);
             }
 
@@ -184,19 +187,22 @@ namespace MisterToken {
                 dumpRect.X += (boardRect.Width / Constants.COLUMNS);
             }
 
-            if (paused) {
+            if (paused || otherPaused) {
                 Sprites.DrawLayer(SpriteHook.SCREEN_50_LAYER, boardRect, spriteBatch);
+            }
+            if (paused) {
                 pauseMenu.Draw(boardRect, true, spriteBatch);
             }
         }
 
         public void Update(GameTime gameTime) {
-            if (paused) {
+            if (paused || otherPaused) {
                 pauseMenu.Update();
                 return;
             }
             if (state != State.FAILED && state != State.WON &&
-                (Input.IsDown(BooleanInputHook.MENU_ENTER) || Input.IsDown(BooleanInputHook.MENU_BACK))) {
+                (Input.IsDown(PerPlayerBooleanInputHook.MENU_ENTER.ForPlayer(player)) ||
+                 Input.IsDown(PerPlayerBooleanInputHook.MENU_BACK.ForPlayer(player)))) {
                 paused = !paused;
                 listener.OnPaused(player, paused);
             }
@@ -239,7 +245,7 @@ namespace MisterToken {
         }
 
         public void SetPaused(bool paused) {
-            this.paused = paused;
+            this.otherPaused = paused;
         }
 
         private void HandleMovement() {
@@ -420,7 +426,9 @@ namespace MisterToken {
         }
 
         private void DoFailed(GameTime gameTime) {
-            failedMenu.Update();
+            if (singlePlayer) {
+                failedMenu.Update();
+            }
         }
 
         private void DoWon(GameTime gameTime) {
@@ -443,6 +451,7 @@ namespace MisterToken {
 
         // Pause state.
         private bool paused;
+        private bool otherPaused;
         private Menu pauseMenu;
 
         // Waiting for token.
@@ -465,7 +474,7 @@ namespace MisterToken {
         private Menu failedMenu;
 
         // Internal state.
-        private bool showHelp;
+        private bool singlePlayer;
         private PlayerIndex player;
         private Board board;
         private Level level;

@@ -16,9 +16,9 @@ namespace MisterToken {
             Content.RootDirectory = "Content";
             Components.Add(new GamerServicesComponent(this));
 
-            titleMenu = new Menu(delegate() { SaveAndQuit(); });
-            levelMenu = new Menu(delegate() { state = State.TITLE_MENU; });
-            videoMenu = new Menu(delegate() { state = State.TITLE_MENU; });
+            titleMenu = new Menu(PlayerIndex.One, delegate() { SaveAndQuit(); });
+            levelMenu = new Menu(PlayerIndex.One, delegate() { state = State.TITLE_MENU; });
+            videoMenu = new Menu(PlayerIndex.One, delegate() { state = State.TITLE_MENU; });
         }
 
         protected override void Initialize() {
@@ -142,7 +142,8 @@ namespace MisterToken {
                     levelMenu.Update();
                     break;
                 case State.HELP_SCREEN:
-                    if (Input.IsDown(BooleanInputHook.MENU_BACK) || Input.IsDown(BooleanInputHook.MENU_ENTER)) {
+                    if (Input.IsDown(BooleanInputHook.PLAYER_ONE_MENU_BACK) ||
+                        Input.IsDown(BooleanInputHook.PLAYER_ONE_MENU_ENTER)) {
                         state = State.TITLE_MENU;
                     }
                     break;
