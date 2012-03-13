@@ -12,8 +12,8 @@ namespace MisterToken {
     public class MultiPlayer : Game, GameListener {
         public MultiPlayer(int level1, int level2, GameListener listener) {
             this.listener = listener;
-            one = new SinglePlayer(PlayerIndex.One, level1, this);
-            two = new SinglePlayer(PlayerIndex.Two, level2, this);
+            one = new SinglePlayer(PlayerIndex.One, level1, false, this);
+            two = new SinglePlayer(PlayerIndex.Two, level2, false, this);
         }
 
         public void Draw(GraphicsDevice device, SpriteBatch spriteBatch) {
@@ -62,8 +62,8 @@ namespace MisterToken {
             }
         }
 
-        public void OnFinished(PlayerIndex player) {
-            listener.OnFinished(player);
+        public void OnFinished(PlayerIndex player, bool shouldContinue, int level) {
+            listener.OnFinished(player, shouldContinue, level);
         }
 
         private SinglePlayer one;

@@ -7,6 +7,7 @@ namespace MisterToken {
     public class XmlLevel {
         public int id;
         public string name;
+        public string help;
         public string tokens;
         public string colors;
         public String pattern;

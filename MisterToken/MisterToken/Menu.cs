@@ -38,6 +38,13 @@ namespace MisterToken {
             }
         }
 
+        public void SetSelected(int selected) {
+            this.selected = selected;
+            // Clear the current keyboard state.
+            Input.IsDown(BooleanInputHook.MENU_UP);
+            Input.IsDown(BooleanInputHook.MENU_DOWN);
+        }
+
         public void Draw(Rectangle rect, bool focused, SpriteBatch spriteBatch) {
             if (focused) {
                 Sprites.DrawLayer(SpriteHook.SCREEN_50_LAYER, rect, spriteBatch);
@@ -50,13 +57,13 @@ namespace MisterToken {
                     Cell cell = new Cell();
                     cell.color = focused ? CellColor.ORANGE : CellColor.ORANGE;
                     Rectangle cellRect;
-                    cellRect.X = x + 12;
-                    cellRect.Y = y + 2;
-                    cellRect.Width = Constants.CELL_SIZE;
-                    cellRect.Height = Constants.CELL_SIZE;
+                    cellRect.X = x + 28;
+                    cellRect.Y = y + 4;
+                    cellRect.Width = (Constants.CELL_SIZE * 2) / 3;
+                    cellRect.Height = (Constants.CELL_SIZE * 2) / 3;
                     Sprites.DrawCell(cell, cellRect, spriteBatch);
                 }
-                y += 40;
+                y += 30;
             }
             if (!focused) {
                 Sprites.DrawLayer(SpriteHook.SCREEN_80_LAYER, rect, spriteBatch);

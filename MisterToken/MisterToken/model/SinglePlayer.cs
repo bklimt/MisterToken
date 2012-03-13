@@ -10,9 +10,10 @@ using Microsoft.Xna.Framework.Input;
 
 namespace MisterToken {
     public class SinglePlayer : Game {
-        public SinglePlayer(PlayerIndex player, int level, GameListener listener) {
+        public SinglePlayer(PlayerIndex player, int level, bool showHelp, GameListener listener) {
             this.player = player;
             this.level = Levels.GetLevel(level);
+            this.showHelp = showHelp;
             this.listener = listener;
             this.paused = false;
             nextTokenReadiness = 0.0f;
@@ -29,7 +30,26 @@ namespace MisterToken {
             });
             pauseMenu.Add("Exit", delegate() {
                 paused = false;
-                listener.OnFinished(player);
+                listener.OnFinished(player, false, level);
+            });
+
+            wonMenu = new Menu(delegate() {});
+            wonMenu.Add("Continue", delegate() {
+                listener.OnFinished(player, true, level + 1);
+            });
+            wonMenu.Add("Retry", delegate() {
+                listener.OnFinished(player, true, level);
+            });
+            wonMenu.Add("Exit", delegate() {
+                listener.OnFinished(player, false, level  + 1);
+            });
+
+            failedMenu = new Menu(delegate() { });
+            failedMenu.Add("Retry", delegate() {
+                listener.OnFinished(player, true, level);
+            });
+            failedMenu.Add("Exit", delegate() {
+                listener.OnFinished(player, false, level + 1);
             });
         }
 
@@ -66,6 +86,18 @@ namespace MisterToken {
             boardRect.Height = Constants.ROWS * Constants.CELL_SIZE;
             Sprites.DrawLayer(SpriteHook.SCREEN_80_LAYER, boardRect, spriteBatch);
             Sprites.DrawLayer(SpriteHook.SCREEN_50_LAYER, boardRect, spriteBatch);
+
+            // Determine where to draw the help.
+            Rectangle helpRect = new Rectangle();
+            if (showHelp) {
+                helpRect.X = Constants.BOARD_TWO_RECT_X - Constants.CELL_SIZE;
+                helpRect.Y = Constants.BOARD_RECT_Y;
+                helpRect.Width = (2 + Constants.COLUMNS) * Constants.CELL_SIZE;
+                helpRect.Height = (Constants.ROWS + 1) * Constants.CELL_SIZE;
+                Sprites.DrawLayer(SpriteHook.SCREEN_80_LAYER, helpRect, spriteBatch);
+                Vector2 topLeft = new Vector2(helpRect.X + Constants.CELL_SIZE, helpRect.Y + Constants.CELL_SIZE);
+                Sprites.DrawText(level.GetHelp(), Color.Cyan, topLeft, spriteBatch);
+            }
 
             // Draw the stripe where the piece will be.
             Rectangle stripe;
@@ -120,11 +152,11 @@ namespace MisterToken {
 
             // Draw the winner/loser state.
             if (state == State.WON) {
-                Sprites.DrawLayer(SpriteHook.SCREEN_80_LAYER, boardRect, spriteBatch);
+                wonMenu.Draw(boardRect, true, spriteBatch);
                 Sprites.DrawCentered(SpriteHook.WINNER, boardRect, spriteBatch);
             } else if (state == State.FAILED) {
                 Sprites.DrawLayer(SpriteHook.SPLATTER_LAYER, boardRect, spriteBatch);
-                Sprites.DrawLayer(SpriteHook.SCREEN_50_LAYER, boardRect, spriteBatch);
+                failedMenu.Draw(boardRect, true, spriteBatch);
                 Sprites.DrawCentered(SpriteHook.LOSER, boardRect, spriteBatch);
             }
 
@@ -198,10 +230,12 @@ namespace MisterToken {
 
         public void Win() {
             state = State.WON;
+            wonMenu.SetSelected(0);
         }
 
         public void Fail() {
             state = State.FAILED;
+            failedMenu.SetSelected(0);
         }
 
         public void SetPaused(bool paused) {
@@ -265,6 +299,7 @@ namespace MisterToken {
                     // Game over!
                     token.Commit();
                     state = State.FAILED;
+                    failedMenu.SetSelected(0);
                     listener.OnFailed(player);
                 } else {
                     timeUntilNextAdvance = Constants.MILLIS_PER_ADVANCE;
@@ -340,6 +375,7 @@ namespace MisterToken {
                 }
                 if (board.GetLockedCount() == 0) {
                     state = State.WON;
+                    wonMenu.SetSelected(0);
                     int[] previous = Storage.GetSaveData().completed;
                     if (!previous.Contains(level.GetId())) {
                         int[] current = new int[previous.Length + 1];
@@ -384,15 +420,11 @@ namespace MisterToken {
         }
 
         private void DoFailed(GameTime gameTime) {
-            if (Input.IsDown(BooleanInputHook.MENU_ENTER) || Input.IsDown(BooleanInputHook.MENU_BACK)) {
-                listener.OnFinished(player);
-            }
+            failedMenu.Update();
         }
 
         private void DoWon(GameTime gameTime) {
-            if (Input.IsDown(BooleanInputHook.MENU_ENTER) || Input.IsDown(BooleanInputHook.MENU_BACK)) {
-                listener.OnFinished(player);
-            }
+             wonMenu.Update();
         }
 
         // Game state.
@@ -426,7 +458,14 @@ namespace MisterToken {
         // Falling.
         private int timeToNextFall;
 
+        // Won.
+        private Menu wonMenu;
+
+        // Failed.
+        private Menu failedMenu;
+
         // Internal state.
+        private bool showHelp;
         private PlayerIndex player;
         private Board board;
         private Level level;

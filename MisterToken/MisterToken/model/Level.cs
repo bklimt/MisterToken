@@ -13,14 +13,28 @@ namespace MisterToken {
             colors = new ColorDistribution(xml.colors);
             pattern = xml.pattern;
             wrap = xml.wrap;
+
+            // Strip the whitespace from the help text.
+            help = "";
+            string[] lines = xml.help.Split('\n');
+            foreach (string line in lines) {
+                if (help.Length > 0 || line.Trim().Length > 0) {
+                    help += line.Trim();
+                    help += '\n';
+                }
+            }
         }
 
         public int GetId() {
             return id;
         }
 
-        public String GetName() {
+        public string GetName() {
             return name;
+        }
+
+        public string GetHelp() {
+            return help;
         }
 
         public void SetupBoard(Board board) {
@@ -61,6 +75,7 @@ namespace MisterToken {
 
         private int id;
         private string name;
+        private string help;
         private TokenDistribution tokens;
         private ColorDistribution colors;
         private string pattern;

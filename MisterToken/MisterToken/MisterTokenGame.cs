@@ -117,7 +117,7 @@ namespace MisterToken {
                 int j = i;
                 levelMenu.Add(Levels.GetLevel(j).GetName(), delegate() {
                     if (singlePlayer) {
-                        model = new SinglePlayer(PlayerIndex.One, j, this);
+                        model = new SinglePlayer(PlayerIndex.One, j, true, this);
                     } else {
                         model = new MultiPlayer(j, j, this);
                     }
@@ -227,8 +227,17 @@ namespace MisterToken {
         public void OnFailed(PlayerIndex player) {
         }
 
-        public void OnFinished(PlayerIndex player) {
-            state = State.LEVEL_MENU;
+        public void OnFinished(PlayerIndex player, bool shouldContinue, int level) {
+            if (shouldContinue) {
+                if (singlePlayer) {
+                    model = new SinglePlayer(PlayerIndex.One, level, true, this);
+                } else {
+                    model = new MultiPlayer(level, level, this);
+                }
+                state = State.PLAYING;
+            } else {
+                state = State.LEVEL_MENU;
+            }
         }
 
         // Game state.
