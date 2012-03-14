@@ -12,43 +12,41 @@ namespace MisterToken {
             animations = new List<Animation>();
 
             colorTextures = new Dictionary<CellColor, Drawable>();
-            colorTextures[CellColor.RED] = new Image(content.Load<Texture2D>("red_sprites"));
-            colorTextures[CellColor.GREEN] = new Image(content.Load<Texture2D>("green_sprites"));
-            colorTextures[CellColor.WHITE] = new Image(content.Load<Texture2D>("white_sprites"));
-            colorTextures[CellColor.YELLOW] = new Image(content.Load<Texture2D>("yellow_sprites"));
-            colorTextures[CellColor.BLUE] = new Image(content.Load<Texture2D>("blue_sprites"));
-            colorTextures[CellColor.CYAN] = new Image(content.Load<Texture2D>("cyan_sprites"));
-            colorTextures[CellColor.PURPLE] = new Image(content.Load<Texture2D>("purple_sprites"));
-            colorTextures[CellColor.ORANGE] = new Image(content.Load<Texture2D>("orange_sprites"));
+            colorTextures[CellColor.RED] = new Image(content.Load<Texture2D>("tokens/red_sprites"));
+            colorTextures[CellColor.GREEN] = new Image(content.Load<Texture2D>("tokens/green_sprites"));
+            colorTextures[CellColor.WHITE] = new Image(content.Load<Texture2D>("tokens/white_sprites"));
+            colorTextures[CellColor.YELLOW] = new Image(content.Load<Texture2D>("tokens/yellow_sprites"));
+            colorTextures[CellColor.BLUE] = new Image(content.Load<Texture2D>("tokens/blue_sprites"));
+            colorTextures[CellColor.CYAN] = new Image(content.Load<Texture2D>("tokens/cyan_sprites"));
+            colorTextures[CellColor.PURPLE] = new Image(content.Load<Texture2D>("tokens/purple_sprites"));
+            colorTextures[CellColor.ORANGE] = new Image(content.Load<Texture2D>("tokens/orange_sprites"));
 
             Animation flash = new Animation(40);
-            flash.AddFrame(content.Load<Texture2D>("red_sprites"));
-            flash.AddFrame(content.Load<Texture2D>("green_sprites"));
-            flash.AddFrame(content.Load<Texture2D>("white_sprites"));
-            flash.AddFrame(content.Load<Texture2D>("yellow_sprites"));
-            flash.AddFrame(content.Load<Texture2D>("blue_sprites"));
-            flash.AddFrame(content.Load<Texture2D>("orange_sprites"));
-            flash.AddFrame(content.Load<Texture2D>("cyan_sprites"));
-            flash.AddFrame(content.Load<Texture2D>("purple_sprites"));
+            flash.AddFrame(content.Load<Texture2D>("tokens/red_sprites"));
+            flash.AddFrame(content.Load<Texture2D>("tokens/green_sprites"));
+            flash.AddFrame(content.Load<Texture2D>("tokens/white_sprites"));
+            flash.AddFrame(content.Load<Texture2D>("tokens/yellow_sprites"));
+            flash.AddFrame(content.Load<Texture2D>("tokens/blue_sprites"));
+            flash.AddFrame(content.Load<Texture2D>("tokens/orange_sprites"));
+            flash.AddFrame(content.Load<Texture2D>("tokens/cyan_sprites"));
+            flash.AddFrame(content.Load<Texture2D>("tokens/purple_sprites"));
             colorTextures[CellColor.WILD] = flash;
             animations.Add(flash);
 
             textures = new Dictionary<SpriteHook, Drawable>();
-            textures[SpriteHook.TITLE_LAYER] = new Image(content.Load<Texture2D>("title"));
-            textures[SpriteHook.BACKGROUND_LAYER] = new Image(content.Load<Texture2D>("background"));
-            textures[SpriteHook.HELP_LAYER] = new Image(content.Load<Texture2D>("help_screen"));
-            textures[SpriteHook.SCREEN_80_LAYER] = new Image(content.Load<Texture2D>("screen80"));
-            textures[SpriteHook.SCREEN_50_LAYER] = new Image(content.Load<Texture2D>("screen50"));
-            textures[SpriteHook.SPLATTER_LAYER] = new Image(content.Load<Texture2D>("splatter"));
-            textures[SpriteHook.CLOUD_LAYER] = new Image(content.Load<Texture2D>("cloud"));
+            textures[SpriteHook.TITLE_LAYER] = new Image(content.Load<Texture2D>("layers/title"));
+            textures[SpriteHook.BACKGROUND_LAYER] = new Image(content.Load<Texture2D>("layers/background"));
+            textures[SpriteHook.HELP_LAYER] = new Image(content.Load<Texture2D>("layers/help_screen"));
+            textures[SpriteHook.SCREEN_80_LAYER] = new Image(content.Load<Texture2D>("layers/screen80"));
+            textures[SpriteHook.SCREEN_50_LAYER] = new Image(content.Load<Texture2D>("layers/screen50"));
+            textures[SpriteHook.SPLATTER_LAYER] = new Image(content.Load<Texture2D>("layers/splatter"));
 
-            textures[SpriteHook.WINNER] = new Image(content.Load<Texture2D>("winner"));
-            textures[SpriteHook.LOSER] = new Image(content.Load<Texture2D>("loser"));
-            textures[SpriteHook.BOMB] = new Image(content.Load<Texture2D>("nuclear"));
-            textures[SpriteHook.WILD] = new Image(content.Load<Texture2D>("wild"));
-            textures[SpriteHook.SKULL] = new Image(content.Load<Texture2D>("skull"));
+            textures[SpriteHook.WINNER] = new Image(content.Load<Texture2D>("text/winner"));
+            textures[SpriteHook.LOSER] = new Image(content.Load<Texture2D>("text/loser"));
+            textures[SpriteHook.BOMB] = new Image(content.Load<Texture2D>("tokens/nuclear"));
+            textures[SpriteHook.SKULL] = new Image(content.Load<Texture2D>("tokens/skull"));
 
-            roboto = content.Load<SpriteFont>("roboto");
+            roboto = content.Load<SpriteFont>("text/roboto");
         }
 
         public void Update(GameTime gameTime) {

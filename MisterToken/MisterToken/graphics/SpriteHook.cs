@@ -12,7 +12,6 @@ namespace MisterToken {
         SCREEN_80_LAYER,
         SCREEN_50_LAYER,
         SPLATTER_LAYER,
-        CLOUD_LAYER,
 
         // Strings are arbitrary size.
         WINNER,
@@ -20,7 +19,6 @@ namespace MisterToken {
 
         // Other.
         BOMB,
-        WILD,
         SKULL,
     }
 }

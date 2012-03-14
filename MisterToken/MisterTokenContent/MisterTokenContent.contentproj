@@ -30,98 +30,98 @@
     <Reference Include="Microsoft.Xna.Framework.Content.Pipeline.VideoImporters, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=MSIL" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="splatter.png">
+    <Compile Include="layers\splatter.png">
       <Name>splatter</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="title.png">
+    <Compile Include="layers\title.png">
       <Name>title</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="cloud.png">
+    <Compile Include="layers\cloud.png">
       <Name>cloud</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="screen80.png">
+    <Compile Include="layers\screen80.png">
       <Name>screen80</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="background.png">
+    <Compile Include="layers\background.png">
       <Name>background</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="loser.png">
+    <Compile Include="text\loser.png">
       <Name>loser</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="winner.png">
+    <Compile Include="text\winner.png">
       <Name>winner</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="screen50.png">
+    <Compile Include="layers\screen50.png">
       <Name>screen50</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="blue_sprites.png">
+    <Compile Include="tokens\blue_sprites.png">
       <Name>blue_sprites</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="cyan_sprites.png">
+    <Compile Include="tokens\cyan_sprites.png">
       <Name>cyan_sprites</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="green_sprites.png">
+    <Compile Include="tokens\green_sprites.png">
       <Name>green_sprites</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="orange_sprites.png">
+    <Compile Include="tokens\orange_sprites.png">
       <Name>orange_sprites</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="purple_sprites.png">
+    <Compile Include="tokens\purple_sprites.png">
       <Name>purple_sprites</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="red_sprites.png">
+    <Compile Include="tokens\red_sprites.png">
       <Name>red_sprites</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="white_sprites.png">
+    <Compile Include="tokens\white_sprites.png">
       <Name>white_sprites</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="yellow_sprites.png">
+    <Compile Include="tokens\yellow_sprites.png">
       <Name>yellow_sprites</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
@@ -142,7 +142,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="roboto.spritefont">
+    <Compile Include="text\roboto.spritefont">
       <Name>roboto</Name>
       <Importer>FontDescriptionImporter</Importer>
       <Processor>FontDescriptionProcessor</Processor>
@@ -178,28 +178,21 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="help_screen.png">
+    <Compile Include="layers\help_screen.png">
       <Name>help_screen</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="nuclear.png">
+    <Compile Include="tokens\nuclear.png">
       <Name>nuclear</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="wild.png">
-      <Name>wild</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="skull.png">
+    <Compile Include="tokens\skull.png">
       <Name>skull</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
