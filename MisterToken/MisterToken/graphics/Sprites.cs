@@ -36,6 +36,10 @@ namespace MisterToken {
             manager.DrawCentered(sprite, targetRect, spriteBatch);
         }
 
+        public static void DrawNumberCentered(int number, Rectangle targetRect, SpriteBatch spriteBatch) {
+            manager.DrawNumberCentered(number, targetRect, spriteBatch);
+        }
+
         public static void Draw(SpriteHook sprite, Vector2 position, SpriteBatch spriteBatch) {
             manager.Draw(sprite, position, spriteBatch);
         }

@@ -41,10 +41,22 @@ namespace MisterToken {
             textures[SpriteHook.SCREEN_50_LAYER] = new Image(content.Load<Texture2D>("layers/screen50"));
             textures[SpriteHook.SPLATTER_LAYER] = new Image(content.Load<Texture2D>("layers/splatter"));
 
-            textures[SpriteHook.WINNER] = new Image(content.Load<Texture2D>("text/winner"));
-            textures[SpriteHook.LOSER] = new Image(content.Load<Texture2D>("text/loser"));
             textures[SpriteHook.BOMB] = new Image(content.Load<Texture2D>("tokens/nuclear"));
             textures[SpriteHook.SKULL] = new Image(content.Load<Texture2D>("tokens/skull"));
+            textures[SpriteHook.WINNER] = new Image(content.Load<Texture2D>("text/winner"));
+            textures[SpriteHook.LOSER] = new Image(content.Load<Texture2D>("text/loser"));
+
+            digitTextures = new Dictionary<int, Drawable>();
+            digitTextures[0] = new Image(content.Load<Texture2D>("text/0"));
+            digitTextures[1] = new Image(content.Load<Texture2D>("text/1"));
+            digitTextures[2] = new Image(content.Load<Texture2D>("text/2"));
+            digitTextures[3] = new Image(content.Load<Texture2D>("text/3"));
+            digitTextures[4] = new Image(content.Load<Texture2D>("text/4"));
+            digitTextures[5] = new Image(content.Load<Texture2D>("text/5"));
+            digitTextures[6] = new Image(content.Load<Texture2D>("text/6"));
+            digitTextures[7] = new Image(content.Load<Texture2D>("text/7"));
+            digitTextures[8] = new Image(content.Load<Texture2D>("text/8"));
+            digitTextures[9] = new Image(content.Load<Texture2D>("text/9"));
 
             roboto = content.Load<SpriteFont>("text/roboto");
         }
@@ -125,12 +137,49 @@ namespace MisterToken {
             spriteBatch.Draw(textures[sprite].GetTexture(), targetRect, targetRect, Color.White);
         }
 
-        public void DrawCentered(SpriteHook sprite, Rectangle targetRect, SpriteBatch spriteBatch) {
-            Texture2D texture = textures[sprite].GetTexture();
+        private void DrawCentered(Texture2D texture, Rectangle targetRect, SpriteBatch spriteBatch) {
             Vector2 position;
             position.X = targetRect.Center.X - (texture.Bounds.Width / 2);
             position.Y = targetRect.Center.Y - (texture.Bounds.Height / 2);
             spriteBatch.Draw(texture, position, Color.White);
+        }
+
+        public void DrawCentered(SpriteHook sprite, Rectangle targetRect, SpriteBatch spriteBatch) {
+            DrawCentered(textures[sprite].GetTexture(), targetRect, spriteBatch);
+        }
+
+        public void DrawNumberCentered(int number, Rectangle targetRect, SpriteBatch spriteBatch) {
+            if (number < 0) {
+                throw new Exception("Attempt to draw negative number.");
+            }
+            if (number == 0) {
+                DrawCentered(digitTextures[0].GetTexture(), targetRect, spriteBatch);
+                return;
+            }
+
+            int kerning = -15;
+
+            int width = 0;
+            int height = 0;
+            List<Texture2D> textures = new List<Texture2D>();
+            while (number > 0) {
+                Texture2D texture = digitTextures[number % 10].GetTexture();
+                textures.Add(texture);
+                width += texture.Bounds.Width;
+                height = Math.Max(texture.Bounds.Height, height);
+                number /= 10;
+                width += kerning;
+            }
+            textures.Reverse();
+
+            Vector2 position;
+            position.X = targetRect.Center.X - (width / 2);
+            position.Y = targetRect.Center.Y - (height / 2);
+            foreach (Texture2D texture in textures) {
+                spriteBatch.Draw(texture, position, Color.White);
+                position.X += texture.Bounds.Width;
+                position.X += kerning;
+            }
         }
 
         public void Draw(SpriteHook sprite, Vector2 position, SpriteBatch spriteBatch) {
@@ -143,6 +192,7 @@ namespace MisterToken {
 
         private Dictionary<SpriteHook, Drawable> textures;
         private Dictionary<CellColor, Drawable> colorTextures;
+        private Dictionary<Int32, Drawable> digitTextures;
         private List<Animation> animations;
         private SpriteFont roboto;
     }
