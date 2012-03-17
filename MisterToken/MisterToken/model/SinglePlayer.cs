@@ -178,6 +178,16 @@ namespace MisterToken {
             nextRect.Height = boardRect.Height;
             tokenGenerator.Draw(nextRect, spriteBatch);
 
+            // Draw the remaining locked count.
+            Rectangle remainingRect = new Rectangle();
+            remainingRect.X = boardRect.X - Constants.CELL_SIZE * 4;
+            remainingRect.Y = nextRect.Y + Constants.CELL_SIZE * 3;
+            remainingRect.Width = Constants.CELL_SIZE * 3;
+            remainingRect.Height = Constants.CELL_SIZE * 3;
+            Sprites.DrawLayer(SpriteHook.SCREEN_80_LAYER, remainingRect, spriteBatch);
+            Sprites.DrawNumberCentered(board.GetLockedCount(), remainingRect, spriteBatch);
+
+            // Draw the dumps.
             Rectangle dumpRect = new Rectangle();
             dumpRect.X = boardRect.X;
             dumpRect.Y = boardRect.Y - (boardRect.Height / Constants.ROWS);
@@ -192,6 +202,7 @@ namespace MisterToken {
                 dumpRect.X += (boardRect.Width / Constants.COLUMNS);
             }
 
+            // Draw the paused overlay.
             if (paused || otherPaused) {
                 Sprites.DrawLayer(SpriteHook.SCREEN_50_LAYER, boardRect, spriteBatch);
             }
