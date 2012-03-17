@@ -41,6 +41,10 @@ namespace MisterToken {
             textures[SpriteHook.SCREEN_50_LAYER] = new Image(content.Load<Texture2D>("layers/screen50"));
             textures[SpriteHook.SPLATTER_LAYER] = new Image(content.Load<Texture2D>("layers/splatter"));
 
+            textures[SpriteHook.GAUGE_BACKGROUND] = new Image(content.Load<Texture2D>("gauge/background"));
+            textures[SpriteHook.GAUGE_ARROW] = new Image(content.Load<Texture2D>("gauge/arrow"));
+            textures[SpriteHook.GAUGE_GLASS] = new Image(content.Load<Texture2D>("gauge/glass"));
+
             textures[SpriteHook.BOMB] = new Image(content.Load<Texture2D>("tokens/nuclear"));
             textures[SpriteHook.SKULL] = new Image(content.Load<Texture2D>("tokens/skull"));
             textures[SpriteHook.WINNER] = new Image(content.Load<Texture2D>("text/winner"));
@@ -129,6 +133,44 @@ namespace MisterToken {
             spriteBatch.Draw(colorTextures[color].GetTexture(), targetRect, sourceRect, highlight);
         }
 
+        public void DrawGauge(float amount, Rectangle destination, SpriteBatch spriteBatch) {
+            int centerX = destination.Center.X;
+            int centerY = destination.Center.Y;
+            int size = Math.Min(destination.Width, destination.Height);
+            destination.X = centerX - size / 2;
+            destination.Y = centerY - size / 2;
+            destination.Width = size;
+            destination.Height = size;
+            DrawScaled(SpriteHook.GAUGE_BACKGROUND, destination, spriteBatch);
+            DrawRotatedAndScaled(SpriteHook.GAUGE_ARROW, destination, (float)(Math.PI * amount), spriteBatch);
+            DrawScaled(SpriteHook.GAUGE_GLASS, destination, spriteBatch);
+        }
+
+        public void DrawRotatedAndCentered(SpriteHook sprite, Rectangle destination, float rotationInRadians, SpriteBatch spriteBatch) {
+            int centerX = destination.Center.X;
+            int centerY = destination.Center.Y;
+            int width = textures[sprite].GetTexture().Width;
+            int height = textures[sprite].GetTexture().Height;
+            destination.X = centerX - width / 2;
+            destination.Y = centerY - height / 2;
+            destination.Width = width;
+            destination.Height = height;
+            DrawRotatedAndScaled(sprite, destination, rotationInRadians, spriteBatch);
+        }
+
+        public void DrawRotatedAndScaled(SpriteHook sprite, Rectangle destination, float rotationInRadians, SpriteBatch spriteBatch) {
+            // Alter the destination (x, y) so that the sprite rotates about its center instead of the origin.
+            int originalX = destination.X;
+            int originalY = destination.Y;
+            int centerX = originalX + destination.Width / 2;
+            int centerY = originalY + destination.Height / 2;
+            double radius = Math.Sqrt(destination.Width * destination.Width + destination.Height * destination.Height) / 2.0;
+            double originalAngle = Math.Asin((centerY - originalY) / radius) - Math.PI;
+            destination.X = (int)Math.Round(centerX + radius * Math.Cos(rotationInRadians + originalAngle));
+            destination.Y = (int)Math.Round(centerY + radius * Math.Sin(rotationInRadians + originalAngle));
+            spriteBatch.Draw(textures[sprite].GetTexture(), destination, null, Color.White, rotationInRadians, new Vector2(), SpriteEffects.None, 0);
+        }
+
         public void DrawLayer(SpriteHook sprite, SpriteBatch spriteBatch) {
             spriteBatch.Draw(textures[sprite].GetTexture(), new Vector2(), Color.White);
         }
@@ -180,6 +222,10 @@ namespace MisterToken {
                 position.X += texture.Bounds.Width;
                 position.X += kerning;
             }
+        }
+
+        public void DrawScaled(SpriteHook sprite, Rectangle destination, SpriteBatch spriteBatch) {
+            spriteBatch.Draw(textures[sprite].GetTexture(), destination, Color.White);
         }
 
         public void Draw(SpriteHook sprite, Vector2 position, SpriteBatch spriteBatch) {

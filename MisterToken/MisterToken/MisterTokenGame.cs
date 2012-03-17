@@ -16,6 +16,8 @@ namespace MisterToken {
             Content.RootDirectory = "Content";
             Components.Add(new GamerServicesComponent(this));
 
+            stats = new StatsTracker();
+
             titleMenu = new Menu(PlayerIndex.One, delegate() { SaveAndQuit(); });
             levelMenu = new Menu(PlayerIndex.One, delegate() { state = State.TITLE_MENU; });
             videoMenu = new Menu(PlayerIndex.One, delegate() { state = State.TITLE_MENU; });
@@ -119,7 +121,7 @@ namespace MisterToken {
                     if (singlePlayer) {
                         model = new SinglePlayer(PlayerIndex.One, j, true, this);
                     } else {
-                        model = new MultiPlayer(j, j, this);
+                        model = new MultiPlayer(j, j, stats, this);
                     }
                     state = State.PLAYING;
                 });
@@ -235,7 +237,7 @@ namespace MisterToken {
                 if (singlePlayer) {
                     model = new SinglePlayer(PlayerIndex.One, level, true, this);
                 } else {
-                    model = new MultiPlayer(level, level, this);
+                    model = new MultiPlayer(level, level, stats, this);
                 }
                 state = State.PLAYING;
             } else {
@@ -261,6 +263,7 @@ namespace MisterToken {
         // Data model.
         private Game model;
         private bool singlePlayer;
+        private StatsTracker stats;
 
         // UI stuff.
         private GraphicsDeviceManager graphics;

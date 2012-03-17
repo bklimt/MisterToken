@@ -77,6 +77,15 @@ namespace MisterToken {
             }
         }
 
+        public int GetLockedCount() {
+            if (state == State.WON) {
+                // Even if the other person trashed, just return that this player won.
+                return 0;
+            } else {
+                return board.GetLockedCount();
+            }
+        }
+
         public void Draw(GraphicsDevice device, SpriteBatch spriteBatch) {
             device.Clear(Color.Black);
 

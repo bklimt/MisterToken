@@ -17,6 +17,11 @@ namespace MisterToken {
         WINNER,
         LOSER,
 
+        // Gauge.
+        GAUGE_BACKGROUND,
+        GAUGE_ARROW,
+        GAUGE_GLASS,
+
         // Other.
         BOMB,
         SKULL,
