@@ -145,16 +145,6 @@ namespace MisterToken {
             destination.Width = size;
             destination.Height = size;
 
-            // Draw a black background around the gauge.
-            /*
-            Rectangle background;
-            background.X = destination.X - Constants.CELL_SIZE / 2;
-            background.Y = destination.Y - Constants.CELL_SIZE / 2;
-            background.Width = destination.Width + Constants.CELL_SIZE;
-            background.Height = destination.Height + Constants.CELL_SIZE;
-            DrawLayer(SpriteHook.SCREEN_80_LAYER, background, spriteBatch);
-            */
-
             // Draw the thing.
             DrawScaled(SpriteHook.GAUGE_BACKGROUND, destination, spriteBatch);
             DrawRotatedAndScaled(SpriteHook.GAUGE_ARROW, destination, (float)(Math.PI * amount), spriteBatch);
