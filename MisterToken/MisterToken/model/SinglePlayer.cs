@@ -214,8 +214,10 @@ namespace MisterToken {
         }
 
         public void Update(GameTime gameTime) {
-            if (paused || otherPaused) {
+            if (paused) {
                 pauseMenu.Update();
+            }
+            if (paused || otherPaused) {
                 return;
             }
             if (state != State.FAILED && state != State.WON &&
