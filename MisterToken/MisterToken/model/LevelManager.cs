@@ -21,6 +21,15 @@ namespace MisterToken {
             return new Level(levels[i]);
         }
 
+        public bool IsCompleted(int level) {
+            for (int i = 0; i < Storage.GetSaveData().completed.Length; ++i) {
+                if (Storage.GetSaveData().completed[i] == level) {
+                    return true;
+                }
+            }
+            return false;
+        }
+
         private MisterToken.XmlLevel[] levels;
     }
 }
