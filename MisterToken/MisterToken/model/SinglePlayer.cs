@@ -95,7 +95,6 @@ namespace MisterToken {
             boardRect.Width = Constants.COLUMNS * Constants.CELL_SIZE;
             boardRect.Height = Constants.ROWS * Constants.CELL_SIZE;
             Sprites.DrawLayer(SpriteHook.SCREEN_80_LAYER, boardRect, spriteBatch);
-            Sprites.DrawLayer(SpriteHook.SCREEN_50_LAYER, boardRect, spriteBatch);
 
             // Determine where to draw the help.
             if (singlePlayer) {
@@ -104,7 +103,6 @@ namespace MisterToken {
                 helpRect.Y = Constants.BOARD_RECT_Y;
                 helpRect.Width = (2 + Constants.COLUMNS) * Constants.CELL_SIZE;
                 helpRect.Height = (Constants.ROWS + 1) * Constants.CELL_SIZE;
-                Sprites.DrawLayer(SpriteHook.SCREEN_80_LAYER, helpRect, spriteBatch);
                 Vector2 topLeft = new Vector2(helpRect.X + Constants.CELL_SIZE, helpRect.Y + Constants.CELL_SIZE);
                 Sprites.DrawText(level.GetHelp(), Color.Cyan, topLeft, spriteBatch);
             }
@@ -115,7 +113,8 @@ namespace MisterToken {
             stripe.Y = boardRect.Y;
             stripe.Width = Constants.CELL_SIZE * 2;
             stripe.Height = boardRect.Height;
-            Sprites.DrawLayer(SpriteHook.BACKGROUND_LAYER, stripe, spriteBatch);
+            Sprites.DrawLayer(SpriteHook.CLOUD_LAYER, stripe, spriteBatch);
+            Sprites.DrawLayer(SpriteHook.CLOUD_LAYER, stripe, spriteBatch);
             Sprites.DrawLayer(SpriteHook.SCREEN_80_LAYER, stripe, spriteBatch);
 
             // Draw the board.
@@ -185,10 +184,9 @@ namespace MisterToken {
             // Draw the remaining locked count.
             Rectangle remainingRect = new Rectangle();
             remainingRect.X = boardRect.X - Constants.CELL_SIZE * 4;
-            remainingRect.Y = nextRect.Y + Constants.CELL_SIZE * 3;
+            remainingRect.Y = nextRect.Y + Constants.CELL_SIZE * 2;
             remainingRect.Width = Constants.CELL_SIZE * 3;
-            remainingRect.Height = Constants.CELL_SIZE * 3;
-            Sprites.DrawLayer(SpriteHook.SCREEN_80_LAYER, remainingRect, spriteBatch);
+            remainingRect.Height = Constants.CELL_SIZE * 2;
             Sprites.DrawNumberCentered(board.GetLockedCount(), remainingRect, spriteBatch);
 
             // Draw the dumps.
@@ -208,7 +206,7 @@ namespace MisterToken {
 
             // Draw the paused overlay.
             if (paused || otherPaused) {
-                Sprites.DrawLayer(SpriteHook.SCREEN_50_LAYER, boardRect, spriteBatch);
+                Sprites.DrawLayer(SpriteHook.SCREEN_80_LAYER, boardRect, spriteBatch);
             }
             if (paused) {
                 pauseMenu.Draw(boardRect, true, spriteBatch);

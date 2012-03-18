@@ -205,6 +205,7 @@ namespace MisterToken {
                     break;
                 case State.PLAYING:
                     Sprites.DrawLayer(SpriteHook.BACKGROUND_LAYER, spriteBatch);
+                    Sprites.DrawLayer(SpriteHook.SCREEN_80_LAYER, spriteBatch);
                     model.Draw(GraphicsDevice, spriteBatch);
                     break;
             }

@@ -38,8 +38,8 @@ namespace MisterToken {
             textures[SpriteHook.BACKGROUND_LAYER] = new Image(content.Load<Texture2D>("layers/background"));
             textures[SpriteHook.HELP_LAYER] = new Image(content.Load<Texture2D>("layers/help_screen"));
             textures[SpriteHook.SCREEN_80_LAYER] = new Image(content.Load<Texture2D>("layers/screen80"));
-            textures[SpriteHook.SCREEN_50_LAYER] = new Image(content.Load<Texture2D>("layers/screen50"));
             textures[SpriteHook.SPLATTER_LAYER] = new Image(content.Load<Texture2D>("layers/splatter"));
+            textures[SpriteHook.CLOUD_LAYER] = new Image(content.Load<Texture2D>("layers/cloud"));
 
             textures[SpriteHook.GAUGE_BACKGROUND] = new Image(content.Load<Texture2D>("gauge/background"));
             textures[SpriteHook.GAUGE_ARROW] = new Image(content.Load<Texture2D>("gauge/arrow"));
@@ -146,12 +146,14 @@ namespace MisterToken {
             destination.Height = size;
 
             // Draw a black background around the gauge.
+            /*
             Rectangle background;
             background.X = destination.X - Constants.CELL_SIZE / 2;
             background.Y = destination.Y - Constants.CELL_SIZE / 2;
             background.Width = destination.Width + Constants.CELL_SIZE;
             background.Height = destination.Height + Constants.CELL_SIZE;
             DrawLayer(SpriteHook.SCREEN_80_LAYER, background, spriteBatch);
+            */
 
             // Draw the thing.
             DrawScaled(SpriteHook.GAUGE_BACKGROUND, destination, spriteBatch);

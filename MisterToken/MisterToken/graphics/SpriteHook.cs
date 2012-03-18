@@ -10,8 +10,8 @@ namespace MisterToken {
         BACKGROUND_LAYER,
         HELP_LAYER,
         SCREEN_80_LAYER,
-        SCREEN_50_LAYER,
         SPLATTER_LAYER,
+        CLOUD_LAYER,
 
         // Strings are arbitrary size.
         WINNER,

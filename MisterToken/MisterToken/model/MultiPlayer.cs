@@ -25,8 +25,8 @@ namespace MisterToken {
             Rectangle mpRect1 = new Rectangle();
             mpRect1.X = Constants.BOARD_ONE_RECT_X + (Constants.CELL_SIZE * (Constants.COLUMNS + 2));
             mpRect1.Width = (Constants.BOARD_TWO_RECT_X - (Constants.CELL_SIZE * 2)) - mpRect1.X;
-            mpRect1.Y = Constants.BOARD_RECT_Y + (Constants.CELL_SIZE * 6);
-            mpRect1.Height = (Constants.CELL_SIZE * (Constants.ROWS - 5)) / 2;
+            mpRect1.Y = Constants.BOARD_RECT_Y + (Constants.CELL_SIZE * 4);
+            mpRect1.Height = (Constants.CELL_SIZE * (Constants.ROWS - 3)) / 2;
 
             Rectangle mpRect2 = new Rectangle();
             mpRect2.X = mpRect1.X;
