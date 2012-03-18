@@ -27,19 +27,11 @@ namespace MisterToken {
             }
         }
 
-        public float GetGaugeMetric(int playerOneLocked, int playerTwoLocked) {
-            if (playerOneLocked == 0 || playerTwoLocked == 0) {
-                return GetGaugeMetricWithWins(0, 0);
-            }
-            float playerOneBias = (float)playerTwoLocked / (playerOneLocked + playerTwoLocked);
-            return GetGaugeMetricWithWins(1, 0) * playerOneBias + GetGaugeMetricWithWins(0, 1) * (1.0f - playerOneBias);
-        }
-
-        private float GetGaugeMetricWithWins(int playerOneDelta, int playerTwoDelta) {
-            if (playerOneWins + playerOneDelta + playerTwoWins + playerTwoDelta < 3) {
-                return 0.5f + ((playerTwoWins + playerTwoDelta) / 6.0f) - ((playerOneWins + playerOneDelta) / 6.0f);
+        public float GetGaugeMetric() {
+            if (playerOneWins + playerTwoWins < 3) {
+                return 0.5f + (playerTwoWins / 6.0f) - (playerOneWins / 6.0f);
             } else {
-                return (float)(playerTwoWins + playerTwoDelta) / (playerOneWins + playerOneDelta + playerTwoWins + playerTwoDelta);
+                return (float)playerTwoWins / (playerOneWins + playerTwoWins);
             }
         }
 

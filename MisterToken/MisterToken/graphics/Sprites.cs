@@ -24,8 +24,8 @@ namespace MisterToken {
             manager.DrawCell(cell, targetRect, spriteBatch);
         }
 
-        public static void DrawGauge(float amount, Rectangle destination, SpriteBatch spriteBatch) {
-            manager.DrawGauge(amount, destination, spriteBatch);
+        public static void DrawGauge(float amount, bool forMatch, Rectangle destination, SpriteBatch spriteBatch) {
+            manager.DrawGauge(amount, forMatch, destination, spriteBatch);
         }
 
         public static void DrawRotatedAndScaled(SpriteHook sprite, Rectangle destination, float rotationInRadians, SpriteBatch spriteBatch) {

@@ -21,6 +21,8 @@ namespace MisterToken {
         GAUGE_BACKGROUND,
         GAUGE_ARROW,
         GAUGE_GLASS,
+        GAUGE_GAME,
+        GAUGE_MATCH,
 
         // Other.
         BOMB,

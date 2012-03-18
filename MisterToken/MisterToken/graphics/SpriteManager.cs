@@ -44,6 +44,8 @@ namespace MisterToken {
             textures[SpriteHook.GAUGE_BACKGROUND] = new Image(content.Load<Texture2D>("gauge/background"));
             textures[SpriteHook.GAUGE_ARROW] = new Image(content.Load<Texture2D>("gauge/arrow"));
             textures[SpriteHook.GAUGE_GLASS] = new Image(content.Load<Texture2D>("gauge/glass"));
+            textures[SpriteHook.GAUGE_MATCH] = new Image(content.Load<Texture2D>("gauge/match"));
+            textures[SpriteHook.GAUGE_GAME] = new Image(content.Load<Texture2D>("gauge/game"));
 
             textures[SpriteHook.BOMB] = new Image(content.Load<Texture2D>("tokens/nuclear"));
             textures[SpriteHook.SKULL] = new Image(content.Load<Texture2D>("tokens/skull"));
@@ -133,7 +135,8 @@ namespace MisterToken {
             spriteBatch.Draw(colorTextures[color].GetTexture(), targetRect, sourceRect, highlight);
         }
 
-        public void DrawGauge(float amount, Rectangle destination, SpriteBatch spriteBatch) {
+        public void DrawGauge(float amount, bool forMatch, Rectangle destination, SpriteBatch spriteBatch) {
+            // Center the gauge.
             int centerX = destination.Center.X;
             int centerY = destination.Center.Y;
             int size = Math.Min(destination.Width, destination.Height);
@@ -141,9 +144,24 @@ namespace MisterToken {
             destination.Y = centerY - size / 2;
             destination.Width = size;
             destination.Height = size;
+
+            // Draw a black background around the gauge.
+            Rectangle background;
+            background.X = destination.X - Constants.CELL_SIZE / 2;
+            background.Y = destination.Y - Constants.CELL_SIZE / 2;
+            background.Width = destination.Width + Constants.CELL_SIZE;
+            background.Height = destination.Height + Constants.CELL_SIZE;
+            DrawLayer(SpriteHook.SCREEN_80_LAYER, background, spriteBatch);
+
+            // Draw the thing.
             DrawScaled(SpriteHook.GAUGE_BACKGROUND, destination, spriteBatch);
             DrawRotatedAndScaled(SpriteHook.GAUGE_ARROW, destination, (float)(Math.PI * amount), spriteBatch);
             DrawScaled(SpriteHook.GAUGE_GLASS, destination, spriteBatch);
+            if (forMatch) {
+                DrawScaled(SpriteHook.GAUGE_MATCH, destination, spriteBatch);
+            } else {
+                DrawScaled(SpriteHook.GAUGE_GAME, destination, spriteBatch);
+            }
         }
 
         public void DrawRotatedAndCentered(SpriteHook sprite, Rectangle destination, float rotationInRadians, SpriteBatch spriteBatch) {

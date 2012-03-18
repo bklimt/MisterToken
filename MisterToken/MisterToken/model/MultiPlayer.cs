@@ -22,16 +22,26 @@ namespace MisterToken {
             two.Draw(device, spriteBatch);
 
             // Draw the multiplayer score.
-            int board1Right = Constants.BOARD_ONE_RECT_X + (Constants.CELL_SIZE * (Constants.COLUMNS + 2));
-            int board2Left = Constants.BOARD_TWO_RECT_X - (Constants.CELL_SIZE * 2);
-            int gapWidth = board2Left - board1Right;
-            int gapHeight = (Constants.CELL_SIZE * (Constants.ROWS + 1));
-            Rectangle mpRect = new Rectangle();
-            mpRect.X = board1Right;
-            mpRect.Y = Constants.BOARD_RECT_Y;
-            mpRect.Width = gapWidth;
-            mpRect.Height = gapHeight;
-            Sprites.DrawGauge(stats.GetGaugeMetric(one.GetLockedCount(), two.GetLockedCount()), mpRect, spriteBatch);
+            Rectangle mpRect1 = new Rectangle();
+            mpRect1.X = Constants.BOARD_ONE_RECT_X + (Constants.CELL_SIZE * (Constants.COLUMNS + 2));
+            mpRect1.Width = (Constants.BOARD_TWO_RECT_X - (Constants.CELL_SIZE * 2)) - mpRect1.X;
+            mpRect1.Y = Constants.BOARD_RECT_Y + (Constants.CELL_SIZE * 6);
+            mpRect1.Height = (Constants.CELL_SIZE * (Constants.ROWS - 5)) / 2;
+
+            Rectangle mpRect2 = new Rectangle();
+            mpRect2.X = mpRect1.X;
+            mpRect2.Width = mpRect1.Width;
+            mpRect2.Height = mpRect1.Height;
+            mpRect2.Y = mpRect1.Y + mpRect1.Height;
+
+            float gameMetric = 0.5f;
+            float lockedOne = one.GetLockedCount();
+            float lockedTwo = two.GetLockedCount();
+            if (lockedOne + lockedTwo != 0) {
+                gameMetric = lockedOne / (lockedOne + lockedTwo);
+            }
+            Sprites.DrawGauge(gameMetric, false, mpRect1, spriteBatch);
+            Sprites.DrawGauge(stats.GetGaugeMetric(), true, mpRect2, spriteBatch);
         }
 
         public void Update(GameTime gameTime) {
