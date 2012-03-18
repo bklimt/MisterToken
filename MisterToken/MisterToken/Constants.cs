@@ -18,7 +18,7 @@ namespace MisterToken {
         public const int BOARD_TWO_RECT_X = 770;     // x offset for drawing the board.
         public const int BOARD_RECT_Y = 170;          // y offset for drawing the board.
 
-        public const int TOKEN_START_COLUMN = 4;     // column that new tokens should start in.
+        public const int TOKEN_START_COLUMN = 5;     // column that new tokens should start in.
 
     }
 }
