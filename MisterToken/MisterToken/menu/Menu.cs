@@ -14,28 +14,32 @@ namespace MisterToken {
             selected = 0;
             this.player = player;
             this.back = back;
-            options = new List<Tuple<string, Action>>();
+            items = new List<MenuItem>();
         }
 
-        public void Add(String text, Action action) {
-            options.Add(new Tuple<String, Action>(text, action));
+        public void Add(String text, DefaultMenuItem.MenuAction action) {
+            items.Add(new DefaultMenuItem(text, action));
+        }
+
+        public void AddLevel(Level level, LevelMenuItem.MenuAction action) {
+            items.Add(new LevelMenuItem(level, action));
         }
 
         public void Update() {
             if (Input.IsDown(PerPlayerBooleanInputHook.MENU_DOWN.ForPlayer(player)) ||
                 Input.IsDown(PerPlayerAnalogInputHook.MENU_DOWN.ForPlayer(player))) {
-                selected = (selected + 1) % options.Count;
+                selected = (selected + 1) % items.Count;
             }
             if (Input.IsDown(PerPlayerBooleanInputHook.MENU_UP.ForPlayer(player)) ||
                 Input.IsDown(PerPlayerAnalogInputHook.MENU_UP.ForPlayer(player))) {
                 selected--;
                 if (selected < 0) {
-                    selected = options.Count - 1;
+                    selected = items.Count - 1;
                 }
             }
             if (Input.IsDown(PerPlayerBooleanInputHook.MENU_ENTER.ForPlayer(player)) ||
                 Input.IsDown(PerPlayerBooleanInputHook.ROTATE_RIGHT.ForPlayer(player))) {
-                options[selected].Item2();
+                items[selected].OnEnter();
             }
             if (Input.IsDown(PerPlayerBooleanInputHook.MENU_BACK.ForPlayer(player)) ||
                 Input.IsDown(PerPlayerBooleanInputHook.ROTATE_LEFT.ForPlayer(player))) {
@@ -56,8 +60,14 @@ namespace MisterToken {
             }
             int x = rect.Left;
             int y = rect.Top + 10;
-            for (int i = 0; i < options.Count; ++i) {
-                Sprites.DrawText(options[i].Item1, Color.YellowGreen, new Vector2(x + 55, y), spriteBatch);
+            for (int i = 0; i < items.Count; ++i) {
+                MenuItem item = items[i];
+                Rectangle itemRect;
+                itemRect.X = x + 55;
+                itemRect.Y = y;
+                itemRect.Width = rect.Width - 55;
+                itemRect.Height = 30;
+                item.Draw(itemRect, spriteBatch);
                 if (i == selected) {
                     Cell cell = new Cell();
                     cell.color = focused ? CellColor.ORANGE : CellColor.ORANGE;
@@ -75,10 +85,9 @@ namespace MisterToken {
             }
         }
 
-        public delegate void Action();
         private PlayerIndex player;
         private Action back;
-        private List<Tuple<String, Action>> options;
+        private List<MenuItem> items;
         private int selected;
     }
 }

@@ -117,7 +117,7 @@ namespace MisterToken {
             for (int i = 0; i < Levels.GetLevelCount(); ++i) {
                 // Capture a copy of i for the delegate closure below.
                 int j = i;
-                levelMenu.Add(Levels.GetLevel(j).GetName(), delegate() {
+                levelMenu.AddLevel(Levels.GetLevel(j), delegate(Level level) {
                     if (singlePlayer) {
                         model = new SinglePlayer(PlayerIndex.One, j, true, this);
                     } else {

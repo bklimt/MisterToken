@@ -33,6 +33,10 @@ namespace MisterToken {
             return name;
         }
 
+        public bool IsCompleted() {
+            return Levels.IsCompleted(GetId());
+        }
+
         public string GetHelp() {
             return help;
         }

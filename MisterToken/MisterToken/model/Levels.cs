@@ -22,6 +22,10 @@ namespace MisterToken {
             return manager.GetLevel(i);
         }
 
+        public static bool IsCompleted(int level) {
+            return manager.IsCompleted(level);
+        }
+
         private static LevelManager manager = new LevelManager();
     }
 }
