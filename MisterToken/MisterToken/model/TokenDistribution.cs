@@ -19,6 +19,11 @@ namespace MisterToken {
             }
         }
 
+        public TokenDistribution(TokenDistribution other) {
+            sums = new List<Node>();
+            sums.AddRange(other.sums);
+        }
+
         public Token GetRandomToken(Board board, CellColor color1, CellColor color2, Random random) {
             if (sums.Count == 0) {
                 throw new Exception("Tried to get a random token from the empty set.");
@@ -135,7 +140,7 @@ namespace MisterToken {
 
         private delegate Token TokenFactory(Board board, CellColor color1, CellColor color2);
 
-        private class Node {
+        private struct Node {
             public double sum;
             public TokenFactory factory;
         }

@@ -14,15 +14,23 @@ namespace MisterToken {
             manager.LoadContent(content);
         }
 
-        public static int GetLevelCount() {
-            return manager.GetLevelCount();
+        public static int GetWorldCount() {
+            return manager.GetWorldCount();
         }
 
-        public static Level GetLevel(int i) {
-            return manager.GetLevel(i);
+        public static string GetWorldName(int i) {
+            return manager.GetWorldName(i);
         }
 
-        public static bool IsCompleted(int level) {
+        public static int GetLevelCount(int world) {
+            return manager.GetLevelCount(world);
+        }
+
+        public static Level GetLevel(int world, int level) {
+            return manager.GetLevel(world, level);
+        }
+
+        public static bool IsCompleted(string level) {
             return manager.IsCompleted(level);
         }
 

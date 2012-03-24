@@ -10,9 +10,9 @@ using Microsoft.Xna.Framework.Input;
 
 namespace MisterToken {
     public class SinglePlayer : Game {
-        public SinglePlayer(PlayerIndex player, int level, bool singlePlayer, GameListener listener) {
+        public SinglePlayer(PlayerIndex player, Level level, bool singlePlayer, GameListener listener) {
             this.player = player;
-            this.level = Levels.GetLevel(level);
+            this.level = level;
             this.singlePlayer = singlePlayer;
             this.listener = listener;
             this.paused = false;
@@ -41,13 +41,13 @@ namespace MisterToken {
 
             wonMenu = new Menu(player, delegate() {});
             wonMenu.Add("Continue", delegate() {
-                listener.OnFinished(player, true, level + 1);
+                listener.OnFinished(player, true, level.GetNext());
             });
             wonMenu.Add("Retry", delegate() {
                 listener.OnFinished(player, true, level);
             });
             wonMenu.Add("Exit", delegate() {
-                listener.OnFinished(player, false, level  + 1);
+                listener.OnFinished(player, false, level.GetNext());
             });
 
             failedMenu = new Menu(player, delegate() { });
@@ -55,7 +55,7 @@ namespace MisterToken {
                 listener.OnFinished(player, true, level);
             });
             failedMenu.Add("Exit", delegate() {
-                listener.OnFinished(player, false, level + 1);
+                listener.OnFinished(player, false, level.GetNext());
             });
         }
 
@@ -409,10 +409,10 @@ namespace MisterToken {
                 if (board.GetLockedCount() == 0) {
                     state = State.WON;
                     wonMenu.SetSelected(0);
-                    int[] previous = Storage.GetSaveData().completed;
-                    if (!previous.Contains(level.GetId())) {
-                        int[] current = new int[previous.Length + 1];
-                        current[0] = level.GetId();
+                    string[] previous = Storage.GetSaveData().completed;
+                    if (!previous.Contains(level.GetName())) {
+                        string[] current = new string[previous.Length + 1];
+                        current[0] = level.GetName();
                         previous.CopyTo(current, 1);
                         Storage.GetSaveData().completed = current;
                         Storage.Save();

@@ -8,6 +8,6 @@ namespace MisterToken {
         public int width = 1280;
         public int height = 720;
         public bool fullscreen = false;
-        public int[] completed = new int[0];
+        public string[] completed = new string[0];
     }
 }

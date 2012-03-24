@@ -6,8 +6,9 @@ using System.Text;
 namespace MisterToken {
     public class Level {
         public Level(XmlLevel xml) {
-            random = new Random();
-            id = xml.id;
+            seed = new Random().Next();
+            random = new Random(seed);
+            next = null;
             name = xml.name;
             tokens = new TokenDistribution(xml.tokens);
             colors = new ColorDistribution(xml.colors);
@@ -25,16 +26,31 @@ namespace MisterToken {
             }
         }
 
-        public int GetId() {
-            return id;
+        public Level(Level other) {
+            random = new Random(other.seed);
+            next = other.next;
+            name = other.name;
+            tokens = new TokenDistribution(other.tokens);
+            colors = new ColorDistribution(other.colors);
+            pattern = other.pattern;
+            wrap = other.wrap;
+            help = other.help;
         }
 
         public string GetName() {
             return name;
         }
 
+        public Level GetNext() {
+            return next;
+        }
+
+        public void SetNext(Level next) {
+            this.next = next;
+        }
+
         public bool IsCompleted() {
-            return Levels.IsCompleted(GetId());
+            return Levels.IsCompleted(GetName());
         }
 
         public string GetHelp() {
@@ -77,14 +93,15 @@ namespace MisterToken {
             return wrap;
         }
 
-        private int id;
         private string name;
         private string help;
+        private Level next;
         private TokenDistribution tokens;
         private ColorDistribution colors;
         private string pattern;
         private bool wrap;
 
         private Random random;
+        private int seed;
     }
 }

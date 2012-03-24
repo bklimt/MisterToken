@@ -10,18 +10,26 @@ using Microsoft.Xna.Framework.Media;
 namespace MisterToken {
     public class LevelManager {
         public void LoadContent(ContentManager content) {
-            levels = content.Load<MisterToken.XmlLevel[]>("levels");
+            worlds = content.Load<MisterToken.XmlWorld[]>("levels");
         }
 
-        public int GetLevelCount() {
-            return levels.Length;
+        public int GetWorldCount() {
+            return worlds.Length;
         }
 
-        public Level GetLevel(int i) {
-            return new Level(levels[i]);
+        public string GetWorldName(int i) {
+            return worlds[i].name;
         }
 
-        public bool IsCompleted(int level) {
+        public int GetLevelCount(int world) {
+            return worlds[world].level.Length;
+        }
+
+        public Level GetLevel(int world, int level) {
+            return new Level(worlds[world].level[level]);
+        }
+
+        public bool IsCompleted(string level) {
             for (int i = 0; i < Storage.GetSaveData().completed.Length; ++i) {
                 if (Storage.GetSaveData().completed[i] == level) {
                     return true;
@@ -30,6 +38,6 @@ namespace MisterToken {
             return false;
         }
 
-        private MisterToken.XmlLevel[] levels;
+        private MisterToken.XmlWorld[] worlds;
     }
 }

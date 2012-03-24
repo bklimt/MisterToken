@@ -19,7 +19,6 @@ namespace MisterToken {
             stats = new StatsTracker();
 
             titleMenu = new Menu(PlayerIndex.One, delegate() { SaveAndQuit(); });
-            levelMenu = new Menu(PlayerIndex.One, delegate() { state = State.TITLE_MENU; });
             videoMenu = new Menu(PlayerIndex.One, delegate() { state = State.TITLE_MENU; });
         }
 
@@ -41,12 +40,12 @@ namespace MisterToken {
 
             titleMenu.Add("1 Player", delegate() {
                 singlePlayer = true;
-                subMenu = levelMenu;
+                subMenu = worldMenu;
                 state = State.SUB_MENU;
             });
             titleMenu.Add("2 Player", delegate() {
                 singlePlayer = false;
-                subMenu = levelMenu;
+                subMenu = worldMenu;
                 state = State.SUB_MENU;
             });
             titleMenu.Add("Video", delegate() {
@@ -117,16 +116,21 @@ namespace MisterToken {
                 state = State.TITLE_MENU;
             });
 
-            for (int i = 0; i < Levels.GetLevelCount(); ++i) {
-                // Capture a copy of i for the delegate closure below.
-                int j = i;
-                levelMenu.AddLevel(Levels.GetLevel(j), delegate(Level level) {
-                    if (singlePlayer) {
-                        model = new SinglePlayer(PlayerIndex.One, j, true, this);
-                    } else {
-                        model = new MultiPlayer(j, j, stats, this);
-                    }
-                    state = State.PLAYING;
+            worldMenu = new Menu(PlayerIndex.One, delegate() { state = State.TITLE_MENU; });
+            for (int world = 0; world < Levels.GetWorldCount(); ++world) {
+                Menu levelMenu = new Menu(PlayerIndex.One, delegate() { subMenu = worldMenu; });
+                for (int level = 0; level < Levels.GetLevelCount(world); ++level) {
+                    levelMenu.AddLevel(Levels.GetLevel(world, level), delegate(Level levelObject) {
+                        if (singlePlayer) {
+                            model = new SinglePlayer(PlayerIndex.One, levelObject, true, this);
+                        } else {
+                            model = new MultiPlayer(levelObject, stats, this);
+                        }
+                        state = State.PLAYING;
+                    });
+                }
+                worldMenu.Add(Levels.GetWorldName(world), delegate() {
+                    subMenu = levelMenu;
                 });
             }
         }
@@ -228,16 +232,15 @@ namespace MisterToken {
         public void OnFailed(PlayerIndex player) {
         }
 
-        public void OnFinished(PlayerIndex player, bool shouldContinue, int level) {
+        public void OnFinished(PlayerIndex player, bool shouldContinue, Level level) {
             if (shouldContinue) {
                 if (singlePlayer) {
                     model = new SinglePlayer(PlayerIndex.One, level, true, this);
                 } else {
-                    model = new MultiPlayer(level, level, stats, this);
+                    model = new MultiPlayer(level, stats, this);
                 }
                 state = State.PLAYING;
             } else {
-                subMenu = levelMenu;
                 state = State.SUB_MENU;
             }
         }
@@ -254,7 +257,7 @@ namespace MisterToken {
         // Menus
         private Menu titleMenu;
         private Menu videoMenu;
-        private Menu levelMenu;
+        private Menu worldMenu;
         private Menu subMenu;
 
         // Data model.

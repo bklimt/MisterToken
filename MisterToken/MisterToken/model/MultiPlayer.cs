@@ -10,11 +10,11 @@ using Microsoft.Xna.Framework.Input;
 
 namespace MisterToken {
     public class MultiPlayer : Game, GameListener {
-        public MultiPlayer(int level1, int level2, StatsTracker stats, GameListener listener) {
+        public MultiPlayer(Level level, StatsTracker stats, GameListener listener) {
             this.stats = stats;
             this.listener = listener;
-            one = new SinglePlayer(PlayerIndex.One, level1, false, this);
-            two = new SinglePlayer(PlayerIndex.Two, level2, false, this);
+            one = new SinglePlayer(PlayerIndex.One, level, false, this);
+            two = new SinglePlayer(PlayerIndex.Two, new Level(level), false, this);
         }
 
         public void Draw(GraphicsDevice device, SpriteBatch spriteBatch) {
@@ -87,11 +87,13 @@ namespace MisterToken {
             }
         }
 
-        public void OnFinished(PlayerIndex player, bool shouldContinue, int level) {
-            if (level >= Levels.GetLevelCount()) {
-                listener.OnFinished(player, shouldContinue, Levels.GetLevelCount() - 1);
+        public void OnFinished(PlayerIndex player, bool shouldContinue, Level level) {
+            Level next = level.GetNext();
+            if (next == null) {
+                listener.OnFinished(player, shouldContinue, level);
+            } else {
+                listener.OnFinished(player, shouldContinue, next);
             }
-            listener.OnFinished(player, shouldContinue, level);
         }
 
         private SinglePlayer one;

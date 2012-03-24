@@ -1,316 +1,319 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <XnaContent>
-  <Asset Type="MisterToken.XmlLevel[]">
-    
-    <!-- Colors -->
+  <Asset Type="MisterToken.XmlWorld[]">
     <Item>
-      <id>1</id>
-      <name>Colors</name>
-      <help>
-        Press X or Z to rotate your token.
+      <name>Color World</name>
+      <level>
+        <Item>
+          <name>Colors</name>
+          <help>
+            Press X or Z to rotate your token.
 
-        To clear off a square, line up the
-        same 4 colors vertically or
-        horizontally.
+            To clear off a square, line up the
+            same 4 colors vertically or
+            horizontally.
 
-        You need to clear off all the square
-        pieces to...
+            You need to clear off all the square
+            pieces to...
+
+            I don't know, save the universe
+            or something?
+          </help>
+          <tokens>1.0 2</tokens>
+          <colors>
+            0.25 red
+            0.25 white
+            0.25 green
+            0.25 yellow
+          </colors>
+          <pattern> shuffle(fill_rows(6, (red + white + green + yellow))) </pattern>
+          <wrap>true</wrap>
+        </Item>
+
+        <Item>
+          <name>Row Row Row</name>
+          <help>
+            If you fill in a complete
+            horizontal row, that whole row
+            will disappear.
+
+            Sometimes that's easier.
+            Sometimes it's harder.
+            You figure it out.
+          </help>
+          <tokens>1.0 2</tokens>
+          <colors>
+            1.0 green
+          </colors>
+          <pattern>
+            fill_rows(1, black+blue*0, blue) +
+            fill_rows(1, black+orange*1, orange) +
+            fill_rows(1, black+white*2, white) +
+            shuffle(fill_rows(3, green*4))
+          </pattern>
+          <wrap>true</wrap>
+        </Item>
+
+        <Item>
+          <name>Easy</name>
+          <help>
+            I don't mean to criticize,
+            but you need some practice.
+
+            Okay, you might say
+            this level is just filler.
+
+            But I think you deserve a level
+            that isn't a tutorial or a gimmick.
+          </help>
+          <tokens>
+            1.0 2
+          </tokens>
+          <colors>
+            0.33 red
+            0.33 white
+            0.34 green
+          </colors>
+          <pattern> shuffle(fill_rows(6, (red + white + green)*4)) </pattern>
+          <wrap>true</wrap>
+        </Item>
+      </level>
+    </Item>
+    <Item>
+      <name>Shape World</name>
+      <level>
+        <Item>
+          <name>Shapes</name>
+          <help>
+            Tokens, like humans, come in all
+            shapes and sizes.
+
+            Every token has its place.
+
+            You should love them all.
+          </help>
+          <tokens>
+            0.10 2
+            0.09 3elbow
+            0.09 4square
+            0.09 4square
+            0.09 4T
+            0.09 4S
+            0.09 4Z
+            0.09 4J
+            0.09 4L
+            0.09 4I
+            0.09 bomb
+          </tokens>
+          <colors>
+            0.5 red
+            0.5 white
+          </colors>
+          <pattern> shuffle(fill_rows(6, red*4 + white*4)) </pattern>
+          <wrap>true</wrap>
+        </Item>
         
-        I don't know, save the universe
-        or something?
-      </help>
-      <tokens>1.0 2</tokens>
-      <colors>
-        0.25 red
-        0.25 white
-        0.25 green
-        0.25 yellow
-      </colors>
-      <pattern> shuffle(fill_rows(6, (red + white + green + yellow))) </pattern>
-      <wrap>true</wrap>
-    </Item>
+        <Item>
+          <name>All Thumbs</name>
+          <help></help>
+          <tokens>
+            0.2 2
+            0.8 3elbow
+          </tokens>
+          <colors>
+            0.33 blue
+            0.33 orange
+            0.34 white
+          </colors>
+          <pattern> shuffle(fill_rows(8, 3 * (blue + orange + white))) </pattern>
+          <wrap>true</wrap>
+        </Item>
 
-    <Item>
-      <id>2</id>
-      <name>Row Row Row</name>
-      <help>
-        If you fill in a complete
-        horizontal row, that whole row
-        will disappear.
+        <Item>
+          <name>Hip 2 B</name>
+          <help></help>
+          <tokens>
+            0.05 2
+            0.95 4square
+          </tokens>
+          <colors>
+            0.33 purple
+            0.33 green
+            0.34 white
+          </colors>
+          <pattern> shuffle(fill_rows(5, 2 * (purple + green + white))) </pattern>
+          <wrap>true</wrap>
+        </Item>
         
-        Sometimes that's easier.
-        Sometimes it's harder.
-        You figure it out.
-      </help>
-      <tokens>1.0 2</tokens>
-      <colors>
-        1.0 green
-      </colors>
-      <pattern>
-        fill_rows(1, black+blue*0, blue) +
-        fill_rows(1, black+orange*1, orange) +
-        fill_rows(1, black+white*2, white) +
-        shuffle(fill_rows(3, green*4))
-      </pattern>
-      <wrap>true</wrap>
-    </Item>
+        <Item>
+          <name>Seeing Red</name>
+          <help></help>
+          <tokens>
+            0.45 3elbow
+            0.45 4T
+            0.10 bomb
+          </tokens>
+          <colors>
+            0.25 red
+            0.25 green
+            0.25 cyan
+            0.25 yellow
+          </colors>
+          <pattern>
+            (red + black) * COLUMNS / 2 +
+            (black + red) * COLUMNS / 2 +
+            (red + black) * COLUMNS / 2 +
+            (black + red) * COLUMNS / 2
+          </pattern>
+          <wrap>true</wrap>
+        </Item>
 
-    <Item>
-      <id>3</id>
-      <name>Easy</name>
-      <help>
-        I don't mean to criticize,
-        but you need some practice.
-        
-        Okay, you might say
-        this level is just filler.
-        
-        But I think you deserve a level
-        that isn't a tutorial or a gimmick.
-      </help>
-      <tokens>
-        1.0 2
-      </tokens>
-      <colors>
-        0.33 red
-        0.33 white
-        0.34 green
-      </colors>
-      <pattern> shuffle(fill_rows(6, (red + white + green)*4)) </pattern>
-      <wrap>true</wrap>
+      </level>
     </Item>
+    <Item>
+      <name>Novelty World</name>
+      <level>
+        <Item>
+          <name>Novelty</name>
+          <help></help>
+          <tokens>
+            0.9 2
+            0.1 skull
+          </tokens>
+          <colors>
+            0.15 red
+            0.15 white
+            0.15 green
+            0.15 yellow
+            0.20 bomb
+            0.20 wild
+          </colors>
+          <pattern> shuffle(fill_rows(6, 8 * (red + yellow + green + white))) </pattern>
+          <wrap>true</wrap>
+        </Item>
 
-    <Item>
-      <id>4</id>
-      <name>Shapes</name>
-      <help>
-        Tokens, like humans, come in all
-        shapes and sizes.
-         
-        Every token has its place.
-         
-        You should love them all.
-      </help>
-      <tokens>
-        0.10 2
-        0.09 3elbow
-        0.09 4square
-        0.09 4square
-        0.09 4T
-        0.09 4S
-        0.09 4Z
-        0.09 4J
-        0.09 4L
-        0.09 4I
-        0.09 bomb
-      </tokens>
-      <colors>
-        0.5 red
-        0.5 white
-      </colors>
-      <pattern> shuffle(fill_rows(6, red*4 + white*4)) </pattern>
-      <wrap>true</wrap>
+        <Item>
+          <name>Classic</name>
+          <help></help>
+          <tokens>
+            1.0 2
+          </tokens>
+          <colors>
+            0.33 red
+            0.33 yellow
+            0.34 blue
+          </colors>
+          <pattern> shuffle(fill_rows(8, 4 * (red + yellow + blue))) </pattern>
+          <wrap>false</wrap>
+        </Item>
+
+        <Item>
+          <name>Idols</name>
+          <help></help>
+          <tokens>
+            0.95 2
+            0.05 bomb
+          </tokens>
+          <colors>
+            0.3 red
+            0.3 yellow
+            0.3 blue
+            0.1 bomb
+          </colors>
+          <pattern>
+            black  + black  + black  + red    + red    + red    + red    + red    + black  + black  + black  + black  +
+            black  + black  + red    + red    + red    + red    + red    + red    + red    + red    + red    + black  +
+            black  + black  + blue   + blue   + blue   + yellow + yellow + blue   + yellow + black  + black  + black  +
+            black  + blue   + yellow + blue   + yellow + yellow + yellow + blue   + yellow + yellow + yellow + black  +
+            black  + blue   + blue   + yellow + blue   + yellow + yellow + yellow + blue   + yellow + yellow + yellow +
+            black  + blue   + blue   + yellow + yellow + yellow + yellow + blue   + blue   + blue   + blue   + black  +
+            black  + black  + black  + yellow + yellow + yellow + yellow + yellow + yellow + yellow + black  + black  +
+            black  + black  + blue   + blue   + red    + blue   + blue   + blue   + black  + black  + black  + black  +
+            black  + blue   + blue   + blue   + red    + blue   + blue   + red    + blue   + blue   + blue   + black  +
+            blue   + blue   + blue   + blue   + red    + red    + red    + red    + blue   + blue   + blue   + blue   +
+            yellow + yellow + blue   + red    + yellow + red    + red    + yellow + red    + blue   + yellow + yellow
+          </pattern>
+          <wrap>false</wrap>
+        </Item>
+      </level>
     </Item>
-    
     <Item>
-      <id>5</id>
-      <name>Classic</name>
-      <help></help>
-      <tokens>
-        1.0 2
-      </tokens>
-      <colors>
-        0.33 red
-        0.33 yellow
-        0.34 blue
-      </colors>
-      <pattern> shuffle(fill_rows(8, 4 * (red + yellow + blue))) </pattern>
-      <wrap>false</wrap>
-    </Item>
-    
-    <Item>
-      <id>6</id>
-      <name>Novelty</name>
-      <help></help>
-      <tokens>
-        0.9 2
-        0.1 skull
-      </tokens>
-      <colors>
-        0.15 red
-        0.15 white
-        0.15 green
-        0.15 yellow
-        0.20 bomb
-        0.20 wild
-      </colors>
-      <pattern> shuffle(fill_rows(6, 8 * (red + yellow + green + white))) </pattern>
-      <wrap>true</wrap>
-    </Item>
-    
-    <Item>
-      <id>7</id>
-      <name>Seeing Red</name>
-      <help></help>
-      <tokens>
-        0.45 3elbow
-        0.45 4T
-        0.10 bomb
-      </tokens>
-      <colors>
-        0.25 red
-        0.25 green
-        0.25 cyan
-        0.25 yellow
-      </colors>
-      <pattern>
-        (red + black) * COLUMNS / 2 +
-        (black + red) * COLUMNS / 2 +
-        (red + black) * COLUMNS / 2 +
-        (black + red) * COLUMNS / 2
-      </pattern>
-      <wrap>true</wrap>
-    </Item>
-    
-    <Item>
-      <id>8</id>
-      <name>All Thumbs</name>
-      <help></help>
-      <tokens>
-        0.2 2
-        0.8 3elbow
-      </tokens>
-      <colors>
-        0.33 blue
-        0.33 orange
-        0.34 white
-      </colors>
-      <pattern> shuffle(fill_rows(8, 3 * (blue + orange + white))) </pattern>
-      <wrap>true</wrap>
-    </Item>
-    
-    <Item>
-      <id>9</id>
-      <name>Hip 2 B</name>
-      <help></help>
-      <tokens>
-        0.05 2
-        0.95 4square
-      </tokens>
-      <colors>
-        0.33 purple
-        0.33 green
-        0.34 white
-      </colors>
-      <pattern> shuffle(fill_rows(5, 2 * (purple + green + white))) </pattern>
-      <wrap>true</wrap>
-    </Item>
-    
-    <Item>
-      <id>10</id>
-      <name>Hard</name>
-      <help></help>
-      <tokens>
-        0.2 2
-        0.1 3elbow
-        0.1 4S
-        0.1 4Z
-        0.1 4square
-        0.1 4T
-        0.1 4J
-        0.1 4L
-        0.1 4I
-      </tokens>
-      <colors>
-        0.25 purple
-        0.25 yellow
-        0.25 green
-        0.25 white
-      </colors>
-      <pattern> shuffle(fill_rows(6, 8 * (purple + yellow + green + white))) </pattern>
-      <wrap>true</wrap>
-    </Item>
-    
-    <Item>
-      <id>11</id>
-      <name>Idols</name>
-      <help></help>
-      <tokens>
-        0.95 2
-        0.05 bomb
-      </tokens>
-      <colors>
-        0.3 red
-        0.3 yellow
-        0.3 blue
-        0.1 bomb
-      </colors>
-      <pattern>
-        black  + black  + black  + red    + red    + red    + red    + red    + black  + black  + black  + black  +
-        black  + black  + red    + red    + red    + red    + red    + red    + red    + red    + red    + black  +
-        black  + black  + blue   + blue   + blue   + yellow + yellow + blue   + yellow + black  + black  + black  +
-        black  + blue   + yellow + blue   + yellow + yellow + yellow + blue   + yellow + yellow + yellow + black  +
-        black  + blue   + blue   + yellow + blue   + yellow + yellow + yellow + blue   + yellow + yellow + yellow +
-        black  + blue   + blue   + yellow + yellow + yellow + yellow + blue   + blue   + blue   + blue   + black  +
-        black  + black  + black  + yellow + yellow + yellow + yellow + yellow + yellow + yellow + black  + black  +
-        black  + black  + blue   + blue   + red    + blue   + blue   + blue   + black  + black  + black  + black  +
-        black  + blue   + blue   + blue   + red    + blue   + blue   + red    + blue   + blue   + blue   + black  +
-        blue   + blue   + blue   + blue   + red    + red    + red    + red    + blue   + blue   + blue   + blue   +
-        yellow + yellow + blue   + red    + yellow + red    + red    + yellow + red    + blue   + yellow + yellow
-      </pattern>
-      <wrap>false</wrap>
-    </Item>
-    
-    <Item>
-      <id>12</id>
-      <name>Moskau</name>
-      <help></help>
-      <tokens>
-        0.06 bomb
-        0.14 4square
-        0.14 4T
-        0.14 4S
-        0.14 4Z
-        0.14 4J
-        0.14 4L
-        0.10 4I
-      </tokens>
-      <colors>
-        0.25 purple
-        0.25 yellow
-        0.25 green
-        0.25 white
-      </colors>
-      <pattern> shuffle(fill_rows(6, 8 * (purple + yellow + green + white))) </pattern>
-      <wrap>true</wrap>
-    </Item>
-    
-    <Item>
-      <id>8</id>
-      <name>Kitchen Sink</name>
-      <help></help>
-      <tokens>
-        0.35 2
-        0.1 3elbow
-        0.1 4S
-        0.1 4Z
-        0.05 4square
-        0.05 4T
-        0.05 4J
-        0.05 4L
-        0.05 4I
-        0.05 bomb
-        0.05 skull
-      </tokens>
-      <colors>
-        0.24 purple
-        0.24 yellow
-        0.24 green
-        0.24 white
-        0.04 wild
-      </colors>
-      <pattern> shuffle(fill_rows(6, 8 * (purple + yellow + green + white))) </pattern>
-      <wrap>true</wrap>
+      <name>World of All the Things</name>
+      <level>
+        <Item>
+          <name>Hard</name>
+          <help></help>
+          <tokens>
+            0.2 2
+            0.1 3elbow
+            0.1 4S
+            0.1 4Z
+            0.1 4square
+            0.1 4T
+            0.1 4J
+            0.1 4L
+            0.1 4I
+          </tokens>
+          <colors>
+            0.25 purple
+            0.25 yellow
+            0.25 green
+            0.25 white
+          </colors>
+          <pattern> shuffle(fill_rows(6, 8 * (purple + yellow + green + white))) </pattern>
+          <wrap>true</wrap>
+        </Item>
+
+        <Item>
+          <name>Moskau</name>
+          <help></help>
+          <tokens>
+            0.06 bomb
+            0.14 4square
+            0.14 4T
+            0.14 4S
+            0.14 4Z
+            0.14 4J
+            0.14 4L
+            0.10 4I
+          </tokens>
+          <colors>
+            0.25 purple
+            0.25 yellow
+            0.25 green
+            0.25 white
+          </colors>
+          <pattern> shuffle(fill_rows(6, 8 * (purple + yellow + green + white))) </pattern>
+          <wrap>true</wrap>
+        </Item>
+
+        <Item>
+          <name>Kitchen Sink</name>
+          <help></help>
+          <tokens>
+            0.35 2
+            0.1 3elbow
+            0.1 4S
+            0.1 4Z
+            0.05 4square
+            0.05 4T
+            0.05 4J
+            0.05 4L
+            0.05 4I
+            0.05 bomb
+            0.05 skull
+          </tokens>
+          <colors>
+            0.24 purple
+            0.24 yellow
+            0.24 green
+            0.24 white
+            0.04 wild
+          </colors>
+          <pattern> shuffle(fill_rows(6, 8 * (purple + yellow + green + white))) </pattern>
+          <wrap>true</wrap>
+        </Item>
+      </level>
     </Item>
   </Asset>
 </XnaContent>

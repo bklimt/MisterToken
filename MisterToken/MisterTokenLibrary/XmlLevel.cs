@@ -5,12 +5,16 @@ using System.Text;
 
 namespace MisterToken {
     public class XmlLevel {
-        public int id;
         public string name;
         public string help;
         public string tokens;
         public string colors;
-        public String pattern;
+        public string pattern;
         public bool wrap;
+    }
+
+    public class XmlWorld {
+        public string name;
+        public XmlLevel[] level;
     }
 }
