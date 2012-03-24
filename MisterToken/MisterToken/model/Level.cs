@@ -6,9 +6,6 @@ using System.Text;
 namespace MisterToken {
     public class Level {
         public Level(XmlLevel xml) {
-            seed = new Random().Next();
-            random = new Random(seed);
-            next = null;
             name = xml.name;
             tokens = new TokenDistribution(xml.tokens);
             colors = new ColorDistribution(xml.colors);
@@ -26,38 +23,19 @@ namespace MisterToken {
             }
         }
 
-        public Level(Level other) {
-            random = new Random(other.seed);
-            next = other.next;
-            name = other.name;
-            tokens = new TokenDistribution(other.tokens);
-            colors = new ColorDistribution(other.colors);
-            pattern = other.pattern;
-            wrap = other.wrap;
-            help = other.help;
-        }
-
         public string GetName() {
             return name;
         }
 
-        public Level GetNext() {
-            return next;
-        }
-
-        public void SetNext(Level next) {
-            this.next = next;
-        }
-
         public bool IsCompleted() {
-            return Levels.IsCompleted(GetName());
+            return Global.Levels.IsCompleted(GetName());
         }
 
         public string GetHelp() {
             return help;
         }
 
-        public void SetupBoard(Board board) {
+        public void SetupBoard(Board board, Random random) {
             List<Cell> cells = PatternParser.ParseExpression(pattern, random);
             int start = Constants.ROWS * Constants.COLUMNS - cells.Count;
             if (start < 0) {
@@ -79,13 +57,13 @@ namespace MisterToken {
             }
         }
 
-        public CellColor GetRandomColor() {
+        public CellColor GetRandomColor(Random random) {
             return colors.GetRandomColor(random);
         }
 
-        public Token GetRandomToken(Board board) {
-            CellColor color1 = GetRandomColor();
-            CellColor color2 = GetRandomColor();
+        public Token GetRandomToken(Board board, Random random) {
+            CellColor color1 = GetRandomColor(random);
+            CellColor color2 = GetRandomColor(random);
             return tokens.GetRandomToken(board, color1, color2, random);
         }
 
@@ -95,13 +73,9 @@ namespace MisterToken {
 
         private string name;
         private string help;
-        private Level next;
         private TokenDistribution tokens;
         private ColorDistribution colors;
         private string pattern;
         private bool wrap;
-
-        private Random random;
-        private int seed;
     }
 }

@@ -19,11 +19,6 @@ namespace MisterToken {
             }
         }
 
-        public TokenDistribution(TokenDistribution other) {
-            sums = new List<Node>();
-            sums.AddRange(other.sums);
-        }
-
         public Token GetRandomToken(Board board, CellColor color1, CellColor color2, Random random) {
             if (sums.Count == 0) {
                 throw new Exception("Tried to get a random token from the empty set.");

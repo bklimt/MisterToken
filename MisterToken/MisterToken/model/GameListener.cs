@@ -11,6 +11,6 @@ namespace MisterToken {
         void OnDump(PlayerIndex player, List<CellColor> colors);
         void OnWon(PlayerIndex player);
         void OnFailed(PlayerIndex player);
-        void OnFinished(PlayerIndex player, bool shouldContinue, Level level);
+        void OnFinished(PlayerIndex player, Level level);
     }
 }

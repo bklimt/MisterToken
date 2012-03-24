@@ -242,7 +242,7 @@ namespace MisterToken {
             spriteBatch.Draw(textures[sprite].GetTexture(), position, Color.White);
         }
 
-        public void DrawString(String text, Color color, Vector2 position, SpriteBatch spriteBatch) {
+        public void DrawText(String text, Color color, Vector2 position, SpriteBatch spriteBatch) {
             spriteBatch.DrawString(roboto, text, position, color);
         }
 

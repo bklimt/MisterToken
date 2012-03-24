@@ -24,7 +24,7 @@ namespace MisterToken {
         }
 
         public void DrawRect(Rectangle rect, SpriteBatch spriteBatch) {
-            Sprites.DrawCell(this, rect, spriteBatch);
+            Global.Sprites.DrawCell(this, rect, spriteBatch);
         }
 
         public void RotateRight() {

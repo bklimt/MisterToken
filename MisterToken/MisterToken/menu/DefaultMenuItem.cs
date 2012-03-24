@@ -16,7 +16,7 @@ namespace MisterToken {
             Vector2 topLeft;
             topLeft.X = rect.X;
             topLeft.Y = rect.Y;
-            Sprites.DrawText(text, Color.YellowGreen, topLeft, spriteBatch);
+            Global.Sprites.DrawText(text, Color.YellowGreen, topLeft, spriteBatch);
         }
 
         public void OnEnter() {

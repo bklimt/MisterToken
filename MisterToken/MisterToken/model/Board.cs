@@ -19,8 +19,8 @@ namespace MisterToken {
             }
         }
 
-        public void Setup(Level level) {
-            level.SetupBoard(this);
+        public void Setup(Level level, Random random) {
+            level.SetupBoard(this, random);
             MarkMatches();
             ClearMatches();
         }
@@ -46,12 +46,11 @@ namespace MisterToken {
             entries[(row + rowOffset) % Constants.ROWS, (column + columnOffset) % Constants.COLUMNS].direction = cell.direction;
         }
 
-        public void AddNewRow(Level level) {
-            Random random = new Random();
+        public void AddNewRow(Level level, Random random) {
             rowOffset = (rowOffset + 1) % Constants.ROWS;
             int bottomRow = ((Constants.ROWS - 1) + rowOffset) % Constants.ROWS;
             for (int i = 0; i < Constants.COLUMNS; ++i) {
-                entries[bottomRow, i].color = level.GetRandomColor();
+                entries[bottomRow, i].color = level.GetRandomColor(random);
             }
         }
 

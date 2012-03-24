@@ -19,11 +19,6 @@ namespace MisterToken {
             }
         }
 
-        public ColorDistribution(ColorDistribution other) {
-            sums = new List<Node>();
-            sums.AddRange(other.sums);
-        }
-
         public CellColor GetRandomColor(Random random) {
             if (sums.Count == 0) {
                 throw new Exception("Tried to get a random color from the empty set.");

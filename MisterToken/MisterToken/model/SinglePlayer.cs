@@ -10,16 +10,17 @@ using Microsoft.Xna.Framework.Input;
 
 namespace MisterToken {
     public class SinglePlayer : Game {
-        public SinglePlayer(PlayerIndex player, Level level, bool singlePlayer, GameListener listener) {
+        public SinglePlayer(PlayerIndex player, Level level, Random random, bool singlePlayer, GameListener listener) {
             this.player = player;
             this.level = level;
+            this.random = random;
             this.singlePlayer = singlePlayer;
             this.listener = listener;
             this.paused = false;
             this.otherPaused = false;
             nextTokenReadiness = 0.0f;
             board = new Board();
-            tokenGenerator = new TokenGenerator(board, this.level);
+            tokenGenerator = new TokenGenerator(board, level, random);
             dumps = new CellColor[Constants.COLUMNS];
             matches = new List<CellColor>();
             state = State.SETTING_UP_BOARD;
@@ -36,26 +37,26 @@ namespace MisterToken {
                 paused = false;
                 otherPaused = false;
                 listener.OnPaused(player, false);
-                listener.OnFinished(player, false, level);
+                listener.OnFinished(player, null);
             });
 
             wonMenu = new Menu(player, delegate() {});
             wonMenu.Add("Continue", delegate() {
-                listener.OnFinished(player, true, level.GetNext());
+                listener.OnFinished(player, null);
             });
             wonMenu.Add("Retry", delegate() {
-                listener.OnFinished(player, true, level);
+                listener.OnFinished(player, level);
             });
             wonMenu.Add("Exit", delegate() {
-                listener.OnFinished(player, false, level.GetNext());
+                listener.OnFinished(player, null);
             });
 
             failedMenu = new Menu(player, delegate() { });
             failedMenu.Add("Retry", delegate() {
-                listener.OnFinished(player, true, level);
+                listener.OnFinished(player, level);
             });
             failedMenu.Add("Exit", delegate() {
-                listener.OnFinished(player, false, level.GetNext());
+                listener.OnFinished(player, null);
             });
         }
 
@@ -293,7 +294,7 @@ namespace MisterToken {
         }
 
         private void DoSettingUpBoard(GameTime gameTime) {
-            board.Setup(level);
+            board.Setup(level, random);
             state = State.FALLING;
             timeToNextFall = 0;
             timeToNextToken = Constants.MILLIS_PER_TOKEN;
@@ -409,13 +410,13 @@ namespace MisterToken {
                 if (board.GetLockedCount() == 0) {
                     state = State.WON;
                     wonMenu.SetSelected(0);
-                    string[] previous = Storage.GetSaveData().completed;
+                    string[] previous = Global.Storage.GetSaveData().completed;
                     if (!previous.Contains(level.GetName())) {
                         string[] current = new string[previous.Length + 1];
                         current[0] = level.GetName();
                         previous.CopyTo(current, 1);
-                        Storage.GetSaveData().completed = current;
-                        Storage.Save();
+                        Global.Storage.GetSaveData().completed = current;
+                        Global.Storage.Save();
                     }
                     listener.OnWon(player);
                 } else if (newMatches.Count > 0) {
@@ -462,6 +463,11 @@ namespace MisterToken {
              wonMenu.Update();
         }
 
+        // Wrappers for Globals.
+        private InputManager Input { get { return Global.Input; } }
+        private SoundManager Sound { get { return Global.Sound; } }
+        private SpriteManager Sprites { get { return Global.Sprites; } }
+
         // Game state.
         private enum State {
             SETTING_UP_BOARD,
@@ -505,6 +511,7 @@ namespace MisterToken {
         private PlayerIndex player;
         private Board board;
         private Level level;
+        private Random random;
         private TokenGenerator tokenGenerator;
         private float nextTokenReadiness;
         private CellColor[] dumps;

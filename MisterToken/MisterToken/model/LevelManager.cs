@@ -30,8 +30,8 @@ namespace MisterToken {
         }
 
         public bool IsCompleted(string level) {
-            for (int i = 0; i < Storage.GetSaveData().completed.Length; ++i) {
-                if (Storage.GetSaveData().completed[i] == level) {
+            for (int i = 0; i < Global.Storage.GetSaveData().completed.Length; ++i) {
+                if (Global.Storage.GetSaveData().completed[i] == level) {
                     return true;
                 }
             }

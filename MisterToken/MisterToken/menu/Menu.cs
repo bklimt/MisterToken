@@ -26,23 +26,24 @@ namespace MisterToken {
         }
 
         public void Update() {
-            if (Input.IsDown(PerPlayerBooleanInputHook.MENU_DOWN.ForPlayer(player)) ||
-                Input.IsDown(PerPlayerAnalogInputHook.MENU_DOWN.ForPlayer(player))) {
+            InputManager input = Global.Input;
+            if (input.IsDown(PerPlayerBooleanInputHook.MENU_DOWN.ForPlayer(player)) ||
+                input.IsDown(PerPlayerAnalogInputHook.MENU_DOWN.ForPlayer(player))) {
                 selected = (selected + 1) % items.Count;
             }
-            if (Input.IsDown(PerPlayerBooleanInputHook.MENU_UP.ForPlayer(player)) ||
-                Input.IsDown(PerPlayerAnalogInputHook.MENU_UP.ForPlayer(player))) {
+            if (input.IsDown(PerPlayerBooleanInputHook.MENU_UP.ForPlayer(player)) ||
+                input.IsDown(PerPlayerAnalogInputHook.MENU_UP.ForPlayer(player))) {
                 selected--;
                 if (selected < 0) {
                     selected = items.Count - 1;
                 }
             }
-            if (Input.IsDown(PerPlayerBooleanInputHook.MENU_ENTER.ForPlayer(player)) ||
-                Input.IsDown(PerPlayerBooleanInputHook.ROTATE_RIGHT.ForPlayer(player))) {
+            if (input.IsDown(PerPlayerBooleanInputHook.MENU_ENTER.ForPlayer(player)) ||
+                input.IsDown(PerPlayerBooleanInputHook.ROTATE_RIGHT.ForPlayer(player))) {
                 items[selected].OnEnter();
             }
-            if (Input.IsDown(PerPlayerBooleanInputHook.MENU_BACK.ForPlayer(player)) ||
-                Input.IsDown(PerPlayerBooleanInputHook.ROTATE_LEFT.ForPlayer(player))) {
+            if (input.IsDown(PerPlayerBooleanInputHook.MENU_BACK.ForPlayer(player)) ||
+                input.IsDown(PerPlayerBooleanInputHook.ROTATE_LEFT.ForPlayer(player))) {
                 back();
             }
         }
@@ -50,13 +51,14 @@ namespace MisterToken {
         public void SetSelected(int selected) {
             this.selected = selected;
             // Clear the current keyboard state.
-            Input.IsDown(PerPlayerBooleanInputHook.MENU_UP.ForPlayer(player));
-            Input.IsDown(PerPlayerBooleanInputHook.MENU_DOWN.ForPlayer(player));
+            InputManager input = Global.Input;
+            input.IsDown(PerPlayerBooleanInputHook.MENU_UP.ForPlayer(player));
+            input.IsDown(PerPlayerBooleanInputHook.MENU_DOWN.ForPlayer(player));
         }
 
         public void Draw(Rectangle rect, bool focused, SpriteBatch spriteBatch) {
             if (focused) {
-                Sprites.DrawLayer(SpriteHook.SCREEN_80_LAYER, rect, spriteBatch);
+                Global.Sprites.DrawLayer(SpriteHook.SCREEN_80_LAYER, rect, spriteBatch);
             }
             int x = rect.Left;
             int y = rect.Top + 10;
@@ -76,12 +78,12 @@ namespace MisterToken {
                     cellRect.Y = y + 4;
                     cellRect.Width = (Constants.CELL_SIZE * 2) / 3;
                     cellRect.Height = (Constants.CELL_SIZE * 2) / 3;
-                    Sprites.DrawCell(cell, cellRect, spriteBatch);
+                    Global.Sprites.DrawCell(cell, cellRect, spriteBatch);
                 }
                 y += 30;
             }
             if (!focused) {
-                Sprites.DrawLayer(SpriteHook.SCREEN_80_LAYER, rect, spriteBatch);
+                Global.Sprites.DrawLayer(SpriteHook.SCREEN_80_LAYER, rect, spriteBatch);
             }
         }
 

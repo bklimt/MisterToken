@@ -87,6 +87,7 @@
     <Reference Include="System.Net" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Global.cs" />
     <Compile Include="graphics\Animation.cs" />
     <Compile Include="graphics\Drawable.cs" />
     <Compile Include="graphics\Image.cs" />
@@ -104,7 +105,6 @@
     <Compile Include="model\FourPieceZToken.cs" />
     <Compile Include="model\FourPieceSToken.cs" />
     <Compile Include="model\FourPieceTToken.cs" />
-    <Compile Include="model\Levels.cs" />
     <Compile Include="model\Level.cs" />
     <Compile Include="model\FourPieceSquareToken.cs" />
     <Compile Include="model\Game.cs" />
@@ -114,7 +114,6 @@
     <Compile Include="model\StatsTracker.cs" />
     <Compile Include="model\ThreePieceElbowToken.cs" />
     <Compile Include="model\MultiPlayer.cs" />
-    <Compile Include="graphics\Sprites.cs" />
     <Compile Include="model\Board.cs" />
     <Compile Include="model\Cell.cs" />
     <Compile Include="Constants.cs" />
@@ -125,7 +124,6 @@
     <Compile Include="input\BooleanInputOnce.cs" />
     <Compile Include="input\BooleanInputHook.cs" />
     <Compile Include="input\AnalogInputHook.cs" />
-    <Compile Include="input\Input.cs" />
     <Compile Include="input\InputManager.cs" />
     <Compile Include="input\BooleanInputRepeater.cs" />
     <Compile Include="graphics\SpriteManager.cs" />
@@ -137,11 +135,9 @@
     <Compile Include="MisterTokenGame.cs" />
     <Compile Include="model\TokenGenerator.cs" />
     <Compile Include="model\TwoPieceToken.cs" />
-    <Compile Include="sound\Sound.cs" />
     <Compile Include="sound\SoundHook.cs" />
     <Compile Include="sound\SoundManager.cs" />
     <Compile Include="storage\SaveData.cs" />
-    <Compile Include="storage\Storage.cs" />
     <Compile Include="storage\StorageManager.cs" />
   </ItemGroup>
   <ItemGroup>

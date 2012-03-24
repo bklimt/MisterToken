@@ -17,10 +17,10 @@ namespace MisterToken {
             topLeft.X = rect.X;
             topLeft.Y = rect.Y;
             string label = level.GetName();
-            Sprites.DrawText(label, level.IsCompleted() ? Color.YellowGreen : Color.Cyan, topLeft, spriteBatch);
+            Global.Sprites.DrawText(label, level.IsCompleted() ? Color.YellowGreen : Color.Cyan, topLeft, spriteBatch);
             topLeft.X -= 25;
             if (level.IsCompleted()) {
-                Sprites.DrawText("\u2713", Color.YellowGreen, topLeft, spriteBatch);
+                Global.Sprites.DrawText("\u2713", Color.YellowGreen, topLeft, spriteBatch);
             }
         }
 

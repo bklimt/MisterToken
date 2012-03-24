@@ -7,10 +7,10 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace MisterToken {
     public class TokenGenerator {
-        public TokenGenerator(Board board, Level level) {
+        public TokenGenerator(Board board, Level level, Random random) {
             this.board = board;
             this.level = level;
-            this.random = new Random();
+            this.random = random;
             this.nextToken = null;
             LoadNextToken();
         }
@@ -25,7 +25,7 @@ namespace MisterToken {
 
         public void LoadNextToken() {
             currentToken = nextToken;
-            nextToken = level.GetRandomToken(board);
+            nextToken = level.GetRandomToken(board, random);
         }
 
         public void Draw(Rectangle boardRect, SpriteBatch spriteBatch) {

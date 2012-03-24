@@ -121,10 +121,11 @@ namespace MisterToken {
                 Menu levelMenu = new Menu(PlayerIndex.One, delegate() { subMenu = worldMenu; });
                 for (int level = 0; level < Levels.GetLevelCount(world); ++level) {
                     levelMenu.AddLevel(Levels.GetLevel(world, level), delegate(Level levelObject) {
+                        int randomSeed = (new Random()).Next();
                         if (singlePlayer) {
-                            model = new SinglePlayer(PlayerIndex.One, levelObject, true, this);
+                            model = new SinglePlayer(PlayerIndex.One, levelObject, new Random(randomSeed), true, this);
                         } else {
-                            model = new MultiPlayer(levelObject, stats, this);
+                            model = new MultiPlayer(levelObject, randomSeed, stats, this);
                         }
                         state = State.PLAYING;
                     });
@@ -232,18 +233,26 @@ namespace MisterToken {
         public void OnFailed(PlayerIndex player) {
         }
 
-        public void OnFinished(PlayerIndex player, bool shouldContinue, Level level) {
-            if (shouldContinue) {
+        public void OnFinished(PlayerIndex player, Level level) {
+            if (level != null) {
+                int randomSeed = (new Random()).Next();
                 if (singlePlayer) {
-                    model = new SinglePlayer(PlayerIndex.One, level, true, this);
+                    model = new SinglePlayer(PlayerIndex.One, level, new Random(randomSeed), true, this);
                 } else {
-                    model = new MultiPlayer(level, stats, this);
+                    model = new MultiPlayer(level, randomSeed, stats, this);
                 }
                 state = State.PLAYING;
             } else {
                 state = State.SUB_MENU;
             }
         }
+
+        // Wrappers for Globals.
+        private InputManager Input { get { return Global.Input; } }
+        private SoundManager Sound { get { return Global.Sound; } }
+        private SpriteManager Sprites { get { return Global.Sprites; } }
+        private StorageManager Storage { get { return Global.Storage; } }
+        private LevelManager Levels { get { return Global.Levels; } }
 
         // Game state.
         private enum State {
