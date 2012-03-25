@@ -49,7 +49,6 @@ namespace MisterToken {
                 if (cell.color == CellColor.SKULL) {
                     if (board.GetCell(row, column).color != CellColor.BLACK) {
                         board.GetCell(row, column).color = CellColor.SKULL;
-                        board.GetCell(row, column).matched = true;
                     }
                 }
             }

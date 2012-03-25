@@ -317,7 +317,7 @@ namespace MisterToken {
             return value;
         }
 
-        public static List<CellColor> GetColors(string text) {
+        /*public static List<CellColor> GetColors(string text) {
             List<CellColor> result = new List<CellColor>();
             PatternParser parser = new PatternParser(text, null);
             for (int i = 0; i < parser.tokens.Count; ++i) {
@@ -336,7 +336,7 @@ namespace MisterToken {
                 }
             }
             return result;
-        }
+        }*/
 
         public static List<Cell> ParseExpression(string text, Random random) {
             PatternParser parser = new PatternParser(text, random);

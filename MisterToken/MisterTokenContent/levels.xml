@@ -77,11 +77,115 @@
           <pattern> shuffle(fill_rows(6, (red + white + green)*4)) </pattern>
           <wrap>true</wrap>
         </Item>
+
+        <Item>
+          <name>Seeing Red</name>
+          <help>
+            You think you're pretty good.
+            Don't you?
+            
+            Well, let's see how you do
+            with the crappy colors.
+          </help>
+          <tokens>
+            1.0 2
+          </tokens>
+          <colors>
+            0.25 red
+            0.25 green
+            0.25 cyan
+            0.25 yellow
+          </colors>
+          <pattern>
+            (red + black) * COLUMNS / 2 +
+            (black + red) * COLUMNS / 2 +
+            (red + black) * COLUMNS / 2 +
+            (black + red) * COLUMNS / 2
+          </pattern>
+          <wrap>true</wrap>
+        </Item>
+        
+        <Item>
+          <name>Wild Thang</name>
+          <help>
+            Some tokens know from a young age
+            what color they will grow up to be.
+            
+            But other tokens never know.
+            They go to college,
+            change majors eight times,
+            and get a worthless degree.
+            
+            These tokens will gladly accept
+            any job you give them.
+          </help>
+          <tokens>
+            1.0 2
+          </tokens>
+          <colors>
+            0.25 cyan
+            0.25 yellow
+            0.25 red
+            0.25 wild
+          </colors>
+          <pattern> shuffle(fill_rows(8, (cyan + yellow + red)*8)) </pattern>
+          <wrap>true</wrap>
+        </Item>
+
       </level>
     </Item>
     <Item>
       <name>Shape World</name>
       <level>
+        <Item>
+          <name>All Thumbs</name>
+          <help>
+            I don't remember promising that
+            all your tokens would have two pieces.
+
+            Tokens are raised in the river,
+            downstream from factory farms.
+
+            Sometimes they get mutated.
+          </help>
+          <tokens>
+            0.2 2
+            0.8 3elbow
+          </tokens>
+          <colors>
+            0.33 blue
+            0.33 orange
+            0.34 white
+          </colors>
+          <pattern> shuffle(fill_rows(8, 3 * (blue + orange + white))) </pattern>
+          <wrap>true</wrap>
+        </Item>
+
+        <Item>
+          <name>Hip 2 B</name>
+          <help>
+            Why didn't you see all these
+            different token shapes earlier?
+            
+            Well, we have a strainer
+            filtering them out of the stream.
+
+            Where did we put the crap?
+            In this level, mostly.
+          </help>
+          <tokens>
+            0.05 2
+            0.95 4square
+          </tokens>
+          <colors>
+            0.33 purple
+            0.33 green
+            0.34 white
+          </colors>
+          <pattern> shuffle(fill_rows(5, 2 * (purple + green + white))) </pattern>
+          <wrap>true</wrap>
+        </Item>
+
         <Item>
           <name>Shapes</name>
           <help>
@@ -112,46 +216,18 @@
           <pattern> shuffle(fill_rows(6, red*4 + white*4)) </pattern>
           <wrap>true</wrap>
         </Item>
-        
-        <Item>
-          <name>All Thumbs</name>
-          <help></help>
-          <tokens>
-            0.2 2
-            0.8 3elbow
-          </tokens>
-          <colors>
-            0.33 blue
-            0.33 orange
-            0.34 white
-          </colors>
-          <pattern> shuffle(fill_rows(8, 3 * (blue + orange + white))) </pattern>
-          <wrap>true</wrap>
-        </Item>
 
         <Item>
-          <name>Hip 2 B</name>
-          <help></help>
+          <name>Still Seeing Red</name>
+          <help>
+            Don't call these tokens freaks.
+            They can make things less...
+            
+            tedious.
+          </help>
           <tokens>
-            0.05 2
-            0.95 4square
-          </tokens>
-          <colors>
-            0.33 purple
-            0.33 green
-            0.34 white
-          </colors>
-          <pattern> shuffle(fill_rows(5, 2 * (purple + green + white))) </pattern>
-          <wrap>true</wrap>
-        </Item>
-        
-        <Item>
-          <name>Seeing Red</name>
-          <help></help>
-          <tokens>
-            0.45 3elbow
-            0.45 4T
-            0.10 bomb
+            0.5 3elbow
+            0.5 4T
           </tokens>
           <colors>
             0.25 red
@@ -168,11 +244,89 @@
           <wrap>true</wrap>
         </Item>
 
+        <Item>
+          <name>Moskau</name>
+          <help></help>
+          <tokens>
+            0.06 bomb
+            0.14 4square
+            0.14 4T
+            0.14 4S
+            0.14 4Z
+            0.14 4J
+            0.14 4L
+            0.10 4I
+          </tokens>
+          <colors>
+            0.25 purple
+            0.25 yellow
+            0.25 green
+            0.25 white
+          </colors>
+          <pattern> shuffle(fill_rows(6, 8 * (purple + yellow + green + white))) </pattern>
+          <wrap>true</wrap>
+        </Item>
       </level>
     </Item>
     <Item>
       <name>Novelty World</name>
       <level>
+        <Item>
+          <name>Bunker Buster</name>
+          <help>
+            Okay, Mister Smarty Pants.
+
+            Let's see how well you do
+            if I don't even give you
+            the colors you need.
+
+            I'll even drop bombs on you
+            just to destroy your hard work.
+          </help>
+          <tokens>
+            0.8 2
+            0.2 bomb
+          </tokens>
+          <colors>
+            0.5 red
+            0.5 yellow
+          </colors>
+          <pattern>
+            shuffle(fill_rows(4, 8 * red + 8 * yellow)) +
+            fill_rows(1, black + white + white + white + black + white + white + white + black + white + white + white) +
+            fill_rows(1, black + white + yellow + white + black + white + yellow + white + black + white + yellow + white) +
+            fill_rows(1, black + white + yellow + white + black + white + yellow + white + black + white + yellow + white)
+          </pattern>
+          <wrap>true</wrap>
+        </Item>
+
+        <Item>
+          <name>Bustin' Two</name>
+          <help>
+            You were too good with bomb.
+            
+            So I have called upon demons
+            to rain down on you
+            destroying all in their path.
+            
+          </help>
+          <tokens>
+            0.5 2
+            0.2 3elbow
+            0.1 4square
+            0.2 skull
+          </tokens>
+          <colors>
+            0.33 blue
+            0.33 orange
+            0.34 white
+          </colors>
+          <pattern>
+            shuffle(fill_rows(8, 16 * $blue + 16 * $orange + 16 * $white + 11 * blue + 11 * orange + 11 * white))
+          </pattern>
+          <wrap>true</wrap>
+        </Item>
+
         <Item>
           <name>Novelty</name>
           <help></help>
@@ -265,7 +419,7 @@
         </Item>
 
         <Item>
-          <name>Moskau</name>
+          <name>Stalingrad</name>
           <help></help>
           <tokens>
             0.06 bomb

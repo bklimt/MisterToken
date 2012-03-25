@@ -83,12 +83,29 @@ namespace MisterToken {
 
         public List<CellColor> MarkMatches() {
             VerifyBoard();
+            List<CellColor> bySkull = MarkMatchesBySkull();
             List<CellColor> byBomb = MarkMatchesByBomb();
             List<CellColor> byRow = MarkMatchesByRow();
             List<CellColor> byColor = MarkMatchesByColor();
-            byBomb.AddRange(byRow);
-            byBomb.AddRange(byColor);
-            return byBomb;
+            bySkull.AddRange(byBomb);
+            bySkull.AddRange(byRow);
+            bySkull.AddRange(byColor);
+            return bySkull;
+        }
+
+        private List<CellColor> MarkMatchesBySkull() {
+            List<CellColor> colors = new List<CellColor>();
+            for (int row = 0; row < Constants.ROWS; ++row) {
+                for (int column = 0; column < Constants.COLUMNS; ++column) {
+                    if (GetCell(row, column).color == CellColor.SKULL) {
+                        GetCell(row, column).matched = true;
+                        if (colors.Count == 0) {
+                            colors.Add(CellColor.SKULL);
+                        }
+                    }
+                }
+            }
+            return colors;
         }
 
         private List<CellColor> MarkMatchesByBomb() {
