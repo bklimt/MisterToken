@@ -28,6 +28,10 @@ namespace MisterToken {
             action(level);
         }
 
+        public bool IsEnabled() {
+            return level.IsEnabled();
+        }
+
         private Level level;
         private MenuAction action;
         public delegate void MenuAction(Level level);

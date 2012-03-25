@@ -7,6 +7,7 @@ namespace MisterToken {
     public class Level {
         public Level(XmlLevel xml) {
             name = xml.name;
+            require = xml.require;
             tokens = new TokenDistribution(xml.tokens);
             colors = new ColorDistribution(xml.colors);
             pattern = xml.pattern;
@@ -29,6 +30,15 @@ namespace MisterToken {
 
         public bool IsCompleted() {
             return Global.Levels.IsCompleted(GetName());
+        }
+
+        public bool IsEnabled() {
+            foreach (string other in require) {
+                if (!Global.Levels.IsCompleted(other)) {
+                    return false;
+                }
+            }
+            return true;
         }
 
         public string GetHelp() {
@@ -72,6 +82,7 @@ namespace MisterToken {
         }
 
         private string name;
+        private string[] require;
         private string help;
         private TokenDistribution tokens;
         private ColorDistribution colors;

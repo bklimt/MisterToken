@@ -6,6 +6,7 @@
       <level>
         <Item>
           <name>Colors</name>
+          <require/>
           <help>
             Press X or Z to rotate your token.
 
@@ -32,6 +33,9 @@
 
         <Item>
           <name>Row Row Row</name>
+          <require>
+            <Item>Colors</Item>
+          </require>
           <help>
             If you fill in a complete
             horizontal row, that whole row
@@ -56,6 +60,9 @@
 
         <Item>
           <name>Easy</name>
+          <require>
+            <Item>Row Row Row</Item>
+          </require>
           <help>
             I don't mean to criticize,
             but you need some practice.
@@ -80,6 +87,9 @@
 
         <Item>
           <name>Seeing Red</name>
+          <require>
+            <Item>Row Row Row</Item>
+          </require>
           <help>
             You think you're pretty good.
             Don't you?
@@ -107,6 +117,9 @@
         
         <Item>
           <name>Wild Thang</name>
+          <require>
+            <Item>Seeing Red</Item>
+          </require>
           <help>
             Some tokens know from a young age
             what color they will grow up to be.
@@ -139,6 +152,7 @@
       <level>
         <Item>
           <name>All Thumbs</name>
+          <require/>
           <help>
             I don't remember promising that
             all your tokens would have two pieces.
@@ -163,6 +177,9 @@
 
         <Item>
           <name>Hip 2 B</name>
+          <require>
+            <Item>All Thumbs</Item>
+          </require>
           <help>
             Why didn't you see all these
             different token shapes earlier?
@@ -188,6 +205,9 @@
 
         <Item>
           <name>Shapes</name>
+          <require>
+            <Item>Hip 2 B</Item>
+          </require>
           <help>
             Tokens, like humans, come in all
             shapes and sizes.
@@ -219,6 +239,10 @@
 
         <Item>
           <name>Still Seeing Red</name>
+          <require>
+            <Item>Seeing Red</Item>
+            <Item>Shapes</Item>
+          </require>
           <help>
             Don't call these tokens freaks.
             They can make things less...
@@ -246,6 +270,9 @@
 
         <Item>
           <name>Moskau</name>
+          <require>
+            <Item>Shapes</Item>
+          </require>
           <help></help>
           <tokens>
             0.06 bomb
@@ -273,6 +300,10 @@
       <level>
         <Item>
           <name>Bunker Buster</name>
+          <require>
+            <Item>Row Row Row</Item>
+            <Item>Shapes</Item>
+          </require>
           <help>
             Okay, Mister Smarty Pants.
 
@@ -302,13 +333,15 @@
 
         <Item>
           <name>Bustin' Two</name>
+          <require>
+            <Item>Bunker Buster</Item>
+          </require>
           <help>
             You were too good with bomb.
             
             So I have called upon demons
             to rain down on you
             destroying all in their path.
-            
           </help>
           <tokens>
             0.5 2
@@ -329,7 +362,17 @@
 
         <Item>
           <name>Novelty</name>
-          <help></help>
+          <require>
+            <Item>Bustin' Two</Item>
+          </require>
+          <help>
+            Too much of a good thing
+            is a bad thing.
+            
+            Right?
+            
+            Well, let's try it.
+          </help>
           <tokens>
             0.9 2
             0.1 skull
@@ -347,8 +390,16 @@
         </Item>
 
         <Item>
-          <name>Classic</name>
-          <help></help>
+          <name>The Classics</name>
+          <require>
+            <Item>Bunker Buster</Item>
+          </require>
+          <help>
+            Did you think infinite scroll
+            was too weird?
+            
+            I bet you miss it now.
+          </help>
           <tokens>
             1.0 2
           </tokens>
@@ -363,7 +414,13 @@
 
         <Item>
           <name>Idols</name>
-          <help></help>
+          <require>
+            <Item>Bustin' Two</Item>
+          </require>
+          <help>
+            It's time to put away
+            childish things.
+          </help>
           <tokens>
             0.95 2
             0.05 bomb
@@ -396,6 +453,10 @@
       <level>
         <Item>
           <name>Hard</name>
+          <require>
+            <Item>Row Row Row</Item>
+            <Item>Shapes</Item>
+          </require>
           <help></help>
           <tokens>
             0.2 2
@@ -420,6 +481,11 @@
 
         <Item>
           <name>Stalingrad</name>
+          <require>
+            <Item>Row Row Row</Item>
+            <Item>Shapes</Item>
+            <Item>Bunker Buster</Item>
+          </require>
           <help></help>
           <tokens>
             0.06 bomb
@@ -443,6 +509,11 @@
 
         <Item>
           <name>Kitchen Sink</name>
+          <require>
+            <Item>Wild Thang</Item>
+            <Item>Shapes</Item>
+            <Item>Novelty</Item>
+          </require>
           <help></help>
           <tokens>
             0.35 2

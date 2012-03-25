@@ -23,6 +23,10 @@ namespace MisterToken {
             action();
         }
 
+        public bool IsEnabled() {
+            return true;
+        }
+
         public delegate void MenuAction();
         private string text;
         private MenuAction action;

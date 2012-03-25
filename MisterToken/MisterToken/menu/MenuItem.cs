@@ -9,5 +9,6 @@ namespace MisterToken {
     public interface MenuItem {
         void Draw(Rectangle area, SpriteBatch spriteBatch);
         void OnEnter();
+        bool IsEnabled();
     }
 }

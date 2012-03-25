@@ -6,6 +6,7 @@ using System.Text;
 namespace MisterToken {
     public class XmlLevel {
         public string name;
+        public string[] require;
         public string help;
         public string tokens;
         public string colors;

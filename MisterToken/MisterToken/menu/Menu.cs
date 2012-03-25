@@ -29,14 +29,20 @@ namespace MisterToken {
             InputManager input = Global.Input;
             if (input.IsDown(PerPlayerBooleanInputHook.MENU_DOWN.ForPlayer(player)) ||
                 input.IsDown(PerPlayerAnalogInputHook.MENU_DOWN.ForPlayer(player))) {
-                selected = (selected + 1) % items.Count;
+                int start = selected;
+                do {
+                    selected = (selected + 1) % items.Count;
+                } while (selected != start && !items[selected].IsEnabled());
             }
             if (input.IsDown(PerPlayerBooleanInputHook.MENU_UP.ForPlayer(player)) ||
                 input.IsDown(PerPlayerAnalogInputHook.MENU_UP.ForPlayer(player))) {
-                selected--;
-                if (selected < 0) {
-                    selected = items.Count - 1;
-                }
+                int start = selected;
+                do {
+                    selected--;
+                    if (selected < 0) {
+                        selected = items.Count - 1;
+                    }
+                } while (selected != start && !items[selected].IsEnabled());
             }
             if (input.IsDown(PerPlayerBooleanInputHook.MENU_ENTER.ForPlayer(player)) ||
                 input.IsDown(PerPlayerBooleanInputHook.ROTATE_RIGHT.ForPlayer(player))) {
@@ -79,6 +85,11 @@ namespace MisterToken {
                     cellRect.Width = (Constants.CELL_SIZE * 2) / 3;
                     cellRect.Height = (Constants.CELL_SIZE * 2) / 3;
                     Global.Sprites.DrawCell(cell, cellRect, spriteBatch);
+                }
+                if (!item.IsEnabled()) {
+                    itemRect.X = x;
+                    itemRect.Width = rect.Width;
+                    Global.Sprites.DrawLayer(SpriteHook.SCREEN_80_LAYER, itemRect, spriteBatch);
                 }
                 y += 30;
             }
