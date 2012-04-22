@@ -17,4 +17,9 @@ namespace MisterToken {
         SLAM,
         WON,
     }
+
+    public enum MusicHook {
+        SONG_1,
+        SONG_2,
+    }
 }

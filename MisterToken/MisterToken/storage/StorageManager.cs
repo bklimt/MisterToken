@@ -5,7 +5,6 @@ using System.Linq;
 using System.Xml.Serialization;
 using System.Text;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.GamerServices;
 using Microsoft.Xna.Framework.Storage;
 
 namespace MisterToken {
@@ -64,14 +63,12 @@ namespace MisterToken {
             if (device != null && device.IsConnected) {
                 callback();
             } else {
-                if (!Guide.IsVisible) {
-                    StorageDevice.BeginShowSelector(delegate(IAsyncResult deviceResult) {
-                        device = StorageDevice.EndShowSelector(deviceResult);
-                        if (device != null && device.IsConnected) {
-                            callback();
-                        }
-                    }, null);
-                }
+                StorageDevice.BeginShowSelector(delegate(IAsyncResult deviceResult) {
+                    device = StorageDevice.EndShowSelector(deviceResult);
+                    if (device != null && device.IsConnected) {
+                        callback();
+                    }
+                }, null);
             }
         }
 

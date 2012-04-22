@@ -4,7 +4,7 @@ using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
-using Microsoft.Xna.Framework.GamerServices;
+//using Microsoft.Xna.Framework.GamerServices;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
@@ -14,7 +14,6 @@ namespace MisterToken {
         public MisterTokenGame() {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
-            Components.Add(new GamerServicesComponent(this));
 
             stats = new StatsTracker();
 
@@ -128,6 +127,7 @@ namespace MisterToken {
                             model = new MultiPlayer(levelObject, randomSeed, stats, this);
                         }
                         state = State.PLAYING;
+                        Sound.StartMusic(MusicHook.SONG_2);
                     });
                 }
                 worldMenu.Add(Levels.GetWorldName(world), delegate() {
@@ -234,6 +234,7 @@ namespace MisterToken {
         }
 
         public void OnFinished(PlayerIndex player, Level level) {
+            Sound.StopMusic();
             if (level != null) {
                 int randomSeed = (new Random()).Next();
                 if (singlePlayer) {
@@ -242,6 +243,7 @@ namespace MisterToken {
                     model = new MultiPlayer(level, randomSeed, stats, this);
                 }
                 state = State.PLAYING;
+                Sound.StartMusic(MusicHook.SONG_2);
             } else {
                 state = State.SUB_MENU;
             }

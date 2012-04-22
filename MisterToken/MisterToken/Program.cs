@@ -1,4 +1,6 @@
+
 using System;
+using System.Diagnostics;
 
 namespace MisterToken {
 #if WINDOWS || XBOX
