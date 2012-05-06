@@ -15,6 +15,7 @@ namespace MisterToken {
             soundMap[SoundHook.CLEAR_2] = content.Load<SoundEffect>("sounds/beam4");
             soundMap[SoundHook.CLEAR_3] = content.Load<SoundEffect>("sounds/beam5");
             soundMap[SoundHook.SLAM] = content.Load<SoundEffect>("sounds/beep18");
+            soundMap[SoundHook.SONG_2] = content.Load<SoundEffect>("music/MisterToken2_wav");
 
             songMap = new Dictionary<MusicHook, Song>();
             songMap[MusicHook.SONG_1] = content.Load<Song>("music/MisterToken1");
@@ -27,17 +28,31 @@ namespace MisterToken {
             }
         }
 
+        public void StartMusic(SoundHook song) {
+            StopMusic();
+            music = soundMap[song].CreateInstance();
+            music.IsLooped = true;
+            music.Volume = 0.5f;
+            music.Play();
+        }
+
         public void StartMusic(MusicHook song) {
             StopMusic();
+            MediaPlayer.Volume = 0.5f;
             MediaPlayer.IsRepeating = true;
             MediaPlayer.Play(songMap[song]);
         }
 
         public void StopMusic() {
             MediaPlayer.Stop();
+            if (music != null) {
+                music.Stop();
+                music = null;
+            }
         }
 
         private Dictionary<SoundHook, SoundEffect> soundMap;
         private Dictionary<MusicHook, Song> songMap;
+        private SoundEffectInstance music;
     }
 }

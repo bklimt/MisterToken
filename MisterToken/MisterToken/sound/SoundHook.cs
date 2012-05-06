@@ -16,6 +16,7 @@ namespace MisterToken {
         ROTATE_RIGHT,
         SLAM,
         WON,
+        SONG_2,
     }
 
     public enum MusicHook {

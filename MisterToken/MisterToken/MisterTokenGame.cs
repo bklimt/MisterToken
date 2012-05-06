@@ -127,7 +127,7 @@ namespace MisterToken {
                             model = new MultiPlayer(levelObject, randomSeed, stats, this);
                         }
                         state = State.PLAYING;
-                        Sound.StartMusic(MusicHook.SONG_2);
+                        Sound.StartMusic(SoundHook.SONG_2);
                     });
                 }
                 worldMenu.Add(Levels.GetWorldName(world), delegate() {
@@ -243,7 +243,7 @@ namespace MisterToken {
                     model = new MultiPlayer(level, randomSeed, stats, this);
                 }
                 state = State.PLAYING;
-                Sound.StartMusic(MusicHook.SONG_2);
+                Sound.StartMusic(SoundHook.SONG_2);
             } else {
                 state = State.SUB_MENU;
             }
