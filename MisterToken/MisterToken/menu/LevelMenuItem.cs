@@ -32,6 +32,10 @@ namespace MisterToken {
             return level.IsEnabled();
         }
 
+        public string GetText() {
+            return level.GetName();
+        }
+
         private Level level;
         private MenuAction action;
         public delegate void MenuAction(Level level);

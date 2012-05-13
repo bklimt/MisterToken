@@ -17,8 +17,8 @@ namespace MisterToken {
 
             stats = new StatsTracker();
 
-            titleMenu = new Menu(PlayerIndex.One, delegate() { SaveAndQuit(); });
-            videoMenu = new Menu(PlayerIndex.One, delegate() { state = State.TITLE_MENU; });
+            titleMenu = new Menu2(PlayerIndex.One, delegate() { SaveAndQuit(); });
+            videoMenu = new Menu2(PlayerIndex.One, delegate() { state = State.TITLE_MENU; });
         }
 
         protected override void Initialize() {
@@ -115,9 +115,9 @@ namespace MisterToken {
                 state = State.TITLE_MENU;
             });
 
-            worldMenu = new Menu(PlayerIndex.One, delegate() { state = State.TITLE_MENU; });
+            worldMenu = new Menu2(PlayerIndex.One, delegate() { state = State.TITLE_MENU; });
             for (int world = 0; world < Levels.GetWorldCount(); ++world) {
-                Menu levelMenu = new Menu(PlayerIndex.One, delegate() { subMenu = worldMenu; });
+                Menu2 levelMenu = new Menu2(PlayerIndex.One, delegate() { subMenu = worldMenu; });
                 for (int level = 0; level < Levels.GetLevelCount(world); ++level) {
                     levelMenu.AddLevel(Levels.GetLevel(world, level), delegate(Level levelObject) {
                         int randomSeed = (new Random()).Next();
@@ -193,12 +193,17 @@ namespace MisterToken {
             switch (state) {
                 case State.TITLE_MENU:
                     Sprites.DrawLayer(SpriteHook.TITLE_LAYER, spriteBatch);
-                    titleMenu.Draw(new Rectangle(255, 280, 320, 320), true, spriteBatch);
+                    // titleMenu.Draw(new Rectangle(255, 280, 320, 320), true, spriteBatch);
+                    titleMenu.Draw(50, true, spriteBatch);
+                    Sprites.DrawLayer(SpriteHook.MENU_OVERLAY_LAYER, spriteBatch);
                     break;
                 case State.SUB_MENU:
                     Sprites.DrawLayer(SpriteHook.TITLE_LAYER, spriteBatch);
-                    titleMenu.Draw(new Rectangle(255, 280, 320, 320), false, spriteBatch);
-                    subMenu.Draw(new Rectangle(620, 180, 400, 510), true, spriteBatch);
+                    // titleMenu.Draw(new Rectangle(255, 280, 320, 320), false, spriteBatch);
+                    titleMenu.Draw(50, false, spriteBatch);
+                    // subMenu.Draw(new Rectangle(620, 180, 400, 510), true, spriteBatch);
+                    subMenu.Draw(620, true, spriteBatch);
+                    Sprites.DrawLayer(SpriteHook.MENU_OVERLAY_LAYER, spriteBatch);
                     break;
                 case State.HELP_SCREEN:
                     Sprites.DrawLayer(SpriteHook.HELP_LAYER, spriteBatch);
@@ -266,10 +271,10 @@ namespace MisterToken {
         private State state;
 
         // Menus
-        private Menu titleMenu;
-        private Menu videoMenu;
-        private Menu worldMenu;
-        private Menu subMenu;
+        private Menu2 titleMenu;
+        private Menu2 videoMenu;
+        private Menu2 worldMenu;
+        private Menu2 subMenu;
 
         // Data model.
         private Game model;

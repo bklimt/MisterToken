@@ -40,6 +40,7 @@ namespace MisterToken {
             textures[SpriteHook.SCREEN_80_LAYER] = new Image(content.Load<Texture2D>("layers/screen80"));
             textures[SpriteHook.SPLATTER_LAYER] = new Image(content.Load<Texture2D>("layers/splatter"));
             textures[SpriteHook.CLOUD_LAYER] = new Image(content.Load<Texture2D>("layers/cloud"));
+            textures[SpriteHook.MENU_OVERLAY_LAYER] = new Image(content.Load<Texture2D>("layers/menu_overlay"));
 
             textures[SpriteHook.GAUGE_BACKGROUND] = new Image(content.Load<Texture2D>("gauge/background"));
             textures[SpriteHook.GAUGE_ARROW] = new Image(content.Load<Texture2D>("gauge/arrow"));
@@ -51,6 +52,7 @@ namespace MisterToken {
             textures[SpriteHook.SKULL] = new Image(content.Load<Texture2D>("tokens/skull"));
             textures[SpriteHook.WINNER] = new Image(content.Load<Texture2D>("text/winner"));
             textures[SpriteHook.LOSER] = new Image(content.Load<Texture2D>("text/loser"));
+            textures[SpriteHook.MENU_PANEL] = new Image(content.Load<Texture2D>("menu_panel"));
 
             digitTextures = new Dictionary<int, Drawable>();
             digitTextures[0] = new Image(content.Load<Texture2D>("text/0"));
@@ -64,7 +66,8 @@ namespace MisterToken {
             digitTextures[8] = new Image(content.Load<Texture2D>("text/8"));
             digitTextures[9] = new Image(content.Load<Texture2D>("text/9"));
 
-            roboto = content.Load<SpriteFont>("text/roboto");
+            roboto18 = content.Load<SpriteFont>("text/roboto18");
+            roboto36 = content.Load<SpriteFont>("text/roboto36");
         }
 
         public void Update(GameTime gameTime) {
@@ -243,13 +246,18 @@ namespace MisterToken {
         }
 
         public void DrawText(String text, Color color, Vector2 position, SpriteBatch spriteBatch) {
-            spriteBatch.DrawString(roboto, text, position, color);
+            spriteBatch.DrawString(roboto18, text, position, color);
+        }
+
+        public void DrawText(String text, Color color, Vector2 position, bool large, SpriteBatch spriteBatch) {
+            spriteBatch.DrawString(large ? roboto36 : roboto18, text, position, color);
         }
 
         private Dictionary<SpriteHook, Drawable> textures;
         private Dictionary<CellColor, Drawable> colorTextures;
         private Dictionary<Int32, Drawable> digitTextures;
         private List<Animation> animations;
-        private SpriteFont roboto;
+        private SpriteFont roboto18;
+        private SpriteFont roboto36;
     }
 }

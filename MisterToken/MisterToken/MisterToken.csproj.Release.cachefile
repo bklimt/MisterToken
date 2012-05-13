@@ -33,7 +33,6 @@ Content\gauge\glass.xnb
 Content\gauge\game.xnb
 Content\gauge\match.xnb
 Content\levels.xnb
-Content\text\roboto.xnb
 Content\sounds\beam3.xnb
 Content\sounds\beam4.xnb
 Content\sounds\beam5.xnb
@@ -41,5 +40,9 @@ Content\sounds\beep18.xnb
 Content\music\MisterToken1.xnb
 Content\music\MisterToken2_wav.xnb
 Content\music\MisterToken2.xnb
+Content\menu_panel.xnb
+Content\layers\menu_overlay.xnb
+Content\text\roboto18.xnb
+Content\text\roboto36.xnb
 Content\music\MisterToken1.wma
 Content\music\MisterToken2.wma

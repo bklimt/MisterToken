@@ -27,6 +27,10 @@ namespace MisterToken {
             return true;
         }
 
+        public string GetText() {
+            return text;
+        }
+
         public delegate void MenuAction();
         private string text;
         private MenuAction action;

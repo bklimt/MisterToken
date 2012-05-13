@@ -12,6 +12,7 @@ namespace MisterToken {
         SCREEN_80_LAYER,
         SPLATTER_LAYER,
         CLOUD_LAYER,
+        MENU_OVERLAY_LAYER,
 
         // Strings are arbitrary size.
         WINNER,
@@ -27,5 +28,6 @@ namespace MisterToken {
         // Other.
         BOMB,
         SKULL,
+        MENU_PANEL,
     }
 }
