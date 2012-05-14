@@ -10,5 +10,6 @@ namespace MisterToken {
         void Draw(Rectangle area, SpriteBatch spriteBatch);
         void OnEnter();
         bool IsEnabled();
+        string GetText();
     }
 }
