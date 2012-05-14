@@ -52,7 +52,7 @@ namespace MisterToken {
             textures[SpriteHook.SKULL] = new Image(content.Load<Texture2D>("tokens/skull"));
             textures[SpriteHook.WINNER] = new Image(content.Load<Texture2D>("text/winner"));
             textures[SpriteHook.LOSER] = new Image(content.Load<Texture2D>("text/loser"));
-            textures[SpriteHook.MENU_PANEL] = new Image(content.Load<Texture2D>("menu_panel"));
+            textures[SpriteHook.MENU_PANEL] = new Image(content.Load<Texture2D>("menu_panel_large"));
 
             digitTextures = new Dictionary<int, Drawable>();
             digitTextures[0] = new Image(content.Load<Texture2D>("text/0"));

@@ -70,7 +70,7 @@ namespace MisterToken {
                 Storage.GetSaveData().width = graphics.PreferredBackBufferWidth;
                 Storage.GetSaveData().fullscreen = graphics.IsFullScreen;
             });
-            videoMenu.Add("Window 1280x720 (16:9)", delegate() {
+            videoMenu.Add("Window 1280x720", delegate() {
                 graphics.PreferredBackBufferWidth = 1280;
                 graphics.PreferredBackBufferHeight = 720;
                 graphics.IsFullScreen = false;
@@ -80,7 +80,7 @@ namespace MisterToken {
                 Storage.GetSaveData().width = graphics.PreferredBackBufferWidth;
                 Storage.GetSaveData().fullscreen = graphics.IsFullScreen;
             });
-            videoMenu.Add("Window 640x480 (4:3)", delegate() {
+            videoMenu.Add("Window 640x480", delegate() {
                 graphics.PreferredBackBufferWidth = 640;
                 graphics.PreferredBackBufferHeight = 480;
                 graphics.IsFullScreen = false;
@@ -194,15 +194,15 @@ namespace MisterToken {
                 case State.TITLE_MENU:
                     Sprites.DrawLayer(SpriteHook.TITLE_LAYER, spriteBatch);
                     // titleMenu.Draw(new Rectangle(255, 280, 320, 320), true, spriteBatch);
-                    titleMenu.Draw(50, true, spriteBatch);
+                    titleMenu.Draw(40, true, spriteBatch);
                     Sprites.DrawLayer(SpriteHook.MENU_OVERLAY_LAYER, spriteBatch);
                     break;
                 case State.SUB_MENU:
                     Sprites.DrawLayer(SpriteHook.TITLE_LAYER, spriteBatch);
                     // titleMenu.Draw(new Rectangle(255, 280, 320, 320), false, spriteBatch);
-                    titleMenu.Draw(50, false, spriteBatch);
+                    titleMenu.Draw(40, false, spriteBatch);
                     // subMenu.Draw(new Rectangle(620, 180, 400, 510), true, spriteBatch);
-                    subMenu.Draw(620, true, spriteBatch);
+                    subMenu.Draw(660, true, spriteBatch);
                     Sprites.DrawLayer(SpriteHook.MENU_OVERLAY_LAYER, spriteBatch);
                     break;
                 case State.HELP_SCREEN:
