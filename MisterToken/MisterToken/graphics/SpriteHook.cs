@@ -13,6 +13,7 @@ namespace MisterToken {
         SPLATTER_LAYER,
         CLOUD_LAYER,
         MENU_OVERLAY_LAYER,
+        TITLE_OVERLAY_LAYER,
 
         // Strings are arbitrary size.
         WINNER,
@@ -29,5 +30,6 @@ namespace MisterToken {
         BOMB,
         SKULL,
         MENU_PANEL,
+        MENU_CHECK_OVERLAY,
     }
 }

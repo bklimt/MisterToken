@@ -41,6 +41,7 @@ namespace MisterToken {
             textures[SpriteHook.SPLATTER_LAYER] = new Image(content.Load<Texture2D>("layers/splatter"));
             textures[SpriteHook.CLOUD_LAYER] = new Image(content.Load<Texture2D>("layers/cloud"));
             textures[SpriteHook.MENU_OVERLAY_LAYER] = new Image(content.Load<Texture2D>("layers/menu_overlay"));
+            textures[SpriteHook.TITLE_OVERLAY_LAYER] = new Image(content.Load<Texture2D>("layers/title_overlay"));
 
             textures[SpriteHook.GAUGE_BACKGROUND] = new Image(content.Load<Texture2D>("gauge/background"));
             textures[SpriteHook.GAUGE_ARROW] = new Image(content.Load<Texture2D>("gauge/arrow"));
@@ -53,6 +54,7 @@ namespace MisterToken {
             textures[SpriteHook.WINNER] = new Image(content.Load<Texture2D>("text/winner"));
             textures[SpriteHook.LOSER] = new Image(content.Load<Texture2D>("text/loser"));
             textures[SpriteHook.MENU_PANEL] = new Image(content.Load<Texture2D>("menu_panel_large"));
+            textures[SpriteHook.MENU_CHECK_OVERLAY] = new Image(content.Load<Texture2D>("check_overlay"));
 
             digitTextures = new Dictionary<int, Drawable>();
             digitTextures[0] = new Image(content.Load<Texture2D>("text/0"));

@@ -196,6 +196,7 @@ namespace MisterToken {
                     // titleMenu.Draw(new Rectangle(255, 280, 320, 320), true, spriteBatch);
                     titleMenu.Draw(40, true, spriteBatch);
                     Sprites.DrawLayer(SpriteHook.MENU_OVERLAY_LAYER, spriteBatch);
+                    Sprites.DrawLayer(SpriteHook.TITLE_OVERLAY_LAYER, spriteBatch);
                     break;
                 case State.SUB_MENU:
                     Sprites.DrawLayer(SpriteHook.TITLE_LAYER, spriteBatch);
@@ -204,6 +205,7 @@ namespace MisterToken {
                     // subMenu.Draw(new Rectangle(620, 180, 400, 510), true, spriteBatch);
                     subMenu.Draw(660, true, spriteBatch);
                     Sprites.DrawLayer(SpriteHook.MENU_OVERLAY_LAYER, spriteBatch);
+                    Sprites.DrawLayer(SpriteHook.TITLE_OVERLAY_LAYER, spriteBatch);
                     break;
                 case State.HELP_SCREEN:
                     Sprites.DrawLayer(SpriteHook.HELP_LAYER, spriteBatch);
