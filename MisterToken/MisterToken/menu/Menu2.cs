@@ -88,8 +88,16 @@ namespace MisterToken {
                     item -= items.Count;
                 }
                 if (item >= 0 && item < items.Count) {
-                    int y = 340 + (int)(80 * (i + offset));
+                    int y = 344 + (int)(80 * (i + offset));
                     items[item].Draw2(x, y, spriteBatch);
+                    if (!focused) {
+                        Rectangle area = new Rectangle();
+                        area.X = x;
+                        area.Y = y + 4;
+                        area.Width = 588;
+                        area.Height = 68;
+                        Global.Sprites.DrawLayer(SpriteHook.MENU_DISABLED_LAYER, area, spriteBatch);
+                    }
                 }
             }
         }

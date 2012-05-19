@@ -13,6 +13,7 @@ namespace MisterToken {
         SPLATTER_LAYER,
         CLOUD_LAYER,
         MENU_OVERLAY_LAYER,
+        MENU_DISABLED_LAYER,
         TITLE_OVERLAY_LAYER,
 
         // Strings are arbitrary size.

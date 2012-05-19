@@ -41,6 +41,7 @@ namespace MisterToken {
             textures[SpriteHook.SPLATTER_LAYER] = new Image(content.Load<Texture2D>("layers/splatter"));
             textures[SpriteHook.CLOUD_LAYER] = new Image(content.Load<Texture2D>("layers/cloud"));
             textures[SpriteHook.MENU_OVERLAY_LAYER] = new Image(content.Load<Texture2D>("layers/menu_overlay"));
+            textures[SpriteHook.MENU_DISABLED_LAYER] = new Image(content.Load<Texture2D>("layers/menu_disabled"));
             textures[SpriteHook.TITLE_OVERLAY_LAYER] = new Image(content.Load<Texture2D>("layers/title_overlay"));
 
             textures[SpriteHook.GAUGE_BACKGROUND] = new Image(content.Load<Texture2D>("gauge/background"));
