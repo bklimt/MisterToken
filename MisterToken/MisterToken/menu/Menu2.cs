@@ -31,20 +31,20 @@ namespace MisterToken {
             if (input.IsDown(PerPlayerBooleanInputHook.MENU_DOWN.ForPlayer(player)) ||
                 input.IsDown(PerPlayerAnalogInputHook.MENU_DOWN.ForPlayer(player))) {
                 int start = selected;
-                do {
+                //do {
                     selected = (selected + 1) % items.Count;
-                } while (selected != start && !items[selected].IsEnabled());
+                //} while (selected != start && !items[selected].IsEnabled());
                 offset = 1;
             }
             if (input.IsDown(PerPlayerBooleanInputHook.MENU_UP.ForPlayer(player)) ||
                 input.IsDown(PerPlayerAnalogInputHook.MENU_UP.ForPlayer(player))) {
                 int start = selected;
-                do {
+                //do {
                     selected--;
                     if (selected < 0) {
                         selected = items.Count - 1;
                     }
-                } while (selected != start && !items[selected].IsEnabled());
+                //} while (selected != start && !items[selected].IsEnabled());
                 offset = -1;
             }
             if (input.IsDown(PerPlayerBooleanInputHook.MENU_ENTER.ForPlayer(player)) ||
@@ -89,13 +89,7 @@ namespace MisterToken {
                 }
                 if (item >= 0 && item < items.Count) {
                     int y = 340 + (int)(80 * (i + offset));
-                    Global.Sprites.Draw(SpriteHook.MENU_PANEL, new Vector2(x, y), spriteBatch);
-                    Global.Sprites.DrawText(
-                        items[item].GetText(),
-                        focused ? Color.Black : Color.Gray,
-                        new Vector2(x + 36, y + 14),
-                        true,
-                        spriteBatch);
+                    items[item].Draw2(x, y, spriteBatch);
                 }
             }
         }

@@ -24,16 +24,27 @@ namespace MisterToken {
             }
         }
 
+        public void Draw2(int x, int y, SpriteBatch spriteBatch) {
+            Global.Sprites.Draw(SpriteHook.MENU_PANEL, new Vector2(x, y), spriteBatch);
+            if (level.IsCompleted()) {
+                Global.Sprites.Draw(SpriteHook.MENU_CHECK_OVERLAY, new Vector2(x, y), spriteBatch);
+            }
+            Global.Sprites.DrawText(
+                level.GetName(),
+                IsEnabled() ? Color.Black : Color.Gray,
+                new Vector2(x + 60, y + 14),
+                true,
+                spriteBatch);
+        }
+
         public void OnEnter() {
-            action(level);
+            if (IsEnabled()) {
+                action(level);
+            }
         }
 
         public bool IsEnabled() {
             return level.IsEnabled();
-        }
-
-        public string GetText() {
-            return level.GetName();
         }
 
         private Level level;
