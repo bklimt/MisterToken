@@ -79,7 +79,7 @@ namespace MisterToken {
         }
 
         public void Draw(int x, bool focused, SpriteBatch spriteBatch) {
-            for (int i = -2; i < 3; ++i) {
+            for (int i = -2; i < 4; ++i) {
                 int item = selected + i;
                 while (item < 0) {
                     item += items.Count;
@@ -88,13 +88,12 @@ namespace MisterToken {
                     item -= items.Count;
                 }
                 if (item >= 0 && item < items.Count) {
-                    int y = 333 + (int)(120 * (i + offset));
-                    Rectangle rect = new Rectangle(x, y, 509, 106);
+                    int y = 340 + (int)(80 * (i + offset));
                     Global.Sprites.Draw(SpriteHook.MENU_PANEL, new Vector2(x, y), spriteBatch);
                     Global.Sprites.DrawText(
                         items[item].GetText(),
                         focused ? Color.Black : Color.Gray,
-                        new Vector2(x + 36, y + 16),
+                        new Vector2(x + 36, y + 14),
                         true,
                         spriteBatch);
                 }
