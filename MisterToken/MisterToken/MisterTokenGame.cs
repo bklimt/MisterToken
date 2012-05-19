@@ -115,6 +115,7 @@ namespace MisterToken {
                 state = State.TITLE_MENU;
             });
 
+            /*
             worldMenu = new Menu2(PlayerIndex.One, delegate() { state = State.TITLE_MENU; });
             for (int world = 0; world < Levels.GetWorldCount(); ++world) {
                 Menu2 levelMenu = new Menu2(PlayerIndex.One, delegate() { subMenu = worldMenu; });
@@ -133,6 +134,23 @@ namespace MisterToken {
                 worldMenu.Add(Levels.GetWorldName(world), delegate() {
                     subMenu = levelMenu;
                 });
+            }
+            */
+
+            worldMenu = new Menu2(PlayerIndex.One, delegate() { state = State.TITLE_MENU; });
+            for (int world = 0; world < Levels.GetWorldCount(); ++world) {
+                for (int level = 0; level < Levels.GetLevelCount(world); ++level) {
+                    worldMenu.AddLevel(Levels.GetLevel(world, level), delegate(Level levelObject) {
+                        int randomSeed = (new Random()).Next();
+                        if (singlePlayer) {
+                            model = new SinglePlayer(PlayerIndex.One, levelObject, new Random(randomSeed), true, this);
+                        } else {
+                            model = new MultiPlayer(levelObject, randomSeed, stats, this);
+                        }
+                        state = State.PLAYING;
+                        Sound.StartMusic(SoundHook.SONG_2);
+                    });
+                }
             }
         }
 
