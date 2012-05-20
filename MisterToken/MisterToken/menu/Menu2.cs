@@ -22,8 +22,8 @@ namespace MisterToken {
             items.Add(new DefaultMenuItem(text, action));
         }
 
-        public void AddLevel(Level level, LevelMenuItem.MenuAction action) {
-            items.Add(new LevelMenuItem(level, action));
+        public void AddLevel(int number, Level level, LevelMenuItem.MenuAction action) {
+            items.Add(new LevelMenuItem(number, level, action));
         }
 
         public void Update() {

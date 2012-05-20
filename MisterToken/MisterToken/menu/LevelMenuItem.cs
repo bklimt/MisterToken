@@ -7,7 +7,8 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace MisterToken {
     public class LevelMenuItem : MenuItem {
-        public LevelMenuItem(Level level, MenuAction action) {
+        public LevelMenuItem(int number, Level level, MenuAction action) {
+            this.number = number;
             this.level = level;
             this.action = action;
         }
@@ -30,7 +31,7 @@ namespace MisterToken {
                 Global.Sprites.Draw(SpriteHook.MENU_CHECK_OVERLAY, new Vector2(x, y), spriteBatch);
             }
             Global.Sprites.DrawText(
-                level.GetName(),
+                number + " - " + level.GetName(),
                 IsEnabled() ? Color.Black : Color.Gray,
                 new Vector2(x + 60, y + 14),
                 true,
@@ -47,6 +48,7 @@ namespace MisterToken {
             return level.IsEnabled();
         }
 
+        private int number;
         private Level level;
         private MenuAction action;
         public delegate void MenuAction(Level level);

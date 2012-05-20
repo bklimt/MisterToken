@@ -138,9 +138,10 @@ namespace MisterToken {
             */
 
             worldMenu = new Menu2(PlayerIndex.One, delegate() { state = State.TITLE_MENU; });
+            int number = 1;
             for (int world = 0; world < Levels.GetWorldCount(); ++world) {
                 for (int level = 0; level < Levels.GetLevelCount(world); ++level) {
-                    worldMenu.AddLevel(Levels.GetLevel(world, level), delegate(Level levelObject) {
+                    worldMenu.AddLevel(number++, Levels.GetLevel(world, level), delegate(Level levelObject) {
                         int randomSeed = (new Random()).Next();
                         if (singlePlayer) {
                             model = new SinglePlayer(PlayerIndex.One, levelObject, new Random(randomSeed), true, this);

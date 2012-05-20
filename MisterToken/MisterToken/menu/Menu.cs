@@ -21,10 +21,6 @@ namespace MisterToken {
             items.Add(new DefaultMenuItem(text, action));
         }
 
-        public void AddLevel(Level level, LevelMenuItem.MenuAction action) {
-            items.Add(new LevelMenuItem(level, action));
-        }
-
         public void Update() {
             InputManager input = Global.Input;
             if (input.IsDown(PerPlayerBooleanInputHook.MENU_DOWN.ForPlayer(player)) ||

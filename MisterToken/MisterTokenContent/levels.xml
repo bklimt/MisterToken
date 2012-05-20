@@ -538,6 +538,74 @@
           <pattern> shuffle(fill_rows(6, 8 * (purple + yellow + green + white))) </pattern>
           <wrap>true</wrap>
         </Item>
+
+        <Item>
+          <name>Variety Hour</name>
+          <require>
+            <Item>Wild Thang</Item>
+            <Item>Shapes</Item>
+            <Item>Novelty</Item>
+          </require>
+          <help></help>
+          <tokens>
+            0.35 2
+            0.15 3elbow
+            0.05 4S
+            0.05 4Z
+            0.05 4square
+            0.05 4T
+            0.05 4J
+            0.05 4L
+            0.05 4I
+            0.10 bomb
+            0.05 skull
+          </tokens>
+          <colors>
+            0.3 orange
+            0.3 blue
+            0.3 white
+            0.1 wild
+          </colors>
+          <pattern>
+            shuffle(fill_rows(6, 3 * (blue + orange + white))) +
+            shuffle(fill_rows(5, 12 * (blue + orange + white)))
+          </pattern>
+          <wrap>true</wrap>
+        </Item>
+
+        <Item>
+          <name>Omega Amigo</name>
+          <require>
+            <Item>Wild Thang</Item>
+            <Item>Shapes</Item>
+            <Item>Novelty</Item>
+          </require>
+          <help></help>
+          <tokens>
+            0.35 2
+            0.15 3elbow
+            0.05 4S
+            0.05 4Z
+            0.05 4square
+            0.05 4T
+            0.05 4J
+            0.05 4L
+            0.05 4I
+            0.10 bomb
+            0.05 skull
+          </tokens>
+          <colors>
+            0.3 orange
+            0.3 blue
+            0.3 white
+            0.1 wild
+          </colors>
+          <pattern>
+            shuffle(fill_rows(5, 3 * (blue + orange + white))) +
+            shuffle(fill_rows(6, 24 * (blue + orange + white)))
+          </pattern>
+          <wrap>true</wrap>
+        </Item>
       </level>
     </Item>
   </Asset>

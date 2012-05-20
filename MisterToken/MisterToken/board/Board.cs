@@ -164,12 +164,16 @@ namespace MisterToken {
             List<CellColor> colors = new List<CellColor>();
             for (int row = 0; row < Constants.ROWS; ++row) {
                 bool complete = true;
+                bool locked = true;
                 for (int column = 0; column < Constants.COLUMNS; ++column) {
                     if (GetCell(row, column).color == CellColor.BLACK) {
                         complete = false;
                     }
+                    if (!GetCell(row, column).locked) {
+                        locked = false;
+                    }
                 }
-                if (complete) {
+                if (complete && !locked) {
                     colors.Add(GetCell(row, 0).color);
                     for (int column = 0; column < Constants.COLUMNS; ++column) {
                         GetCell(row, column).matched = true;
