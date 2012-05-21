@@ -19,6 +19,7 @@ namespace MisterToken {
 
             titleMenu = new Menu2(PlayerIndex.One, delegate() { SaveAndQuit(); });
             videoMenu = new Menu2(PlayerIndex.One, delegate() { state = State.TITLE_MENU; });
+            musicMenu = new Menu2(PlayerIndex.One, delegate() { state = State.TITLE_MENU; });
         }
 
         protected override void Initialize() {
@@ -49,6 +50,10 @@ namespace MisterToken {
             });
             titleMenu.Add("Video", delegate() {
                 subMenu = videoMenu;
+                state = State.SUB_MENU;
+            });
+            titleMenu.Add("Music", delegate() {
+                subMenu = musicMenu;
                 state = State.SUB_MENU;
             });
             titleMenu.Add("Help", delegate() {
@@ -115,6 +120,14 @@ namespace MisterToken {
                 state = State.TITLE_MENU;
             });
 
+            musicMenu.AddMusic("Off", SoundHook.SONG_NONE);
+            musicMenu.AddMusic("Random", SoundHook.SONG_RANDOM);
+            musicMenu.AddMusic("Classic", SoundHook.SONG_2);
+            musicMenu.AddMusic("Modern", SoundHook.SONG_3);
+            musicMenu.Add("Back", delegate() {
+                state = State.TITLE_MENU;
+            });
+
             /*
             worldMenu = new Menu2(PlayerIndex.One, delegate() { state = State.TITLE_MENU; });
             for (int world = 0; world < Levels.GetWorldCount(); ++world) {
@@ -149,7 +162,7 @@ namespace MisterToken {
                             model = new MultiPlayer(levelObject, randomSeed, stats, this);
                         }
                         state = State.PLAYING;
-                        Sound.StartMusic(SoundHook.SONG_2);
+                        Sound.StartMusic();
                     });
                 }
             }
@@ -269,7 +282,7 @@ namespace MisterToken {
                     model = new MultiPlayer(level, randomSeed, stats, this);
                 }
                 state = State.PLAYING;
-                Sound.StartMusic(SoundHook.SONG_2);
+                Sound.StartMusic();
             } else {
                 state = State.SUB_MENU;
             }
@@ -296,6 +309,7 @@ namespace MisterToken {
         private Menu2 videoMenu;
         private Menu2 worldMenu;
         private Menu2 subMenu;
+        private Menu2 musicMenu;
 
         // Data model.
         private Game model;

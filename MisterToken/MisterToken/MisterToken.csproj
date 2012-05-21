@@ -30,7 +30,7 @@
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>9</ApplicationRevision>
+    <ApplicationRevision>10</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -93,6 +93,7 @@
     <Compile Include="graphics\Image.cs" />
     <Compile Include="graphics\SpriteHook.cs" />
     <Compile Include="input\AnalogInputRepeater.cs" />
+    <Compile Include="menu\MusicMenuItem.cs" />
     <Compile Include="menu\Menu2.cs" />
     <Compile Include="menu\LevelMenuItem.cs" />
     <Compile Include="menu\DefaultMenuItem.cs" />

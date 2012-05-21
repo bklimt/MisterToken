@@ -26,6 +26,10 @@ namespace MisterToken {
             items.Add(new LevelMenuItem(number, level, action));
         }
 
+        public void AddMusic(string description, SoundHook song) {
+            items.Add(new MusicMenuItem(description, song));
+        }
+
         public void Update() {
             InputManager input = Global.Input;
             if (input.IsDown(PerPlayerBooleanInputHook.MENU_DOWN.ForPlayer(player)) ||
