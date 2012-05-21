@@ -10,10 +10,11 @@ using Microsoft.Xna.Framework.Media;
 
 namespace MisterToken {
     public class Menu2 {
-        public Menu2(PlayerIndex player, Action back) {
+        public Menu2(bool playerOne, bool playerTwo, Action back) {
             selected = 0;
             this.offset = 0;
-            this.player = player;
+            this.playerOne = playerOne;
+            this.playerTwo = playerTwo;
             this.back = back;
             items = new List<MenuItem>();
         }
@@ -32,16 +33,20 @@ namespace MisterToken {
 
         public void Update() {
             InputManager input = Global.Input;
-            if (input.IsDown(PerPlayerBooleanInputHook.MENU_DOWN.ForPlayer(player)) ||
-                input.IsDown(PerPlayerAnalogInputHook.MENU_DOWN.ForPlayer(player))) {
+            if ((playerOne && input.IsDown(PerPlayerBooleanInputHook.MENU_DOWN.ForPlayer(PlayerIndex.One))) ||
+                (playerOne && input.IsDown(PerPlayerAnalogInputHook.MENU_DOWN.ForPlayer(PlayerIndex.One))) ||
+                (playerTwo && input.IsDown(PerPlayerBooleanInputHook.MENU_DOWN.ForPlayer(PlayerIndex.Two))) ||
+                (playerTwo && input.IsDown(PerPlayerAnalogInputHook.MENU_DOWN.ForPlayer(PlayerIndex.Two)))) {
                 int start = selected;
                 //do {
                     selected = (selected + 1) % items.Count;
                 //} while (selected != start && !items[selected].IsEnabled());
                 offset = 1;
             }
-            if (input.IsDown(PerPlayerBooleanInputHook.MENU_UP.ForPlayer(player)) ||
-                input.IsDown(PerPlayerAnalogInputHook.MENU_UP.ForPlayer(player))) {
+            if ((playerOne && input.IsDown(PerPlayerBooleanInputHook.MENU_UP.ForPlayer(PlayerIndex.One))) ||
+                (playerOne && input.IsDown(PerPlayerAnalogInputHook.MENU_UP.ForPlayer(PlayerIndex.One))) ||
+                (playerTwo && input.IsDown(PerPlayerBooleanInputHook.MENU_UP.ForPlayer(PlayerIndex.Two))) ||
+                (playerTwo && input.IsDown(PerPlayerAnalogInputHook.MENU_UP.ForPlayer(PlayerIndex.Two)))) {
                 int start = selected;
                 //do {
                     selected--;
@@ -51,12 +56,16 @@ namespace MisterToken {
                 //} while (selected != start && !items[selected].IsEnabled());
                 offset = -1;
             }
-            if (input.IsDown(PerPlayerBooleanInputHook.MENU_ENTER.ForPlayer(player)) ||
-                input.IsDown(PerPlayerBooleanInputHook.ROTATE_RIGHT.ForPlayer(player))) {
+            if ((playerOne && input.IsDown(PerPlayerBooleanInputHook.MENU_ENTER.ForPlayer(PlayerIndex.One))) ||
+                (playerOne && input.IsDown(PerPlayerBooleanInputHook.ROTATE_RIGHT.ForPlayer(PlayerIndex.One))) ||
+                (playerTwo && input.IsDown(PerPlayerBooleanInputHook.MENU_ENTER.ForPlayer(PlayerIndex.Two))) ||
+                (playerTwo && input.IsDown(PerPlayerBooleanInputHook.ROTATE_RIGHT.ForPlayer(PlayerIndex.Two)))) {
                 items[selected].OnEnter();
             }
-            if (input.IsDown(PerPlayerBooleanInputHook.MENU_BACK.ForPlayer(player)) ||
-                input.IsDown(PerPlayerBooleanInputHook.ROTATE_LEFT.ForPlayer(player))) {
+            if ((playerOne && input.IsDown(PerPlayerBooleanInputHook.MENU_BACK.ForPlayer(PlayerIndex.One))) ||
+                (playerOne && input.IsDown(PerPlayerBooleanInputHook.ROTATE_LEFT.ForPlayer(PlayerIndex.One))) ||
+                (playerTwo && input.IsDown(PerPlayerBooleanInputHook.MENU_BACK.ForPlayer(PlayerIndex.Two))) ||
+                (playerTwo && input.IsDown(PerPlayerBooleanInputHook.ROTATE_LEFT.ForPlayer(PlayerIndex.Two)))) {
                 back();
             }
 
@@ -78,8 +87,14 @@ namespace MisterToken {
             this.selected = selected;
             // Clear the current keyboard state.
             InputManager input = Global.Input;
-            input.IsDown(PerPlayerBooleanInputHook.MENU_UP.ForPlayer(player));
-            input.IsDown(PerPlayerBooleanInputHook.MENU_DOWN.ForPlayer(player));
+            if (playerOne) {
+                input.IsDown(PerPlayerBooleanInputHook.MENU_UP.ForPlayer(PlayerIndex.One));
+                input.IsDown(PerPlayerBooleanInputHook.MENU_DOWN.ForPlayer(PlayerIndex.One));
+            }
+            if (playerTwo) {
+                input.IsDown(PerPlayerBooleanInputHook.MENU_UP.ForPlayer(PlayerIndex.Two));
+                input.IsDown(PerPlayerBooleanInputHook.MENU_DOWN.ForPlayer(PlayerIndex.Two));
+            }
         }
 
         public void Draw(int x, bool focused, SpriteBatch spriteBatch) {
@@ -106,7 +121,8 @@ namespace MisterToken {
             }
         }
 
-        private PlayerIndex player;
+        private bool playerOne;
+        private bool playerTwo;
         private Action back;
         private List<MenuItem> items;
         private int selected;

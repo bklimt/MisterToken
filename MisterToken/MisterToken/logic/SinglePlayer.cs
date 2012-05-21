@@ -25,7 +25,7 @@ namespace MisterToken {
             matches = new List<CellColor>();
             state = State.SETTING_UP_BOARD;
 
-            pauseMenu = new Menu(player, delegate() {
+            pauseMenu = new Menu(singlePlayer || (player == PlayerIndex.One), singlePlayer || (player == PlayerIndex.Two), delegate() {
                 paused = false;
                 listener.OnPaused(player, paused);
             });
@@ -40,7 +40,7 @@ namespace MisterToken {
                 listener.OnFinished(player, null);
             });
 
-            wonMenu = new Menu(player, delegate() {});
+            wonMenu = new Menu(singlePlayer || (player == PlayerIndex.One), singlePlayer || (player == PlayerIndex.Two), delegate() { });
             wonMenu.Add("Continue", delegate() {
                 listener.OnFinished(player, null);
             });
@@ -51,7 +51,7 @@ namespace MisterToken {
                 listener.OnFinished(player, null);
             });
 
-            failedMenu = new Menu(player, delegate() { });
+            failedMenu = new Menu(singlePlayer || (player == PlayerIndex.One), singlePlayer || (player == PlayerIndex.Two), delegate() { });
             failedMenu.Add("Retry", delegate() {
                 listener.OnFinished(player, level);
             });
@@ -215,6 +215,8 @@ namespace MisterToken {
         }
 
         public void Update(GameTime gameTime) {
+            bool playerOne = singlePlayer || player == PlayerIndex.One;
+            bool playerTwo = singlePlayer || player == PlayerIndex.Two;
             if (paused) {
                 pauseMenu.Update();
             }
@@ -222,8 +224,10 @@ namespace MisterToken {
                 return;
             }
             if (state != State.FAILED && state != State.WON &&
-                (Input.IsDown(PerPlayerBooleanInputHook.MENU_ENTER.ForPlayer(player)) ||
-                 Input.IsDown(PerPlayerBooleanInputHook.MENU_BACK.ForPlayer(player)))) {
+                ((playerOne && Input.IsDown(PerPlayerBooleanInputHook.MENU_ENTER.ForPlayer(PlayerIndex.One))) ||
+                 (playerOne && Input.IsDown(PerPlayerBooleanInputHook.MENU_BACK.ForPlayer(PlayerIndex.One))) ||
+                 (playerTwo && Input.IsDown(PerPlayerBooleanInputHook.MENU_ENTER.ForPlayer(PlayerIndex.Two))) ||
+                 (playerTwo && Input.IsDown(PerPlayerBooleanInputHook.MENU_BACK.ForPlayer(PlayerIndex.Two))))) {
                 paused = !paused;
                 listener.OnPaused(player, paused);
             }
@@ -270,9 +274,14 @@ namespace MisterToken {
         }
 
         private void HandleMovement() {
+            bool playerOne = singlePlayer || player == PlayerIndex.One;
+            bool playerTwo = singlePlayer || player == PlayerIndex.Two;
+
             Token currentToken = tokenGenerator.GetCurrentToken();
-            if (Input.IsDown(PerPlayerBooleanInputHook.TOKEN_RIGHT.ForPlayer(player)) ||
-                Input.IsDown(PerPlayerAnalogInputHook.TOKEN_RIGHT.ForPlayer(player))) {
+            if ((playerOne && Input.IsDown(PerPlayerBooleanInputHook.TOKEN_RIGHT.ForPlayer(PlayerIndex.One))) ||
+                (playerOne && Input.IsDown(PerPlayerAnalogInputHook.TOKEN_RIGHT.ForPlayer(PlayerIndex.One))) ||
+                (playerTwo && Input.IsDown(PerPlayerBooleanInputHook.TOKEN_RIGHT.ForPlayer(PlayerIndex.Two))) ||
+                (playerTwo && Input.IsDown(PerPlayerAnalogInputHook.TOKEN_RIGHT.ForPlayer(PlayerIndex.Two)))) {
                 if (level.Wrap() && (currentToken == null || currentToken.Move(true, 0, 1, true))) {
                     board.ShiftRight();
                     if (currentToken != null) {
@@ -281,8 +290,10 @@ namespace MisterToken {
                     }
                 }
             }
-            if (Input.IsDown(PerPlayerBooleanInputHook.TOKEN_LEFT.ForPlayer(player)) ||
-                Input.IsDown(PerPlayerAnalogInputHook.TOKEN_LEFT.ForPlayer(player))) {
+            if ((playerOne && Input.IsDown(PerPlayerBooleanInputHook.TOKEN_LEFT.ForPlayer(PlayerIndex.One))) ||
+                (playerOne && Input.IsDown(PerPlayerAnalogInputHook.TOKEN_LEFT.ForPlayer(PlayerIndex.One))) ||
+                (playerTwo && Input.IsDown(PerPlayerBooleanInputHook.TOKEN_LEFT.ForPlayer(PlayerIndex.Two))) ||
+                (playerTwo && Input.IsDown(PerPlayerAnalogInputHook.TOKEN_LEFT.ForPlayer(PlayerIndex.Two)))) {
                 if (level.Wrap() && (currentToken == null || currentToken.Move(true, 0, -1, true))) {
                     board.ShiftLeft();
                     if (currentToken != null) {
@@ -343,28 +354,40 @@ namespace MisterToken {
                 throw new InvalidOperationException("Should never be in MovingTokenState with null current token.");
             }
 
+            bool playerOne = singlePlayer || player == PlayerIndex.One;
+            bool playerTwo = singlePlayer || player == PlayerIndex.Two;
+
             HandleMovement();
             if (!level.Wrap() &&
-                (Input.IsDown(PerPlayerBooleanInputHook.TOKEN_RIGHT.ForPlayer(player)) ||
-                 Input.IsDown(PerPlayerAnalogInputHook.TOKEN_RIGHT.ForPlayer(player)))) {
+                ((playerOne && Input.IsDown(PerPlayerBooleanInputHook.TOKEN_RIGHT.ForPlayer(PlayerIndex.One))) ||
+                 (playerOne && Input.IsDown(PerPlayerAnalogInputHook.TOKEN_RIGHT.ForPlayer(PlayerIndex.One))) ||
+                 (playerTwo && Input.IsDown(PerPlayerBooleanInputHook.TOKEN_RIGHT.ForPlayer(PlayerIndex.Two))) ||
+                 (playerTwo && Input.IsDown(PerPlayerAnalogInputHook.TOKEN_RIGHT.ForPlayer(PlayerIndex.Two))))) {
                 currentToken.Move(false, 0, 1, level.Wrap());
             }
             if (!level.Wrap() &&
-                (Input.IsDown(PerPlayerBooleanInputHook.TOKEN_LEFT.ForPlayer(player)) ||
-                 Input.IsDown(PerPlayerAnalogInputHook.TOKEN_LEFT.ForPlayer(player)))) {
+                ((playerOne && Input.IsDown(PerPlayerBooleanInputHook.TOKEN_LEFT.ForPlayer(PlayerIndex.One))) ||
+                 (playerOne && Input.IsDown(PerPlayerAnalogInputHook.TOKEN_LEFT.ForPlayer(PlayerIndex.One))) ||
+                 (playerTwo && Input.IsDown(PerPlayerBooleanInputHook.TOKEN_LEFT.ForPlayer(PlayerIndex.Two))) ||
+                 (playerTwo && Input.IsDown(PerPlayerAnalogInputHook.TOKEN_LEFT.ForPlayer(PlayerIndex.Two))))) {
                 currentToken.Move(false, 0, -1, level.Wrap());
             }
-            if (Input.IsDown(PerPlayerBooleanInputHook.ROTATE_LEFT.ForPlayer(player))) {
+            if ((playerOne && Input.IsDown(PerPlayerBooleanInputHook.ROTATE_LEFT.ForPlayer(PlayerIndex.One))) ||
+                (playerTwo && Input.IsDown(PerPlayerBooleanInputHook.ROTATE_LEFT.ForPlayer(PlayerIndex.Two)))) {
                 currentToken.RotateLeft(false, level.Wrap());
             }
-            if (Input.IsDown(PerPlayerBooleanInputHook.ROTATE_RIGHT.ForPlayer(player))) {
+            if ((playerOne && Input.IsDown(PerPlayerBooleanInputHook.ROTATE_RIGHT.ForPlayer(PlayerIndex.One))) ||
+                (playerTwo && Input.IsDown(PerPlayerBooleanInputHook.ROTATE_RIGHT.ForPlayer(PlayerIndex.Two)))) {
                 currentToken.RotateRight(false, level.Wrap());
             }
-            if (Input.IsDown(PerPlayerBooleanInputHook.TOKEN_DOWN.ForPlayer(player)) ||
-                Input.IsDown(PerPlayerAnalogInputHook.TOKEN_DOWN.ForPlayer(player))) {
+            if ((playerOne && Input.IsDown(PerPlayerBooleanInputHook.TOKEN_DOWN.ForPlayer(PlayerIndex.One))) ||
+                (playerOne && Input.IsDown(PerPlayerAnalogInputHook.TOKEN_DOWN.ForPlayer(PlayerIndex.One))) ||
+                (playerTwo && Input.IsDown(PerPlayerBooleanInputHook.TOKEN_DOWN.ForPlayer(PlayerIndex.Two))) ||
+                (playerTwo && Input.IsDown(PerPlayerAnalogInputHook.TOKEN_DOWN.ForPlayer(PlayerIndex.Two)))) {
                 timeUntilNextAdvance = 0;
             }
-            if (Input.IsDown(PerPlayerBooleanInputHook.TOKEN_SLAM.ForPlayer(player))) {
+            if ((playerOne && Input.IsDown(PerPlayerBooleanInputHook.TOKEN_SLAM.ForPlayer(PlayerIndex.One))) ||
+                (playerTwo && Input.IsDown(PerPlayerBooleanInputHook.TOKEN_SLAM.ForPlayer(PlayerIndex.Two)))) {
                 timeUntilNextAdvance = 0;
                 Sound.Play(SoundHook.SLAM);
                 while (currentToken.Move(false, 1, 0, level.Wrap())) {

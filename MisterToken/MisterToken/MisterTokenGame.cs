@@ -17,9 +17,9 @@ namespace MisterToken {
 
             stats = new StatsTracker();
 
-            titleMenu = new Menu2(PlayerIndex.One, delegate() { SaveAndQuit(); });
-            videoMenu = new Menu2(PlayerIndex.One, delegate() { state = State.TITLE_MENU; });
-            musicMenu = new Menu2(PlayerIndex.One, delegate() { state = State.TITLE_MENU; });
+            titleMenu = new Menu2(true, true, delegate() { SaveAndQuit(); });
+            videoMenu = new Menu2(true, true, delegate() { state = State.TITLE_MENU; });
+            musicMenu = new Menu2(true, true, delegate() { state = State.TITLE_MENU; });
         }
 
         protected override void Initialize() {
@@ -150,7 +150,7 @@ namespace MisterToken {
             }
             */
 
-            worldMenu = new Menu2(PlayerIndex.One, delegate() { state = State.TITLE_MENU; });
+            worldMenu = new Menu2(true, true, delegate() { state = State.TITLE_MENU; });
             int number = 1;
             for (int world = 0; world < Levels.GetWorldCount(); ++world) {
                 for (int level = 0; level < Levels.GetLevelCount(world); ++level) {
