@@ -184,7 +184,11 @@ namespace MisterToken {
                     if (Input.IsDown(BooleanInputHook.PLAYER_ONE_MENU_BACK) ||
                         Input.IsDown(BooleanInputHook.PLAYER_ONE_MENU_ENTER) ||
                         Input.IsDown(BooleanInputHook.PLAYER_ONE_ROTATE_RIGHT) ||
-                        Input.IsDown(BooleanInputHook.PLAYER_ONE_ROTATE_LEFT)) {
+                        Input.IsDown(BooleanInputHook.PLAYER_ONE_ROTATE_LEFT) ||
+                        Input.IsDown(BooleanInputHook.PLAYER_TWO_MENU_BACK) ||
+                        Input.IsDown(BooleanInputHook.PLAYER_TWO_MENU_ENTER) ||
+                        Input.IsDown(BooleanInputHook.PLAYER_TWO_ROTATE_RIGHT) ||
+                        Input.IsDown(BooleanInputHook.PLAYER_TWO_ROTATE_LEFT)) {
                         state = State.TITLE_MENU;
                     }
                     break;
