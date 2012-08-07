@@ -10,12 +10,11 @@
 
 #import "Parse/Parse.h"
 
+#import "MTBoard.h"
 #import "MTCellColor.h"
 #import "MTRandom.h"
 #import "MTToken.h"
 #import "MTToken2.h"
-
-@class MTBoard;
 
 typedef NSObject<MTToken> *(^MTTokenFactory)(MTBoard *board,
                                              MTCellColor color1,
@@ -34,7 +33,7 @@ typedef NSObject<MTToken> *(^MTTokenFactory)(MTBoard *board,
 MTTokenFactory tokenFactoryFromString(NSString *name) {
     if ([name isEqualToString:@"2"]) {
         return ^(MTBoard *board, MTCellColor color1, MTCellColor color2) {
-            return [MTToken2 tokenWithBoard:board row:0 column:0 color1:color1 color2:color2];
+            return (NSObject<MTToken> *)[MTToken2 tokenWithBoard:board row:0 column:0 color1:color1 color2:color2];
         };
     }
     [NSException raise:NSInternalInconsistencyException

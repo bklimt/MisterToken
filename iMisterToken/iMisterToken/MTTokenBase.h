@@ -29,12 +29,6 @@
    allowWrap:(BOOL)allowWrap
        force:(BOOL)force;
 
-- (BOOL)rotateRight:(BOOL)dryRun
-          allowWrap:(BOOL)allowWrap;
-
-- (BOOL)rotateLeft:(BOOL)dryRun
-         allowWrap:(BOOL)allowWrap;
-
 - (void)drawRect:(id)boardRect;
 
 - (MTTokenPiece *)piece:(int)index;

@@ -31,7 +31,7 @@ typedef enum {
 - (id)initWithColor:(MTCellColor)aColor direction:(MTCellDirection)aDirection;
 - (void)clear;
 - (void)rotateRight;
-- (void)rotateRight;
+- (void)rotateLeft;
 - (void)drawRect:(CGRect)rect;
 
 @end

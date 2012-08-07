@@ -8,6 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		7C106D3F15C5DF68003E9C0A /* MTPatternParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C106D3E15C5DF68003E9C0A /* MTPatternParser.m */; };
+		7C106D4215CF6B59003E9C0A /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C106D4115CF6B59003E9C0A /* CFNetwork.framework */; };
+		7C106D4415CF6B67003E9C0A /* libz.1.1.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C106D4315CF6B66003E9C0A /* libz.1.1.3.dylib */; };
+		7C106D4615CF6B6F003E9C0A /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C106D4515CF6B6F003E9C0A /* MobileCoreServices.framework */; };
+		7C106D4815CF6B7D003E9C0A /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C106D4715CF6B7D003E9C0A /* Security.framework */; };
+		7C106D4A15CF6B85003E9C0A /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C106D4915CF6B84003E9C0A /* StoreKit.framework */; };
+		7C106D4C15CF6B8C003E9C0A /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C106D4B15CF6B8C003E9C0A /* SystemConfiguration.framework */; };
 		7C48135E15C457A7004A40A7 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C48135D15C457A7004A40A7 /* QuartzCore.framework */; };
 		7C48136015C457A7004A40A7 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C48135F15C457A7004A40A7 /* OpenGLES.framework */; };
 		7C48136215C457A7004A40A7 /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C48136115C457A7004A40A7 /* OpenAL.framework */; };
@@ -143,6 +149,12 @@
 /* Begin PBXFileReference section */
 		7C106D3D15C5DF68003E9C0A /* MTPatternParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MTPatternParser.h; sourceTree = "<group>"; };
 		7C106D3E15C5DF68003E9C0A /* MTPatternParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MTPatternParser.m; sourceTree = "<group>"; };
+		7C106D4115CF6B59003E9C0A /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		7C106D4315CF6B66003E9C0A /* libz.1.1.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.1.1.3.dylib; path = usr/lib/libz.1.1.3.dylib; sourceTree = SDKROOT; };
+		7C106D4515CF6B6F003E9C0A /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
+		7C106D4715CF6B7D003E9C0A /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		7C106D4915CF6B84003E9C0A /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		7C106D4B15CF6B8C003E9C0A /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		7C48135915C457A7004A40A7 /* iMisterToken.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iMisterToken.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7C48135D15C457A7004A40A7 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		7C48135F15C457A7004A40A7 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
@@ -387,7 +399,7 @@
 		7C833AEE15C4C6FD0027E472 /* MTTokenPiece.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MTTokenPiece.m; sourceTree = "<group>"; };
 		7C833AF015C4D6640027E472 /* MTToken2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MTToken2.h; sourceTree = "<group>"; };
 		7C833AF115C4D6640027E472 /* MTToken2.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MTToken2.m; sourceTree = "<group>"; };
-		7C93EC0B15C4B8D000FAF12B /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
+		7C93EC0B15C4B8D000FAF12B /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Parse.framework; path = iMisterToken/Parse.framework; sourceTree = "<group>"; };
 		7C93EC0E15C4BAAE00FAF12B /* MTCellColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MTCellColor.m; sourceTree = "<group>"; };
 		7C93EC1315C4BFC800FAF12B /* MTRandom.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MTRandom.h; sourceTree = "<group>"; };
 		7C93EC1415C4C00100FAF12B /* MTRandomSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MTRandomSource.h; sourceTree = "<group>"; };
@@ -415,6 +427,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7C106D4C15CF6B8C003E9C0A /* SystemConfiguration.framework in Frameworks */,
+				7C106D4A15CF6B85003E9C0A /* StoreKit.framework in Frameworks */,
+				7C106D4815CF6B7D003E9C0A /* Security.framework in Frameworks */,
+				7C106D4615CF6B6F003E9C0A /* MobileCoreServices.framework in Frameworks */,
+				7C106D4415CF6B67003E9C0A /* libz.1.1.3.dylib in Frameworks */,
+				7C106D4215CF6B59003E9C0A /* CFNetwork.framework in Frameworks */,
 				7C48135E15C457A7004A40A7 /* QuartzCore.framework in Frameworks */,
 				7C48136015C457A7004A40A7 /* OpenGLES.framework in Frameworks */,
 				7C48136215C457A7004A40A7 /* OpenAL.framework in Frameworks */,
@@ -433,6 +451,12 @@
 		7C48134E15C457A7004A40A7 = {
 			isa = PBXGroup;
 			children = (
+				7C106D4B15CF6B8C003E9C0A /* SystemConfiguration.framework */,
+				7C106D4915CF6B84003E9C0A /* StoreKit.framework */,
+				7C106D4715CF6B7D003E9C0A /* Security.framework */,
+				7C106D4515CF6B6F003E9C0A /* MobileCoreServices.framework */,
+				7C106D4315CF6B66003E9C0A /* libz.1.1.3.dylib */,
+				7C106D4115CF6B59003E9C0A /* CFNetwork.framework */,
 				7C48136D15C457A7004A40A7 /* iMisterToken */,
 				7C48135C15C457A7004A40A7 /* Frameworks */,
 				7C48135A15C457A7004A40A7 /* Products */,
@@ -450,6 +474,7 @@
 		7C48135C15C457A7004A40A7 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				7C93EC0B15C4B8D000FAF12B /* Parse.framework */,
 				7C48135D15C457A7004A40A7 /* QuartzCore.framework */,
 				7C48135F15C457A7004A40A7 /* OpenGLES.framework */,
 				7C48136115C457A7004A40A7 /* OpenAL.framework */,
@@ -530,7 +555,6 @@
 		7C48138215C457A7004A40A7 /* libs */ = {
 			isa = PBXGroup;
 			children = (
-				7C93EC0B15C4B8D000FAF12B /* Parse.framework */,
 				7C48147815C457AB004A40A7 /* LICENSE_cocos2d.txt */,
 				7C48148715C457AB004A40A7 /* LICENSE_CocosDenshion.txt */,
 				7C48149215C457AB004A40A7 /* LICENSE_TouchJSON.txt */,

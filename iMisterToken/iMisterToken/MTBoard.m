@@ -277,13 +277,136 @@
     }
 }
 
-- (void)clearMatches:(NSMutableArray *)colors {
-    
+- (void)markMatches:(NSMutableArray *)colors {
+    [self verifyBoard];
+    [self markMatchesBySkull:colors];
+    [self markMatchesByBomb:colors];
+    [self markMatchesByRow:colors];
+    [self markMatchesByColor:colors];
+}
+
+- (void)clearMatches {
+    for (int row = 0; row < kMTRows; ++row) {
+        for (int column = 0; column < kMTColumns; ++column) {
+            MTCell *cell = [self cellAtRow:row column:column];
+            if (cell.matched) {
+                if (cell.direction & kMTCellDirectionUp) {
+                    [self cellAtRow:(row - 1) column:column].direction &= ~kMTCellDirectionDown;
+                }
+                if (cell.direction & kMTCellDirectionDown) {
+                    [self cellAtRow:(row + 1) column:column].direction &= ~kMTCellDirectionUp;
+                }
+                if (cell.direction & kMTCellDirectionRight) {
+                    [self cellAtRow:row column:(column + 1)].direction &= ~kMTCellDirectionLeft;
+                }
+                if (cell.direction & kMTCellDirectionLeft) {
+                    [self cellAtRow:row column:(column - 1)].direction &= ~kMTCellDirectionRight;
+                }
+                [cell clear];
+            }
+        }
+    }
+    [self verifyBoard];
+}
+
+/**
+ * Returns YES if the piece can be moved.
+ */
+- (BOOL)checkLooseAtRow:(int)row column:(int)column root:(BOOL)root {
+    if (row >= kMTRows) {
+        return NO;
+    }
+    MTCell *cell = [self cellAtRow:row column:column];
+    if (cell.locked) {
+        return NO;
+    }
+    if (cell.color == kMTCellColorBlack) {
+        return YES;
+    }
+    if (cell.loose) {
+        return YES;
+    }
+    if (cell.visited) {
+        return YES;
+    }
+    cell.visited = YES;
+    @try {
+        if (![self checkLooseAtRow:(row + 1) column:column root:NO]) {
+            return NO;
+        }
+        if ((cell.direction & kMTCellDirectionUp) &&
+            ![self checkLooseAtRow:(row - 1) column:column root:NO]) {
+            return NO;
+        }
+        if ((cell.direction & kMTCellDirectionRight) &&
+            ![self checkLooseAtRow:row column:(column + 1) root:NO]) {
+            return NO;
+        }
+        if ((cell.direction & kMTCellDirectionLeft) &&
+            ![self checkLooseAtRow:row column:(column - 1) root:NO]) {
+            return NO;
+        }
+    } @finally {
+        cell.visited = NO;
+    }
+    if (root) {
+        cell.loose = YES;
+    }
+    return YES;
+}
+
+/**
+ * Returns YES if anything is free to fall.
+ */
+- (BOOL)markLoose {
+    [self verifyBoard];
+    BOOL any = NO;
+    for (int row = 0; row < kMTRows; ++row) {
+        for (int column = 0; column < kMTColumns; ++column) {
+            [self checkLooseAtRow:row column:column root:YES];
+            MTCell *cell = [self cellAtRow:row column:column];
+            if (cell.loose) {
+                any = YES;
+            }
+        }
+    }
+    return any;
+}
+
+- (BOOL)moveLoose {
+    BOOL anythingFell = NO;
+    for (int row = 0; row < kMTRows; ++row) {
+        for (int column = 0; column < kMTColumns; ++column) {
+            MTCell *cell = [self cellAtRow:row column:column];
+            if (cell.loose) {
+                MTCell *below = [self cellAtRow:(row + 1) column:column];
+                NSAssert(below.color != kMTCellColorBlack, @"Bad gravity logic.");
+                [self setCell:cell row:(row + 1) column:column];
+                [cell clear];
+            }
+        }
+    }
+    [self verifyBoard];
+    return anythingFell;
+}
+
+- (int)lockedCount {
+    int count = 0;
+    for (int row = 0; row < kMTRows; ++row) {
+        for (int column = 0; column < kMTColumns; ++column) {
+            MTCell *cell = [self cellAtRow:row column:column];
+            if (cell.locked && !cell.matched) {
+                ++count;
+            }
+        }
+    }
+    return count;
 }
 
 - (void)setup:(MTLevel *)level random:(NSObject<MTRandom> *)random {
     [level setupBoard:self random:random];
-    [self markMatches];
+    NSMutableArray *colors = [NSMutableArray array];
+    [self markMatches:colors];
     [self clearMatches];
 }
 

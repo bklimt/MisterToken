@@ -28,6 +28,10 @@ typedef enum {
 
 @end
 
+@interface MTPatternParser ()
+- (MTPatternParserValue *)parseAtom;
+@end
+
 @implementation MTPatternParserValue
 
 @synthesize type;

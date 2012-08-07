@@ -20,6 +20,7 @@
 
 - (void)dealloc {
     [pieces release];
+    [super dealloc];
 }
 
 - (void)commit {

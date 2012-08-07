@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 
 #import "MTConstants.h"
+#import "MTCellColor.h"
 
 @class MTCell;
 
@@ -19,5 +20,7 @@
 }
 
 - (MTCell *)cellAtRow:(int)row column:(int)column;
+- (MTCellColor)colorAtRow:(int)row column:(int)column;
+- (void)setCell:(MTCell *)cell row:(int)row column:(int)column;
 
 @end
