@@ -8,9 +8,27 @@
 
 #import "SinglePlayerLayer.h"
 
+#import "MTBoard.h"
+#import "MTTokenGenerator.h"
+
 @implementation SinglePlayerLayer
 
-- (id)init {
+- (id)initWithPlayer:(int)aPlayer
+               level:(MTLevel *)aLevel
+              random:(NSObject<MTRandom> *)aRandom
+        singlePlayer:(BOOL)isSinglePlayer {
+    
+    player = aPlayer;
+    level = aLevel;
+    random = aRandom;
+    singlePlayer = isSinglePlayer;
+    
+    paused = NO;
+    otherPaused = NO;
+    nextTokenReadiness = 0.0f;
+    
+    self.board = [MTBoard board...];
+    
     if (self = [super init]) {
         CCSprite *background = [CCSprite spriteWithFile:@"background.png"];
         [self addChild:background];

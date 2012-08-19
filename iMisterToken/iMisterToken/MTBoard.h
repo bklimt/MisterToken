@@ -20,7 +20,11 @@
 }
 
 - (MTCell *)cellAtRow:(int)row column:(int)column;
+
+// TODO: Get rid of this.
 - (MTCellColor)colorAtRow:(int)row column:(int)column;
+
+// TODO: Clarify what this does.
 - (void)setCell:(MTCell *)cell row:(int)row column:(int)column;
 
 @end

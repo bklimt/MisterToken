@@ -137,6 +137,7 @@
 		7C93EC0C15C4B8D000FAF12B /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C93EC0B15C4B8D000FAF12B /* Parse.framework */; };
 		7C93EC0F15C4BAAE00FAF12B /* MTCellColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C93EC0E15C4BAAE00FAF12B /* MTCellColor.m */; };
 		7C93EC1615C4C00100FAF12B /* MTRandomSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C93EC1515C4C00100FAF12B /* MTRandomSource.m */; };
+		7CD633DF15D5EBBB00E192B5 /* MTTokenGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CD633DE15D5EBBB00E192B5 /* MTTokenGenerator.m */; };
 		7CF58C8315C4887B006C8B33 /* Default-Landscape~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 7CF58C8215C4887B006C8B33 /* Default-Landscape~ipad.png */; };
 		7CF58C8715C48A92006C8B33 /* SinglePlayerLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CF58C8615C48A92006C8B33 /* SinglePlayerLayer.m */; };
 		7CF58C8B15C48CFF006C8B33 /* MTCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CF58C8A15C48CFF006C8B33 /* MTCell.m */; };
@@ -405,6 +406,8 @@
 		7C93EC1415C4C00100FAF12B /* MTRandomSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MTRandomSource.h; sourceTree = "<group>"; };
 		7C93EC1515C4C00100FAF12B /* MTRandomSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MTRandomSource.m; sourceTree = "<group>"; };
 		7C93EC1715C4C4C100FAF12B /* MTToken.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MTToken.h; sourceTree = "<group>"; };
+		7CD633DD15D5EBBB00E192B5 /* MTTokenGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MTTokenGenerator.h; sourceTree = "<group>"; };
+		7CD633DE15D5EBBB00E192B5 /* MTTokenGenerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MTTokenGenerator.m; sourceTree = "<group>"; };
 		7CF58C8215C4887B006C8B33 /* Default-Landscape~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-Landscape~ipad.png"; path = "Resources/Default-Landscape~ipad.png"; sourceTree = "<group>"; };
 		7CF58C8515C48A92006C8B33 /* SinglePlayerLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SinglePlayerLayer.h; sourceTree = "<group>"; };
 		7CF58C8615C48A92006C8B33 /* SinglePlayerLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SinglePlayerLayer.m; sourceTree = "<group>"; };
@@ -451,12 +454,6 @@
 		7C48134E15C457A7004A40A7 = {
 			isa = PBXGroup;
 			children = (
-				7C106D4B15CF6B8C003E9C0A /* SystemConfiguration.framework */,
-				7C106D4915CF6B84003E9C0A /* StoreKit.framework */,
-				7C106D4715CF6B7D003E9C0A /* Security.framework */,
-				7C106D4515CF6B6F003E9C0A /* MobileCoreServices.framework */,
-				7C106D4315CF6B66003E9C0A /* libz.1.1.3.dylib */,
-				7C106D4115CF6B59003E9C0A /* CFNetwork.framework */,
 				7C48136D15C457A7004A40A7 /* iMisterToken */,
 				7C48135C15C457A7004A40A7 /* Frameworks */,
 				7C48135A15C457A7004A40A7 /* Products */,
@@ -474,6 +471,12 @@
 		7C48135C15C457A7004A40A7 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				7C106D4B15CF6B8C003E9C0A /* SystemConfiguration.framework */,
+				7C106D4915CF6B84003E9C0A /* StoreKit.framework */,
+				7C106D4715CF6B7D003E9C0A /* Security.framework */,
+				7C106D4515CF6B6F003E9C0A /* MobileCoreServices.framework */,
+				7C106D4315CF6B66003E9C0A /* libz.1.1.3.dylib */,
+				7C106D4115CF6B59003E9C0A /* CFNetwork.framework */,
 				7C93EC0B15C4B8D000FAF12B /* Parse.framework */,
 				7C48135D15C457A7004A40A7 /* QuartzCore.framework */,
 				7C48135F15C457A7004A40A7 /* OpenGLES.framework */,
@@ -490,42 +493,20 @@
 		7C48136D15C457A7004A40A7 /* iMisterToken */ = {
 			isa = PBXGroup;
 			children = (
+				7CD633D915D5E67300E192B5 /* Board */,
+				7CD633DB15D5E6E300E192B5 /* Logic */,
+				7CD633DA15D5E6B300E192B5 /* Token */,
+				7CD633DC15D5E71600E192B5 /* Util */,
 				7C4814BF15C457AC004A40A7 /* AppDelegate.h */,
 				7C4814C015C457AC004A40A7 /* AppDelegate.m */,
 				7C4814D115C47424004A40A7 /* MenuLayer.h */,
 				7C4814D215C47424004A40A7 /* MenuLayer.m */,
-				7CF58C8C15C4B0F1006C8B33 /* MTBoard.h */,
-				7CF58C8D15C4B0F1006C8B33 /* MTBoard.m */,
-				7CF58C8915C48CFF006C8B33 /* MTCell.h */,
-				7CF58C8A15C48CFF006C8B33 /* MTCell.m */,
-				7CF58C8815C48CB3006C8B33 /* MTCellColor.h */,
-				7C93EC0E15C4BAAE00FAF12B /* MTCellColor.m */,
-				7CF58C9315C4B4EF006C8B33 /* MTColorDistribution.h */,
-				7CF58C9415C4B4F0006C8B33 /* MTColorDistribution.m */,
 				7CF58C8F15C4B121006C8B33 /* MTConstants.h */,
-				7CF58C9015C4B46D006C8B33 /* MTLevel.h */,
-				7CF58C9115C4B46D006C8B33 /* MTLevel.m */,
-				7C106D3D15C5DF68003E9C0A /* MTPatternParser.h */,
-				7C106D3E15C5DF68003E9C0A /* MTPatternParser.m */,
-				7C93EC1315C4BFC800FAF12B /* MTRandom.h */,
-				7C93EC1415C4C00100FAF12B /* MTRandomSource.h */,
-				7C93EC1515C4C00100FAF12B /* MTRandomSource.m */,
-				7C93EC1715C4C4C100FAF12B /* MTToken.h */,
-				7C833AF015C4D6640027E472 /* MTToken2.h */,
-				7C833AF115C4D6640027E472 /* MTToken2.m */,
-				7C833AE915C4C6830027E472 /* MTTokenBase.h */,
-				7C833AEA15C4C6830027E472 /* MTTokenBase.m */,
-				7CF58C9615C4B500006C8B33 /* MTTokenDistribution.h */,
-				7CF58C9715C4B500006C8B33 /* MTTokenDistribution.m */,
-				7C833AED15C4C6FD0027E472 /* MTTokenPiece.h */,
-				7C833AEE15C4C6FD0027E472 /* MTTokenPiece.m */,
 				7C4814C815C457AC004A40A7 /* GameConfig.h */,
 				7C4814C215C457AC004A40A7 /* RootViewController.h */,
 				7C4814C315C457AC004A40A7 /* RootViewController.m */,
 				7C4814CE15C472F3004A40A7 /* SceneManager.h */,
 				7C4814CF15C472F3004A40A7 /* SceneManager.m */,
-				7CF58C8515C48A92006C8B33 /* SinglePlayerLayer.h */,
-				7CF58C8615C48A92006C8B33 /* SinglePlayerLayer.m */,
 				7C48136E15C457A7004A40A7 /* Resources */,
 				7C48138215C457A7004A40A7 /* libs */,
 				7C4814BB15C457AB004A40A7 /* Supporting Files */,
@@ -863,6 +844,62 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		7CD633D915D5E67300E192B5 /* Board */ = {
+			isa = PBXGroup;
+			children = (
+				7CF58C8C15C4B0F1006C8B33 /* MTBoard.h */,
+				7CF58C8D15C4B0F1006C8B33 /* MTBoard.m */,
+				7CF58C8915C48CFF006C8B33 /* MTCell.h */,
+				7CF58C8A15C48CFF006C8B33 /* MTCell.m */,
+				7CF58C8815C48CB3006C8B33 /* MTCellColor.h */,
+				7C93EC0E15C4BAAE00FAF12B /* MTCellColor.m */,
+				7CF58C9315C4B4EF006C8B33 /* MTColorDistribution.h */,
+				7CF58C9415C4B4F0006C8B33 /* MTColorDistribution.m */,
+				7C106D3D15C5DF68003E9C0A /* MTPatternParser.h */,
+				7C106D3E15C5DF68003E9C0A /* MTPatternParser.m */,
+			);
+			name = Board;
+			sourceTree = "<group>";
+		};
+		7CD633DA15D5E6B300E192B5 /* Token */ = {
+			isa = PBXGroup;
+			children = (
+				7C93EC1715C4C4C100FAF12B /* MTToken.h */,
+				7C833AF015C4D6640027E472 /* MTToken2.h */,
+				7C833AF115C4D6640027E472 /* MTToken2.m */,
+				7C833AE915C4C6830027E472 /* MTTokenBase.h */,
+				7C833AEA15C4C6830027E472 /* MTTokenBase.m */,
+				7CF58C9615C4B500006C8B33 /* MTTokenDistribution.h */,
+				7CF58C9715C4B500006C8B33 /* MTTokenDistribution.m */,
+				7CD633DD15D5EBBB00E192B5 /* MTTokenGenerator.h */,
+				7CD633DE15D5EBBB00E192B5 /* MTTokenGenerator.m */,
+				7C833AED15C4C6FD0027E472 /* MTTokenPiece.h */,
+				7C833AEE15C4C6FD0027E472 /* MTTokenPiece.m */,
+			);
+			name = Token;
+			sourceTree = "<group>";
+		};
+		7CD633DB15D5E6E300E192B5 /* Logic */ = {
+			isa = PBXGroup;
+			children = (
+				7CF58C9015C4B46D006C8B33 /* MTLevel.h */,
+				7CF58C9115C4B46D006C8B33 /* MTLevel.m */,
+				7CF58C8515C48A92006C8B33 /* SinglePlayerLayer.h */,
+				7CF58C8615C48A92006C8B33 /* SinglePlayerLayer.m */,
+			);
+			name = Logic;
+			sourceTree = "<group>";
+		};
+		7CD633DC15D5E71600E192B5 /* Util */ = {
+			isa = PBXGroup;
+			children = (
+				7C93EC1315C4BFC800FAF12B /* MTRandom.h */,
+				7C93EC1415C4C00100FAF12B /* MTRandomSource.h */,
+				7C93EC1515C4C00100FAF12B /* MTRandomSource.m */,
+			);
+			name = Util;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1045,6 +1082,7 @@
 				7C833AEF15C4C6FD0027E472 /* MTTokenPiece.m in Sources */,
 				7C833AF215C4D6640027E472 /* MTToken2.m in Sources */,
 				7C106D3F15C5DF68003E9C0A /* MTPatternParser.m in Sources */,
+				7CD633DF15D5EBBB00E192B5 /* MTTokenGenerator.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
