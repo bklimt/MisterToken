@@ -1,1 +1,10 @@
 .DS_Store
+.vs/
+*.*~
+*.swp
+MisterToken/MisterToken/bin
+MisterToken/MisterToken/obj
+MisterToken/MisterToken/Content/bin
+MisterToken/MisterToken/Content/obj
+MisterToken/MisterTokenLibrary/bin
+MisterToken/MisterTokenLibrary/obj
